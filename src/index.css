@@ -1,7 +1,29 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: "Monocraft";
+    src: url("/src/assets/fonts/Monocraft.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Minecraft";
+    src: url("/src/assets/fonts/Minecraft.ttf") format("truetype");
+}
+
+@theme static {
+    --color-mcInventoryBackground: #c6c6c6;
+    --color-mcInventoryBackgroundBorderHighlight: #ffffff;
+    --color-mcInventoryBackgroundBorder: #555555;
+    --color-mcSlotBackground: #8b8b8b;
+    --color-mcSlotPlaceholder: #192022;
+    --color-mcSlotBorder: #373737;
+    --color-mcSlotHighlight: #373737;
+}
+
 :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Monocraft", system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
