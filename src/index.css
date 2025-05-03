@@ -16,16 +16,20 @@
     --color-mcInventoryBackground: #c6c6c6;
     --color-mcInventoryBackgroundBorderHighlight: #ffffff;
     --color-mcInventoryBackgroundBorder: #555555;
+    --color-mcInventoryText: #3f3f3f;
     --color-mcSlotBackground: #8b8b8b;
+    --color-mcSlotBackgroundHover: #c4c4c4;
     --color-mcSlotPlaceholder: #192022;
     --color-mcSlotBorder: #373737;
-    --color-mcSlotHighlight: #373737;
+    --color-mcSlotHighlight: #ffffff;
 }
 
 :root {
     font-family: "Monocraft", system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
+    line-height: 1;
+    letter-spacing: -1px;
     font-weight: 400;
+    font-size: medium;
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
