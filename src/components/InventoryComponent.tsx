@@ -11,14 +11,14 @@ export default function InventoryComponent({
     items: Items;
 }) {
     return (
-        <div className="flex flex-row gap-2 h-full bg-mcInventoryBackground border-t-mcInventoryBackgroundBorderHighlight border-8 border-b-mcInventoryBackgroundBorder border-r-mcInventoryBackgroundBorder">
+        <div className="bg-mcInventoryBackground border-t-mcInventoryBackgroundBorderHighlight border-l-mcInventoryBackgroundBorderHighlight border-b-mcInventoryBackgroundBorder border-r-mcInventoryBackgroundBorder text-mcInventoryText flex h-full flex-row gap-2 border-6">
             {/* Resources */}
-            <div className="w-3/7 h-full p-2">
+            <div className="h-full w-3/7 p-2">
                 <ResourcesComponent resources={resources} />
             </div>
 
             {/* Items */}
-            <div className="w-4/7 h-full p-2">
+            <div className="h-full w-4/7 p-2">
                 <ItemsComponent items={items} />
             </div>
         </div>
