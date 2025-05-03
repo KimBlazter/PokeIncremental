@@ -18,10 +18,10 @@ export function useGameLoop() {
                 setSeconds((prevSeconds) => prevSeconds + 1); // Incrémenter le compteur des secondes
                 lastTickTime.current = now; // Réinitialiser le dernier temps de tick pour la prochaine seconde
             }
-        }, 1000); // La boucle tourne toutes les 100ms (10 fois par seconde)
+        }, 100); // La boucle tourne toutes les 100ms (10 fois par seconde)
 
         return () => clearInterval(interval); // Nettoyage au démontage du composant
     }, []); // Le useEffect ne se déclenche qu'une seule fois lors du montage du composant
 
-    return { totalTicks, seconds };
+    return { totalTicks };
 }
