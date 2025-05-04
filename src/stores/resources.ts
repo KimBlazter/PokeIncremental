@@ -1,36 +1,32 @@
-import { create } from "zustand";
+import { StateCreator } from "zustand";
+import { ItemSlice } from "./items";
 
 export type Resource = "wood" | "stone" | "iron" | "gold";
 
 export type Resources = Record<Resource, number>;
 
-type ResourceState = {
+export interface ResourceSlice {
     resources: Resources;
     addResource: (resource: Resource, amount: number) => void;
-    resetGame: () => void;
-};
+}
 
-export const useResourceStore = create<ResourceState>((set) => ({
+export const createResourceSlice: StateCreator<
+    ResourceSlice & ItemSlice,
+    [],
+    [],
+    ResourceSlice
+> = (set) => ({
     resources: {
         wood: 0,
         stone: 0,
         iron: 0,
         gold: 0,
     },
-    addResource: (resource, amount) =>
+    addResource: (ressource, amount) =>
         set((state) => ({
             resources: {
                 ...state.resources,
-                [resource]: state.resources[resource] + amount,
+                [ressource]: state.resources[ressource] + amount,
             },
         })),
-    resetGame: () =>
-        set(() => ({
-            resources: {
-                wood: 0,
-                stone: 0,
-                iron: 0,
-                gold: 0,
-            },
-        })),
-}));
+});
