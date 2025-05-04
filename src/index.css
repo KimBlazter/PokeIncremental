@@ -24,6 +24,23 @@
     --color-mcSlotHighlight: #ffffff;
 }
 
+@layer components {
+    .item-slot {
+        background-color: var(--color-mcSlotBackground);
+        border-left-color: var(--color-mcSlotBorder);
+        border-top-color: var(--color-mcSlotBorder);
+        border-right-color: var(--color-mcSlotHighlight);
+        border-bottom-color: var(--color-mcSlotHighlight);
+        @apply aspect-square;
+        @apply size-16;
+        @apply border-4;
+    }
+
+    .item-slot:hover {
+        background-color: var(--color-mcSlotBackgroundHover);
+    }
+}
+
 :root {
     font-family: "Monocraft", system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1;
@@ -39,6 +56,7 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    cursor: url("/src/assets/customcursor.png"), auto;
 }
 
 a {
