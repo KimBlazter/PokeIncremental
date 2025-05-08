@@ -39,6 +39,11 @@
     .item-slot:hover {
         background-color: var(--color-mcSlotBackgroundHover);
     }
+
+    .inventory-border {
+        border: solid 16px transparent;
+        border-image: url("/gui/mc-inventory-border.png") 30 fill round;
+    }
 }
 
 :root {
