@@ -2,6 +2,7 @@ import { useGameLoop } from "@/hooks/useGameLoop";
 import { createFileRoute } from "@tanstack/react-router";
 import InventoryComponent from "@/components/InventoryComponent";
 import MineWoodButton from "@/components/MineWoodButton";
+import UpgradesComponent from "@/components/UpgradesComponent";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -18,7 +19,7 @@ function Index() {
             </div>
 
             {/* Central panel */}
-            <div className="flex h-full flex-1 flex-col bg-yellow-400">
+            <div className="flex h-full flex-1 flex-col">
                 {/* Central top */}
                 <div className="h-1/2 bg-purple-400">
                     <MineWoodButton />
@@ -31,7 +32,7 @@ function Index() {
             </div>
 
             <div className="flex h-full w-1/3 flex-col bg-red-400 p-4">
-                Left panel
+                <UpgradesComponent />
             </div>
         </div>
     );
