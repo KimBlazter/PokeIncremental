@@ -15,6 +15,7 @@ export default function ResourcesComponent() {
                         <ResourceComponent
                             resource={resourceKey as Resource}
                             count={resources[resourceKey as Resource]}
+                            key={resourceKey}
                         />
                     );
                 })}
