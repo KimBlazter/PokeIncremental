@@ -21,12 +21,9 @@ export interface ItemSlice {
     useItem: (id: string) => void;
 }
 
-export const createItemSlice: StateCreator<
-    ItemSlice & ResourceSlice,
-    [],
-    [],
-    ItemSlice
-> = (set) => ({
+export const createItemSlice: StateCreator<ItemSlice, [], [], ItemSlice> = (
+    set
+) => ({
     items: {},
     addItem: (item) =>
         set((state) => ({

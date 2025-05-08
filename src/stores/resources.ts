@@ -11,7 +11,7 @@ export interface ResourceSlice {
 }
 
 export const createResourceSlice: StateCreator<
-    ResourceSlice & ItemSlice,
+    ResourceSlice,
     [],
     [],
     ResourceSlice
