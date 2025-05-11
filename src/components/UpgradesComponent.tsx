@@ -1,26 +1,45 @@
 import { useGameStore } from "@/stores/game";
+import clsx from "clsx";
 
 export default function UpgradesComponent() {
-    const updateMultiplier = useGameStore((state) => state.updateMultiplier);
-
-    const upgrades = [
-        {
-            name: "first youpi",
-            effect: () => {
-                console.log("First youpi");
-                updateMultiplier("wood", 2);
-            },
-        },
-        { name: "caca", effect: () => updateMultiplier("wood", 100) },
-    ];
+    const upgrades = useGameStore((state) => state.upgrades);
+    const unlockUpgrade = useGameStore((state) => state.unlockUpgrade);
+    const ressources = useGameStore((state) => state.resources);
 
     return (
-        <div>
-            {upgrades.map((upgrade) => (
-                <button onClick={() => upgrade.effect()} key={upgrade.name}>
-                    <div>{upgrade.name}</div>
-                </button>
-            ))}
+        <div className="flex flex-col gap-2">
+            {Object.keys(upgrades).map((upgradeKey) => {
+                const upgrade = upgrades[upgradeKey];
+                return (
+                    <button
+                        key={upgradeKey}
+                        disabled={upgrade.unlocked}
+                        className="flex flex-col"
+                        onClick={() => {
+                            unlockUpgrade(upgradeKey);
+                        }}
+                    >
+                        {upgrade.name}
+                        {!upgrade.unlocked && (
+                            <span className="text-sm text-white/40">
+                                {upgrade.cost.ressource}: {upgrade.cost.amount}{" "}
+                                <span
+                                    className={clsx(
+                                        (
+                                            ressources[upgrade.cost.ressource] <
+                                                upgrade.cost.amount
+                                        ) ?
+                                            "text-red-400"
+                                        :   "text-green-400"
+                                    )}
+                                >
+                                    ({ressources[upgrade.cost.ressource]})
+                                </span>
+                            </span>
+                        )}
+                    </button>
+                );
+            })}
         </div>
     );
 }
