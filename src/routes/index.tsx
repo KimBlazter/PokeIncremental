@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import InventoryComponent from "@/components/InventoryComponent";
 import MineWoodButton from "@/components/MineWoodButton";
 import UpgradesComponent from "@/components/UpgradesComponent";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -11,6 +12,7 @@ export const Route = createFileRoute("/")({
 // IMPORTANT: the id "root" of the first div is mandatory.. else it will break the TanStack Router
 function Index() {
     const gameLoop = useGameLoop();
+
     return (
         <div id="root" className="flex h-full w-full flex-row gap-4">
             {/* Left Panel */}
@@ -26,7 +28,7 @@ function Index() {
                 </div>
 
                 {/* Central bottom */}
-                <div className="h-1/2 bg-blue-400">
+                <div className="h-1/2">
                     <InventoryComponent />
                 </div>
             </div>
