@@ -5,7 +5,10 @@ type Multiplier = Record<Resource, number>;
 
 export interface MultiplierSlice {
     multiplier: Multiplier;
-    updateMultiplier: (multiplier: Resource, amount: number) => void;
+    updateMultiplier: (
+        multiplier: Resource,
+        amount: number | ((prev: number) => number)
+    ) => void;
 }
 
 export const createMultiplierSlice: StateCreator<
@@ -24,7 +27,10 @@ export const createMultiplierSlice: StateCreator<
         set((state) => ({
             multiplier: {
                 ...state.multiplier,
-                [ressource]: state.multiplier[ressource] + amount,
+                [ressource]:
+                    typeof amount == "number" ? amount : (
+                        amount(state.multiplier[ressource])
+                    ),
             },
         })),
 });
