@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import InventoryComponent from "@/components/InventoryComponent";
 import MineWoodButton from "@/components/MineWoodButton";
 import UpgradesComponent from "@/components/UpgradesComponent";
-import { useState } from "react";
 
 export const Route = createFileRoute("/")({
     component: Index,
