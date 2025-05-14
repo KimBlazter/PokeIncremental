@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@/assets/css/icons-minecraft-215.css";
 
 @font-face {
     font-family: "Monocraft";
@@ -26,14 +27,11 @@
 
 @layer components {
     .item-slot {
+        border: solid 4px transparent;
+        border-image: url("/gui/mc-slot-border-transparent.png") 8 round;
         background-color: var(--color-mcSlotBackground);
-        border-left-color: var(--color-mcSlotBorder);
-        border-top-color: var(--color-mcSlotBorder);
-        border-right-color: var(--color-mcSlotHighlight);
-        border-bottom-color: var(--color-mcSlotHighlight);
         @apply aspect-square;
         @apply size-16;
-        @apply border-4;
     }
 
     .item-slot:hover {
