@@ -1,5 +1,4 @@
 import { StateCreator } from "zustand";
-import { ItemSlice } from "./items";
 
 export type Resource = "wood" | "stone" | "iron" | "gold";
 
