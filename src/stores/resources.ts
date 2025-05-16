@@ -1,8 +1,15 @@
+import { produce } from "immer";
 import { StateCreator } from "zustand";
 
-export type Resource = "wood" | "stone" | "iron" | "gold";
+export type Resource = "wood" | "cobblestone" | "iron" | "gold";
 
-export type Resources = Record<Resource, number>;
+export interface ResourceData {
+    name: string;
+    amount: number;
+    texture_identifier: string; // image identifier
+}
+
+export type Resources = Record<Resource, ResourceData>;
 
 export interface ResourceSlice {
     resources: Resources;
@@ -16,16 +23,31 @@ export const createResourceSlice: StateCreator<
     ResourceSlice
 > = (set) => ({
     resources: {
-        wood: 0,
-        stone: 0,
-        iron: 0,
-        gold: 0,
+        wood: {
+            name: "Wood",
+            amount: 0,
+            texture_identifier: "oak_log",
+        },
+        cobblestone: {
+            name: "Cobblestone",
+            amount: 0,
+            texture_identifier: "cobblestone",
+        },
+        iron: {
+            name: "Iron",
+            amount: 0,
+            texture_identifier: "raw_iron",
+        },
+        gold: {
+            name: "Gold",
+            amount: 0,
+            texture_identifier: "raw_gold",
+        },
     },
-    addResource: (ressource, amount) =>
-        set((state) => ({
-            resources: {
-                ...state.resources,
-                [ressource]: state.resources[ressource] + amount,
-            },
-        })),
+    addResource: (resource, amount) =>
+        set(
+            produce((state: ResourceSlice) => {
+                state.resources[resource].amount += amount;
+            })
+        ),
 });
