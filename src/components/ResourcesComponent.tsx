@@ -11,11 +11,12 @@ export default function ResourcesComponent() {
             </h2>
             <div className="flex flex-row flex-wrap pt-1">
                 {Object.keys(resources).map((resourceKey) => {
+                    const resource = resourceKey as Resource;
                     return (
                         <ResourceComponent
-                            resource={resourceKey as Resource}
-                            count={resources[resourceKey as Resource]}
-                            key={resourceKey}
+                            resourceData={resources[resource]}
+                            resourceKey={resource}
+                            key={resource}
                         />
                     );
                 })}
