@@ -1,9 +1,11 @@
 import { StateCreator } from "zustand";
 import { Resource, ResourceSlice } from "./resources";
 import { MultiplierSlice } from "./multipliers";
+import { produce } from "immer";
 
 export interface Upgrade {
     name: string;
+    description?: string;
     cost: { ressource: Resource; amount: number };
     unlocked: boolean;
     effect: () => void;
@@ -23,6 +25,7 @@ export const createUpgradeSlice: StateCreator<
     upgrades: {
         "0": {
             name: "Big Biceps",
+            description: "wood +1",
             cost: { ressource: "wood", amount: 10 },
             effect: () => get().updateMultiplier("wood", (prev) => prev + 1),
             unlocked: false,
@@ -30,7 +33,7 @@ export const createUpgradeSlice: StateCreator<
     },
     unlockUpgrade: (upgradeId) => {
         if (
-            get().resources[get().upgrades[upgradeId].cost.ressource] <
+            get().resources[get().upgrades[upgradeId].cost.ressource].amount <
             get().upgrades[upgradeId].cost.amount
         )
             return;
@@ -40,14 +43,10 @@ export const createUpgradeSlice: StateCreator<
         );
         get().upgrades[upgradeId].effect();
         // set the upgrade to unlocked
-        set((state) => ({
-            upgrades: {
-                ...state.upgrades,
-                [upgradeId]: {
-                    ...state.upgrades[upgradeId],
-                    unlocked: true,
-                },
-            },
-        }));
+        set(
+            produce((state: UpgradeSlice) => {
+                state.upgrades[upgradeId].unlocked = true;
+            })
+        );
     },
 });

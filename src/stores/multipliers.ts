@@ -1,5 +1,6 @@
 import { StateCreator } from "zustand";
 import { Resource } from "./resources";
+import { produce } from "immer";
 
 type Multiplier = Record<Resource, number>;
 
@@ -19,18 +20,17 @@ export const createMultiplierSlice: StateCreator<
 > = (set) => ({
     multiplier: {
         wood: 1,
-        stone: 1,
+        cobblestone: 1,
         iron: 1,
         gold: 1,
     },
-    updateMultiplier: (ressource, amount) =>
-        set((state) => ({
-            multiplier: {
-                ...state.multiplier,
-                [ressource]:
+    updateMultiplier: (resource, amount) =>
+        set(
+            produce((state: MultiplierSlice) => {
+                state.multiplier[resource] =
                     typeof amount == "number" ? amount : (
-                        amount(state.multiplier[ressource])
-                    ),
-            },
-        })),
+                        amount(state.multiplier[resource])
+                    );
+            })
+        ),
 });
