@@ -26,14 +26,15 @@ export default function UpgradesComponent() {
                                 <span
                                     className={clsx(
                                         (
-                                            ressources[upgrade.cost.ressource] <
-                                                upgrade.cost.amount
+                                            ressources[upgrade.cost.ressource]
+                                                .amount < upgrade.cost.amount
                                         ) ?
                                             "text-red-400"
                                         :   "text-green-400"
                                     )}
                                 >
-                                    ({ressources[upgrade.cost.ressource]})
+                                    ({ressources[upgrade.cost.ressource].amount}
+                                    )
                                 </span>
                             </span>
                         )}
