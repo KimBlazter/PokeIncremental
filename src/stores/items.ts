@@ -1,11 +1,10 @@
+import { produce } from "immer";
 import { v4 as uuidv4 } from "uuid";
 import { StateCreator } from "zustand";
-import { ResourceSlice } from "./resources";
 
 export interface Item {
     name: string;
-    texturePath?: string;
-    stackable: boolean;
+    textureIdentifier?: string;
 }
 
 interface Tool extends Item {
@@ -24,14 +23,18 @@ export interface ItemSlice {
 export const createItemSlice: StateCreator<ItemSlice, [], [], ItemSlice> = (
     set
 ) => ({
-    items: {},
+    items: {
+        first: {
+            name: "Wooden Axe",
+            textureIdentifier: "wooden_axe",
+        },
+    },
     addItem: (item) =>
-        set((state) => ({
-            items: {
-                ...state.items,
-                [uuidv4()]: item,
-            },
-        })),
+        set(
+            produce((state: ItemSlice) => {
+                state.items[uuidv4()] = item;
+            })
+        ),
     removeItem: () => {},
     useItem: () => {},
 });
