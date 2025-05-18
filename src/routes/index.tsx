@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import InventoryComponent from "@/components/InventoryComponent";
 import MineWoodButton from "@/components/MineWoodButton";
 import UpgradesComponent from "@/components/UpgradesComponent";
+import SaveManager from "@/components/SaveManager";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -24,6 +25,7 @@ function Index() {
                 {/* Central top */}
                 <div className="h-1/2 bg-purple-400">
                     <MineWoodButton />
+                    <SaveManager />
                 </div>
 
                 {/* Central bottom */}
