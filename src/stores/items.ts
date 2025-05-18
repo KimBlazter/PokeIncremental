@@ -7,8 +7,10 @@ export interface Item {
     textureIdentifier?: string;
 }
 
+export type ToolType = "axe" | "pickaxe" | "shovel" | "sword" | "hoe";
+
 interface Tool extends Item {
-    type: "axe" | "pickaxe" | "shovel" | "sword" | "hoe";
+    type: ToolType;
 }
 
 export type Items = Record<string, Item>;
