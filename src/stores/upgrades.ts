@@ -1,8 +1,9 @@
 import { StateCreator } from "zustand";
-import { Resource, ResourceSlice } from "./resources";
-import { MultiplierSlice } from "./multipliers";
+import { Resource } from "./resources";
 import { produce } from "immer";
-import { AgeKey, AgeSlice } from "./ages";
+import { upgrades } from "@/data/upgrade";
+import { GameStore } from "./game";
+import { AgeKey } from "./ages";
 
 export interface Upgrade {
     name: string;
@@ -19,35 +20,12 @@ export interface UpgradeSlice {
 }
 
 export const createUpgradeSlice: StateCreator<
-    UpgradeSlice & MultiplierSlice & ResourceSlice & AgeSlice,
+    GameStore,
     [],
     [],
     UpgradeSlice
 > = (set, get) => ({
-    upgrades: {
-        "upgrade.wood.0": {
-            name: "Big Biceps",
-            description: "wood +1",
-            cost: { resource: "wood", amount: 10 },
-            effect: () => get().updateMultiplier("wood", (prev) => prev + 1),
-            unlocked: false,
-        },
-        "unlock.stone": {
-            name: "Ready to get high",
-            description: "Unlock the Stone Age",
-            cost: { resource: "wood", amount: 10 },
-            effect: () => get().unlockAge("stone"),
-            unlocked: false,
-        },
-        "unlock.iron": {
-            name: "Harder than ever",
-            description: "Unlock the Iron Age",
-            cost: { resource: "cobblestone", amount: 20 },
-            effect: () => get().unlockAge("iron"),
-            unlocked: false,
-            ageRequirement: "stone",
-        },
-    },
+    upgrades: upgrades(get),
     unlockUpgrade: (upgradeId) => {
         if (
             get().resources[get().upgrades[upgradeId].cost.resource].amount <
