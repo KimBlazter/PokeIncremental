@@ -6,7 +6,7 @@ import { createUpgradeSlice, UpgradeSlice } from "./upgrades";
 import { AgeSlice, createAgeSlice } from "./ages";
 import { CraftSlice, createCraftSlice } from "./crafts";
 
-type GameStore = ItemSlice &
+export type GameStore = ItemSlice &
     ResourceSlice &
     MultiplierSlice &
     UpgradeSlice &
