@@ -1,6 +1,7 @@
 import { produce } from "immer";
 import { v4 as uuidv4 } from "uuid";
 import { StateCreator } from "zustand";
+import { GameStore } from "./game";
 
 export interface Item {
     name: string;
@@ -22,15 +23,10 @@ export interface ItemSlice {
     useItem: (id: string) => void;
 }
 
-export const createItemSlice: StateCreator<ItemSlice, [], [], ItemSlice> = (
+export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
     set
 ) => ({
-    items: {
-        first: {
-            name: "Wooden Axe",
-            textureIdentifier: "wooden_axe",
-        },
-    },
+    items: {},
     addItem: (item) =>
         set(
             produce((state: ItemSlice) => {
