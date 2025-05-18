@@ -5,7 +5,7 @@ import MineResourceButton from "@/components/MineResourceButton";
 import UpgradesComponent from "@/components/UpgradesComponent";
 import SaveManager from "@/components/SaveManager";
 import AgeSelector from "@/components/AgeSelector";
-
+import CraftsComponent from "@/components/CraftsComponent";
 
 export const Route = createFileRoute("/")({
     component: Index,
