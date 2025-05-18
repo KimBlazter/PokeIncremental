@@ -1,45 +1,27 @@
 import { useGameStore } from "@/stores/game";
-import clsx from "clsx";
+import UpgradeComponent from "./UpgradeComponent";
+import { AgeKey } from "@/stores/ages";
 
 export default function UpgradesComponent() {
     const upgrades = useGameStore((state) => state.upgrades);
-    const unlockUpgrade = useGameStore((state) => state.unlockUpgrade);
-    const ressources = useGameStore((state) => state.resources);
+    const ages = useGameStore((state) => state.ages);
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex h-6/10 w-full flex-col gap-2">
             {Object.keys(upgrades).map((upgradeKey) => {
                 const upgrade = upgrades[upgradeKey];
-                return (
-                    <button
-                        key={upgradeKey}
-                        disabled={upgrade.unlocked}
-                        className="flex flex-col"
-                        onClick={() => {
-                            unlockUpgrade(upgradeKey);
-                        }}
-                    >
-                        {upgrade.name}
-                        {!upgrade.unlocked && (
-                            <span className="text-sm text-white/40">
-                                {upgrade.cost.ressource}: {upgrade.cost.amount}{" "}
-                                <span
-                                    className={clsx(
-                                        (
-                                            ressources[upgrade.cost.ressource]
-                                                .amount < upgrade.cost.amount
-                                        ) ?
-                                            "text-red-400"
-                                        :   "text-green-400"
-                                    )}
-                                >
-                                    ({ressources[upgrade.cost.ressource].amount}
-                                    )
-                                </span>
-                            </span>
-                        )}
-                    </button>
-                );
+
+                if (
+                    !upgrade.ageRequirement ||
+                    ages[upgrade.ageRequirement as AgeKey].unlocked
+                )
+                    return (
+                        <UpgradeComponent
+                            key={upgradeKey}
+                            upgrade={upgrade}
+                            upgradeKey={upgradeKey}
+                        />
+                    );
             })}
         </div>
     );
