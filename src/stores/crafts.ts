@@ -1,11 +1,13 @@
 import { StateCreator } from "zustand";
 import { Resource, ResourceSlice } from "./resources";
 import { produce } from "immer";
-import { Item, ItemSlice } from "./items";
+import { Item } from "./items";
+import { crafts } from "@/data/crafts";
+import { GameStore } from "./game";
 
 export interface Craft {
     result: { item: Item; qty: number };
-    cost: { resource: Resource; amount: number };
+    cost: [{ material: Resource; amount: number }];
 }
 
 export interface CraftSlice {
@@ -13,42 +15,28 @@ export interface CraftSlice {
     craft: (id: string) => void;
 }
 
-export const createCraftSlice: StateCreator<
-    CraftSlice & ItemSlice & ResourceSlice,
-    [],
-    [],
-    CraftSlice
-> = (set, get) => ({
-    crafts: {
-        wooden_axe: {
-            result: {
-                qty: 1,
-                item: {
-                    name: "Wooden Axe",
-                    textureIdentifier: "wooden_axe",
-                    type: "axe",
-                },
-            },
-            cost: {
-                resource: "wood",
-                amount: 10,
-            },
-        },
-    },
+export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
+    set,
+    get
+) => ({
+    crafts: crafts,
     craft: (id: string) => {
         const craft = get().crafts[id];
-        const currentResourceAmount =
-            get().resources[craft.cost.resource].amount;
 
-        // Remove cost + add item
-        if (currentResourceAmount >= craft.cost.amount) {
+        craft.cost.forEach(({ material, amount }) => {
+            const currentResourceAmount = get().resources[material].amount;
+
+            // Remove cost
+            if (currentResourceAmount < amount) return;
+
             set(
                 produce((state: ResourceSlice) => {
-                    state.resources[craft.cost.resource].amount -=
-                        craft.cost.amount;
+                    state.resources[material].amount -= amount;
                 })
             );
-            get().addItem(get().crafts[id].result.item);
-        }
+        });
+
+        // add item
+        get().addItem(get().crafts[id].result.item);
     },
 });
