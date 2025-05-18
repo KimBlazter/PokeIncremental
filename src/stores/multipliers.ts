@@ -1,6 +1,7 @@
 import { StateCreator } from "zustand";
 import { Resource } from "./resources";
 import { produce } from "immer";
+import { GameStore } from "./game";
 
 type Multiplier = Record<Resource, number>;
 
@@ -13,7 +14,7 @@ export interface MultiplierSlice {
 }
 
 export const createMultiplierSlice: StateCreator<
-    MultiplierSlice,
+    GameStore,
     [],
     [],
     MultiplierSlice
