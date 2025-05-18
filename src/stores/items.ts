@@ -1,38 +1,44 @@
 import { produce } from "immer";
-import { v4 as uuidv4 } from "uuid";
 import { StateCreator } from "zustand";
 import { GameStore } from "./game";
 
-export interface Item {
+export type Item = {
+    id: string;
     name: string;
     textureIdentifier?: string;
-}
+};
 
 export type ToolType = "axe" | "pickaxe" | "shovel" | "sword" | "hoe";
 
-interface Tool extends Item {
-    type: ToolType;
-}
-
-export type Items = Record<string, Item>;
-
 export interface ItemSlice {
-    items: Items;
+    items: Item[];
     addItem: (item: Item) => void;
     removeItem: (id: string) => void;
     useItem: (id: string) => void;
+    hasItem: (name: string) => boolean;
 }
 
 export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
-    set
+    set,
+    get
 ) => ({
-    items: {},
+    items: [],
     addItem: (item) =>
         set(
             produce((state: ItemSlice) => {
-                state.items[uuidv4()] = item;
+                state.items.push(item);
             })
         ),
-    removeItem: () => {},
+    removeItem: (id) => {
+        set(
+            produce((state: GameStore) => {
+                const index = state.items.findIndex((item) => item.id === id);
+                if (index !== -1) {
+                    state.items.splice(index, 1);
+                }
+            })
+        );
+    },
     useItem: () => {},
+    hasItem: (name) => get().items.some((item: Item) => item.name === name),
 });

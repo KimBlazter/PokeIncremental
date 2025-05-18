@@ -15,10 +15,12 @@ const storeToJson = () => {
     return sortedStore;
 };
 
-const decodeSave = (input: string) => JSON.parse(atob(input));
+const decodeSave = (input: string) =>
+    JSON.parse(Buffer.from(input, "base64").toString());
 
 export const exportSave = () => {
-    return btoa(JSON.stringify(storeToJson())); // convert to base64
+    const saveData = JSON.stringify(storeToJson());
+    return Buffer.from(saveData).toString("base64");
 };
 
 export const importSave = (input: string) => {

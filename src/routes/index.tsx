@@ -32,9 +32,7 @@ function Index() {
                 </div>
 
                 {/* Central bottom */}
-                <div className="h-1/2">
-                    <InventoryComponent />
-                </div>
+                <div className="h-1/2">{/* <InventoryComponent /> */}</div>
             </div>
 
             {/* Right Panel */}
