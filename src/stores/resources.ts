@@ -1,6 +1,8 @@
 import { produce } from "immer";
 import { StateCreator } from "zustand";
 import { ToolType } from "./items";
+import { resources } from "@/data/resources";
+import { GameStore } from "./game";
 
 export type Resource = "wood" | "cobblestone" | "iron" | "gold";
 
@@ -19,37 +21,12 @@ export interface ResourceSlice {
 }
 
 export const createResourceSlice: StateCreator<
-    ResourceSlice,
+    GameStore,
     [],
     [],
     ResourceSlice
 > = (set) => ({
-    resources: {
-        wood: {
-            name: "Wood",
-            amount: 0,
-            texture_identifier: "oak_log",
-            effective_tool: "axe",
-        },
-        cobblestone: {
-            name: "Cobblestone",
-            amount: 0,
-            texture_identifier: "cobblestone",
-            effective_tool: "pickaxe",
-        },
-        iron: {
-            name: "Iron",
-            amount: 0,
-            texture_identifier: "raw_iron",
-            effective_tool: "pickaxe",
-        },
-        gold: {
-            name: "Gold",
-            amount: 0,
-            texture_identifier: "raw_gold",
-            effective_tool: "pickaxe",
-        },
-    },
+    resources: resources,
     addResource: (resource, amount) =>
         set(
             produce((state: ResourceSlice) => {
