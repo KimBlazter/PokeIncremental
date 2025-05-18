@@ -3,8 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import InventoryComponent from "@/components/InventoryComponent";
 import MineResourceButton from "@/components/MineResourceButton";
 import UpgradesComponent from "@/components/UpgradesComponent";
+import SaveManager from "@/components/SaveManager";
 import AgeSelector from "@/components/AgeSelector";
-import CraftsComponent from "@/components/CraftsComponent";
+
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -27,6 +28,7 @@ function Index() {
                 <div className="flex h-1/2 flex-col bg-purple-400">
                     <AgeSelector />
                     <MineResourceButton />
+                    <SaveManager />
                 </div>
 
                 {/* Central bottom */}
