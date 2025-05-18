@@ -1,6 +1,8 @@
 import { StateCreator } from "zustand";
 import { produce } from "immer";
 import { Resource } from "./resources";
+import { ages } from "@/data/ages";
+import { GameStore } from "./game";
 
 export type AgeKey = "wood" | "stone" | "iron" | "gold";
 
@@ -19,31 +21,10 @@ export interface AgeSlice {
     unlockAge: (age: AgeKey) => void;
 }
 
-export const createAgeSlice: StateCreator<AgeSlice, [], [], AgeSlice> = (
+export const createAgeSlice: StateCreator<GameStore, [], [], AgeSlice> = (
     set
 ) => ({
-    ages: {
-        wood: {
-            name: "Wood",
-            unlocked: true,
-            collectible: "wood",
-        },
-        stone: {
-            name: "Stone",
-            unlocked: false,
-            collectible: "cobblestone",
-        },
-        iron: {
-            name: "Iron",
-            unlocked: false,
-            collectible: "iron",
-        },
-        gold: {
-            name: "Gold",
-            unlocked: false,
-            collectible: "gold",
-        },
-    },
+    ages: ages,
     currentAge: "wood",
     unlockAge: (age) =>
         set(
