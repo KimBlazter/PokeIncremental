@@ -13,7 +13,9 @@ export default function ResourceTooltipContent({
     resourceKey: Resource;
 }) {
     const perClick = useGameStore((state) => state.multiplier[resourceKey]);
-    console.log("Resource re-render");
+
+    // console.log("Resource re-render");
+
     return (
         <div className="mc-text-shadow letter-sp flex flex-col text-base tracking-normal">
             <span>

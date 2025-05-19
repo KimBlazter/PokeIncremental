@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
 
 // IMPORTANT: the id "root" of the first div is mandatory.. else it will break the TanStack Router
 function Index() {
-    const gameLoop = useGameLoop();
+    // const gameLoop = useGameLoop();
 
     return (
         <div id="root" className="flex h-full w-full flex-row gap-4">
@@ -32,7 +32,9 @@ function Index() {
                 </div>
 
                 {/* Central bottom */}
-                <div className="h-1/2">{/* <InventoryComponent /> */}</div>
+                <div className="h-1/2">
+                    <InventoryComponent />
+                </div>
             </div>
 
             {/* Right Panel */}
