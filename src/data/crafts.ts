@@ -1,14 +1,11 @@
 import { Craft } from "@/stores/crafts";
+import { GAME_ITEMS } from "./items";
 
 export const crafts: Record<string, Craft> = {
     wooden_axe: {
         result: {
             qty: 1,
-            item: {
-                id: "woodent_axe",
-                name: "Wooden Axe",
-                textureIdentifier: "wooden_axe",
-            },
+            item: { ...GAME_ITEMS.wooden_axe }, // create new instance
         },
         cost: {
             resources: [
@@ -23,9 +20,7 @@ export const crafts: Record<string, Craft> = {
         result: {
             qty: 1,
             item: {
-                id: "stone_axe",
-                name: "Stone Axe",
-                textureIdentifier: "stone_axe",
+                ...GAME_ITEMS.stone_axe,
             },
         },
         cost: {

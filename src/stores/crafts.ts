@@ -21,31 +21,9 @@ export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
     set,
     get
 ) => ({
-    crafts: {
-        // wooden_axe: {
-        //     cost: {
-        //         resources: [
-        //             {
-        //                 material: "wood",
-        //                 amount: 10,
-        //             },
-        //         ],
-        //         // items: ["wooden_axe"],
-        //     },
-        //     result: {
-        //         item: {
-        //             id: "wooden_axe",
-        //             name: "Wooden axe",
-        //             textureIdentifier: "wooden_axe",
-        //         },
-        //         qty: 1,
-        //     },
-        // },
-    },
+    crafts: crafts,
     craft: (id: string) => {
         const craft = get().crafts[id];
-
-        console.log("Crafting...");
 
         const enoughResources =
             craft.cost.resources?.reduce((acc, { material, amount }) => {
