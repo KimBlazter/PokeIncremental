@@ -1,3 +1,4 @@
+import { GAME_ITEMS } from "@/data/items";
 import { Craft } from "@/stores/crafts";
 import { useGameStore } from "@/stores/game";
 import { getTextureFromIdentifier } from "@/utils/item-models";
@@ -5,9 +6,6 @@ import clsx from "clsx";
 
 export default function CraftTooltipContent({ craft }: { craft: Craft }) {
     const resources = useGameStore((state) => state.resources);
-    const items = useGameStore((state) => state.items);
-
-    console.log("Craft Tooltip re-render");
 
     return (
         <div>
@@ -42,25 +40,24 @@ export default function CraftTooltipContent({ craft }: { craft: Craft }) {
                         </div>
                     ))}
                     {/* Item requirement */}
-                    {/* {craft.cost.items?.map((id: string) => {
-                        console.log(id);
-                        const itemData = items.find((item) => item.id === id);
-                        // console.log(itemData);
+                    {craft.cost.items?.map((id: string) => {
                         return (
                             <div key={`${id}`}>
                                 <div
                                     aria-hidden
                                     className={clsx(
                                         "icon-minecraft-sm",
+                                        // get the texture from the general game items
                                         getTextureFromIdentifier(
-                                            itemData?.textureIdentifier ??
-                                                "barrier"
+                                            GAME_ITEMS[
+                                                id as keyof typeof GAME_ITEMS
+                                            ].textureIdentifier ?? "barrier"
                                         )
                                     )}
                                 />
                             </div>
                         );
-                    })} */}
+                    })}
                 </span>
                 <span className="flex flex-row justify-start gap-1">
                     result: {craft.result.qty}
