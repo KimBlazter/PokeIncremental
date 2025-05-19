@@ -40,5 +40,5 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
         );
     },
     useItem: () => {},
-    hasItem: (name) => get().items.some((item: Item) => item.name === name),
+    hasItem: (id) => get().items.some((item: Item) => item.id === id),
 });
