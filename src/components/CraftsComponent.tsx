@@ -5,13 +5,15 @@ export default function CraftsComponent() {
     const crafts = useGameStore((state) => state.crafts);
 
     return (
-        <div className="flex h-4/10 w-full flex-col flex-wrap bg-amber-50">
+        <div className="flex h-4/10 w-full flex-row flex-wrap bg-amber-900">
             {Object.keys(crafts).map((craft) => (
-                <CraftComponent
-                    key={craft}
-                    craft={crafts[craft]}
-                    craftId={craft}
-                />
+                <div>
+                    <CraftComponent
+                        key={craft}
+                        craft={crafts[craft]}
+                        craftId={craft}
+                    />
+                </div>
             ))}
         </div>
     );
