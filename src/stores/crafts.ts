@@ -18,7 +18,7 @@ export interface CraftSlice {
 }
 
 export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
-    set,
+    _set,
     get
 ) => ({
     crafts: crafts,

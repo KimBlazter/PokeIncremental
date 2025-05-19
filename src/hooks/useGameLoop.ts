@@ -2,7 +2,8 @@ import { useEffect, useState, useRef } from "react";
 
 export function useGameLoop() {
     const [totalTicks, setTotalTicks] = useState(0); // Compteur total des ticks
-    const [seconds, setSeconds] = useState(0); // Compteur de secondes
+    // can add 'seconds', removed because this file is shitty oh oh no no no
+    const [, setSeconds] = useState(0); // Compteur de secondes
     const lastTickTime = useRef(Date.now()); // Dernière fois que la boucle a été exécutée
 
     useEffect(() => {

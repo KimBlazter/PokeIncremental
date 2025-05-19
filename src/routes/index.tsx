@@ -1,4 +1,3 @@
-import { useGameLoop } from "@/hooks/useGameLoop";
 import { createFileRoute } from "@tanstack/react-router";
 import InventoryComponent from "@/components/InventoryComponent";
 import MineResourceButton from "@/components/MineResourceButton";
