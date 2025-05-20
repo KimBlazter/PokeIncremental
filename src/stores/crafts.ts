@@ -3,12 +3,13 @@ import { Resource } from "./resources";
 import { Item } from "./items";
 import { crafts } from "@/data/crafts";
 import { GameStore } from "./game";
+import { GameItemKey } from "@/data/items";
 
 export interface Craft {
     result: { item: Item; qty: number };
     cost: {
         resources?: { material: Resource; amount: number }[];
-        items?: string[];
+        items?: GameItemKey[];
     };
 }
 
