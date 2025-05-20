@@ -12,9 +12,11 @@ export interface Craft {
     };
 }
 
+export type CraftKey = keyof typeof crafts;
+
 export interface CraftSlice {
-    crafts: Record<string, Craft>;
-    craft: (id: string) => void;
+    crafts: Record<keyof typeof crafts, Craft>;
+    craft: (id: CraftKey) => void;
 }
 
 export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
@@ -22,7 +24,7 @@ export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
     get
 ) => ({
     crafts: crafts,
-    craft: (id: string) => {
+    craft: (id) => {
         const craft = get().crafts[id];
 
         const enoughResources =

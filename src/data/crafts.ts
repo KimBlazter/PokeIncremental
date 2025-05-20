@@ -1,7 +1,7 @@
 import { Craft } from "@/stores/crafts";
 import { GAME_ITEMS } from "./items";
 
-export const crafts: Record<string, Craft> = {
+export const crafts = {
     wooden_axe: {
         result: {
             qty: 1,
@@ -37,4 +37,4 @@ export const crafts: Record<string, Craft> = {
             items: ["wooden_axe"],
         },
     },
-};
+} satisfies Record<string, Craft>;
