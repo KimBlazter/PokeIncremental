@@ -1,6 +1,7 @@
 import { useGameStore } from "@/stores/game";
 import UpgradeComponent from "./UpgradeComponent";
 import { AgeKey } from "@/stores/ages";
+import { UpgradeKey } from "@/stores/upgrades";
 
 export default function UpgradesComponent() {
     const upgrades = useGameStore((state) => state.upgrades);
@@ -9,7 +10,7 @@ export default function UpgradesComponent() {
     return (
         <div className="flex h-6/10 w-full flex-col gap-2">
             {Object.keys(upgrades).map((upgradeKey) => {
-                const upgrade = upgrades[upgradeKey];
+                const upgrade = upgrades[upgradeKey as UpgradeKey];
 
                 if (
                     !upgrade.ageRequirement ||
@@ -17,9 +18,9 @@ export default function UpgradesComponent() {
                 )
                     return (
                         <UpgradeComponent
-                            key={upgradeKey}
+                            key={upgradeKey as UpgradeKey}
                             upgrade={upgrade}
-                            upgradeKey={upgradeKey}
+                            upgradeKey={upgradeKey as UpgradeKey}
                         />
                     );
             })}

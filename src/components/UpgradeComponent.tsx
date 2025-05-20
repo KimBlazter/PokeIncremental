@@ -1,5 +1,5 @@
 import { useGameStore } from "@/stores/game";
-import { Upgrade } from "@/stores/upgrades";
+import { Upgrade, UpgradeKey } from "@/stores/upgrades";
 import clsx from "clsx";
 import { Tooltip } from "./Tooltip";
 
@@ -7,7 +7,7 @@ export default function UpgradeComponent({
     upgradeKey,
     upgrade,
 }: {
-    upgradeKey: string;
+    upgradeKey: UpgradeKey;
     upgrade: Upgrade;
 }) {
     const unlockUpgrade = useGameStore((state) => state.unlockUpgrade);
