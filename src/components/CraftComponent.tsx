@@ -15,7 +15,7 @@ export default function CraftComponent({
     const craftAction = useGameStore((state) => state.craft);
     return (
         <Tooltip
-            className="aspect-square w-12"
+            className="aspect-square h-12 w-12"
             content={<CraftTooltipContent craft={craft} />}
         >
             <div
