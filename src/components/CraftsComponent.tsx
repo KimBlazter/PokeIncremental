@@ -7,13 +7,11 @@ export default function CraftsComponent() {
     return (
         <div className="flex h-4/10 w-full flex-row flex-wrap bg-amber-900">
             {Object.keys(crafts).map((craft) => (
-                <div>
-                    <CraftComponent
-                        key={craft}
-                        craft={crafts[craft]}
-                        craftId={craft}
-                    />
-                </div>
+                <CraftComponent
+                    key={craft}
+                    craft={crafts[craft]}
+                    craftId={craft}
+                />
             ))}
         </div>
     );
