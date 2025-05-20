@@ -10,13 +10,15 @@ export interface Upgrade {
     description?: string;
     cost: { resource: Resource; amount: number };
     unlocked: boolean;
-    effect: () => void;
+    effect: (gs: GameStore) => void;
     ageRequirement?: AgeKey;
 }
 
+export type UpgradeKey = keyof typeof upgrades;
+
 export interface UpgradeSlice {
-    upgrades: Record<string, Upgrade>;
-    unlockUpgrade: (id: string) => void;
+    upgrades: Record<UpgradeKey, Upgrade>;
+    unlockUpgrade: (id: UpgradeKey) => void;
 }
 
 export const createUpgradeSlice: StateCreator<
@@ -25,7 +27,7 @@ export const createUpgradeSlice: StateCreator<
     [],
     UpgradeSlice
 > = (set, get) => ({
-    upgrades: upgrades(get),
+    upgrades: upgrades,
     unlockUpgrade: (upgradeId) => {
         if (
             get().resources[get().upgrades[upgradeId].cost.resource].amount <
@@ -36,7 +38,7 @@ export const createUpgradeSlice: StateCreator<
             get().upgrades[upgradeId].cost.resource,
             -get().upgrades[upgradeId].cost.amount
         );
-        get().upgrades[upgradeId].effect();
+        get().upgrades[upgradeId].effect(get());
         // set the upgrade to unlocked
         set(
             produce((state: UpgradeSlice) => {
