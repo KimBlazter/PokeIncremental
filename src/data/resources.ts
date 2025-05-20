@@ -1,6 +1,6 @@
-import { Resource, ResourceData } from "@/stores/resources";
+import { ResourceData } from "@/stores/resources";
 
-export const resources: Record<Resource, ResourceData> = {
+export const resources = {
     wood: {
         name: "Wood",
         amount: 0,
@@ -25,4 +25,4 @@ export const resources: Record<Resource, ResourceData> = {
         texture_identifier: "raw_gold",
         effective_tool: "pickaxe",
     },
-};
+} satisfies Record<string, ResourceData>;

@@ -4,7 +4,7 @@ import { ToolType } from "./items";
 import { resources } from "@/data/resources";
 import { GameStore } from "./game";
 
-export type Resource = "wood" | "cobblestone" | "iron" | "gold";
+export type Resource = keyof typeof resources;
 
 export interface ResourceData {
     name: string;
