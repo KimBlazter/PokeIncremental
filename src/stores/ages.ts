@@ -4,7 +4,7 @@ import { Resource } from "./resources";
 import { ages } from "@/data/ages";
 import { GameStore } from "./game";
 
-export type AgeKey = "wood" | "stone" | "iron" | "gold";
+export type AgeKey = keyof typeof ages;
 
 export type Age = {
     name: string;
@@ -12,10 +12,8 @@ export type Age = {
     collectible: Resource;
 };
 
-export type Ages = Record<AgeKey, Age>;
-
 export interface AgeSlice {
-    ages: Ages;
+    ages: Record<AgeKey, Age>;
     currentAge: AgeKey;
     setCurrentAge: (age: AgeKey) => void;
     unlockAge: (age: AgeKey) => void;

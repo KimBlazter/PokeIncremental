@@ -1,6 +1,6 @@
-import { Age, AgeKey } from "@/stores/ages";
+import { Age } from "@/stores/ages";
 
-export const ages: Record<AgeKey, Age> = {
+export const ages = {
     wood: {
         name: "Wood",
         unlocked: true,
@@ -21,4 +21,4 @@ export const ages: Record<AgeKey, Age> = {
         unlocked: false,
         collectible: "gold",
     },
-};
+} satisfies Record<string, Age>;
