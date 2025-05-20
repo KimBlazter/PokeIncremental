@@ -15,13 +15,10 @@ const storeToJson = () => {
     return sortedStore;
 };
 
-const decodeSave = (input: string) =>
-    JSON.parse(Buffer.from(input, "base64").toString());
+export const exportSave = (): string =>
+    window.btoa(JSON.stringify(storeToJson()));
 
-export const exportSave = () => {
-    const saveData = JSON.stringify(storeToJson());
-    return Buffer.from(saveData).toString("base64");
-};
+const decodeSave = (input: string): any => JSON.parse(window.atob(input));
 
 export const importSave = (input: string) => {
     const { setState } = useGameStore;
@@ -29,6 +26,7 @@ export const importSave = (input: string) => {
 
     Object.entries(decoded).forEach(([key, value]) => {
         if (typeof value === "function" || value === undefined) return;
+        console.log(key, ":", value);
         setState({ [key]: value });
     });
 };
