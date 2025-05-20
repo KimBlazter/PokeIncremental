@@ -15,7 +15,7 @@ export interface ItemSlice {
     addItem: (item: Item) => void;
     removeItem: (id: string) => void;
     useItem: (id: string) => void;
-    hasItem: (name: string) => boolean;
+    hasItem: (id: string) => boolean;
 }
 
 export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (

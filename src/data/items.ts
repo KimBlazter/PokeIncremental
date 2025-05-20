@@ -1,6 +1,8 @@
 import { Item } from "@/stores/items";
 
-export const GAME_ITEMS: Record<string, Item> = {
+export type GameItemKey = keyof typeof GAME_ITEMS;
+
+export const GAME_ITEMS = {
     wooden_axe: {
         id: "wooden_axe",
         name: "Wooden Axe",
@@ -11,4 +13,4 @@ export const GAME_ITEMS: Record<string, Item> = {
         name: "Stone Axe",
         textureIdentifier: "stone_axe",
     },
-};
+} satisfies Record<string, Item>;
