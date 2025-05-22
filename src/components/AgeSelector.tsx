@@ -4,6 +4,7 @@ import AgeButton from "./AgeButton";
 
 export default function AgeSelector() {
     const ages = useGameStore((state) => state.ages);
+    const currentAge = useGameStore((state) => state.setCurrentAge);
     const setCurrentAge = useGameStore((state) => state.setCurrentAge);
 
     return (
@@ -11,7 +12,11 @@ export default function AgeSelector() {
             {Object.keys(ages).map(
                 (ageKey) =>
                     ages[ageKey as AgeKey].unlocked && (
-                        <AgeButton key={ageKey} ageKey={ageKey as AgeKey} />
+                        <AgeButton
+                            key={ageKey}
+                            ageKey={ageKey as AgeKey}
+                            onClick={setCurrentAge}
+                        />
                     )
             )}
         </div>

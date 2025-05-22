@@ -4,10 +4,15 @@ import { getTextureFromIdentifier } from "@/utils/item-models";
 import clsx from "clsx";
 import { Tooltip } from "./Tooltip";
 
-export default function AgeButton({ ageKey }: { ageKey: AgeKey }) {
+export default function AgeButton({
+    ageKey,
+    onClick,
+}: {
+    ageKey: AgeKey;
+    onClick: (age: AgeKey) => void;
+}) {
     const currentAge = useGameStore((state) => state.currentAge);
     const ageProperties = useGameStore((state) => state.ages[ageKey]);
-    const setAge = useGameStore((state) => state.setCurrentAge);
     return (
         <Tooltip
             content={<span>{ageProperties.name} Age</span>}
@@ -21,7 +26,7 @@ export default function AgeButton({ ageKey }: { ageKey: AgeKey }) {
                         "!bg-mcInventoryBackground/30 hover:!bg-mcInventoryBackground/50"
                     :   ""
                 )}
-                onClick={() => setAge(ageKey)}
+                onClick={() => onClick(ageKey)}
             >
                 <div
                     aria-hidden
