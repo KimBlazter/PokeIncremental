@@ -10,6 +10,7 @@ export type Age = {
     name: string;
     unlocked: boolean;
     collectible: Resource;
+    iconIdentifier?: string;
 };
 
 export interface AgeSlice {
