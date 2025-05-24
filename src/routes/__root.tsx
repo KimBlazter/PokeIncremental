@@ -1,6 +1,5 @@
 import { createRootRoute, HeadContent, Outlet } from "@tanstack/react-router";
 
-import "@/assets/css/index.css";
 import Header from "@/components/Header";
 export const Route = createRootRoute({
     component: () => (
@@ -20,6 +19,12 @@ export const Route = createRootRoute({
             },
             {
                 title: "Craft&Click",
+            },
+        ],
+        links: [
+            {
+                href: "/src/assets/css/index.css",
+                rel: "stylesheet",
             },
         ],
     }),
