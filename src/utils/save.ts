@@ -4,6 +4,7 @@
  * @module save
  */
 
+import { AchievementKey } from "@/stores/achivements";
 import { GameStore, useGameStore } from "@/stores/game";
 import { UpgradeKey } from "@/stores/upgrades";
 import { produce } from "immer";
@@ -85,6 +86,15 @@ const mergeStates = (
             (upgradeKey) =>
                 (draft.upgrades![upgradeKey as UpgradeKey].effect =
                     baseState.upgrades[upgradeKey as UpgradeKey].effect)
+        );
+        Object.keys(draft.achievements!).map(
+            (achievementKey) =>
+                (draft.achievements![
+                    achievementKey as AchievementKey
+                ].condition =
+                    baseState.achievements[
+                        achievementKey as AchievementKey
+                    ].condition)
         );
     });
     return { ...baseState, ...merged };
