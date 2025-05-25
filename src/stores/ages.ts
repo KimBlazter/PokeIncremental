@@ -11,6 +11,7 @@ export type Age = {
     unlocked: boolean;
     collectible: Resource;
     iconIdentifier?: string;
+    splashScreenUrl?: string;
 };
 
 export interface AgeSlice {

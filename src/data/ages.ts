@@ -6,12 +6,14 @@ export const ages = {
         unlocked: true,
         collectible: "wood",
         iconIdentifier: "oak_log",
+        splashScreenUrl: "/textures/splash-screens/wood-age-screen.png",
     },
     stone: {
         name: "Stone",
         unlocked: false,
         collectible: "cobblestone",
         iconIdentifier: "stone",
+        splashScreenUrl: "/textures/splash-screens/stone-age-screen.png",
     },
     iron: {
         name: "Iron",
