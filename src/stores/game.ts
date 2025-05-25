@@ -5,13 +5,15 @@ import { createMultiplierSlice, MultiplierSlice } from "./multipliers";
 import { createUpgradeSlice, UpgradeSlice } from "./upgrades";
 import { AgeSlice, createAgeSlice } from "./ages";
 import { CraftSlice, createCraftSlice } from "./crafts";
+import { AchievementSlice, createAchievementSlice } from "./achivements";
 
 export type GameStore = ItemSlice &
     ResourceSlice &
     MultiplierSlice &
     UpgradeSlice &
     AgeSlice &
-    CraftSlice;
+    CraftSlice &
+    AchievementSlice;
 
 export const useGameStore = create<GameStore>((...a) => ({
     ...createItemSlice(...a),
@@ -20,4 +22,5 @@ export const useGameStore = create<GameStore>((...a) => ({
     ...createUpgradeSlice(...a),
     ...createAgeSlice(...a),
     ...createCraftSlice(...a),
+    ...createAchievementSlice(...a),
 }));
