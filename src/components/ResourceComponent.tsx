@@ -21,6 +21,8 @@ export default function ResourceComponent({
                     resourceKey={resourceKey}
                 />
             }
+            position="top"
+            align="start"
         >
             <div className="item-slot relative flex items-center justify-center text-xs">
                 <div
@@ -33,7 +35,7 @@ export default function ResourceComponent({
                     )}
                 />
                 <span
-                    className="text-mc mc-text-shadow absolute right-0 bottom-0 text-right text-sm"
+                    className="mc-text-shadow absolute right-0 bottom-0 text-right text-sm"
                     style={{
                         lineHeight: "1",
                         fontVariantLigatures: "none",
