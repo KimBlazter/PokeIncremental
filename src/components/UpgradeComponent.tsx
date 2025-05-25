@@ -13,20 +13,25 @@ export default function UpgradeComponent({
     const unlockUpgrade = useGameStore((state) => state.unlockUpgrade);
     const resources = useGameStore((state) => state.resources);
     return (
-        <Tooltip content={<div>{upgrade.description}</div>} position="left">
+        <Tooltip
+            content={<div>{upgrade.description}</div>}
+            position="left"
+            align="start"
+        >
             <button
                 disabled={upgrade.unlocked}
-                className="flex w-full flex-col"
+                className="flex w-full flex-col !bg-gray-600"
                 onClick={() => {
                     unlockUpgrade(upgradeKey);
                 }}
             >
                 {upgrade.name}
                 {!upgrade.unlocked && (
-                    <span className="text-sm text-white/40">
+                    <span className="text-sm text-gray-300 text-shadow-none">
                         {upgrade.cost.resource}: {upgrade.cost.amount}{" "}
                         <span
                             className={clsx(
+                                "mc-text-shadow",
                                 (
                                     resources[upgrade.cost.resource].amount <
                                         upgrade.cost.amount
