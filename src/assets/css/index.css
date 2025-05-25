@@ -1,18 +1,6 @@
 @import "tailwindcss";
 @import "@/assets/css/icons-minecraft-215.css";
 
-@font-face {
-    font-family: "Monocraft";
-    src: url("/src/assets/fonts/Monocraft.otf") format("opentype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Minecraft";
-    src: url("/src/assets/fonts/Minecraft.ttf") format("truetype");
-}
-
 @theme static {
     --color-mcInventoryBackground: #c6c6c6;
     --color-mcInventoryText: #3f3f3f;
@@ -22,12 +10,6 @@
     --color-mcSlotPlaceholder: #192022;
 }
 
-@layer utilities {
-    .mc-text-shadow {
-        text-shadow: 2px 2px 0px rgba(29, 29, 29, 0.9);
-    }
-}
-
 @layer components {
     .item-slot {
         border: solid 4px transparent;
@@ -35,6 +17,7 @@
         background-color: var(--color-mcSlotBackground);
         color: var(--color-mcSlotText);
         letter-spacing: -0.5px;
+
         @apply aspect-square;
         @apply size-12;
     }
@@ -52,6 +35,38 @@
         border: solid 4px transparent;
         border-image: url("/gui/mc-tooltip-border.png") 30 fill stretch;
     }
+
+    .dialog-border {
+        border: solid 16px transparent;
+        border-image: url("/gui/mc-dialog-border.png") 30 fill stretch;
+    }
+
+    .dialog-border-transparent {
+        border-style: solid;
+        border-image-slice: 30;
+        border-image-width: 16px;
+        border-image-outset: 0em;
+        border-image-repeat: stretch stretch;
+        border-image-source: url("/gui/mc-dialog-border-transparent.png");
+    }
+}
+
+@layer utilities {
+    .mc-text-shadow {
+        text-shadow: 1.8px 1.8px 0px rgba(29, 29, 29, 0.7);
+    }
+}
+
+@font-face {
+    font-family: "Monocraft";
+    src: url("/src/assets/fonts/Monocraft.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Minecraft";
+    src: url("/src/assets/fonts/Minecraft.ttf") format("truetype");
 }
 
 :root {
@@ -62,14 +77,13 @@
     font-size: medium;
 
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    cursor: url("/textures/cursors/customcursor.png"), default;
+    cursor: url("/textures/cursors/default_cursor_with_tail.png"), default;
 }
 
 a {
@@ -87,27 +101,27 @@ body {
     min-height: 100vh;
 }
 
-h1 {
-    font-size: 1.25rem;
+button {
+    /* BEGIN: Custom border */
+    border-style: solid;
+    border-image-slice: 30;
+    border-image-width: 16px;
+    border-image-outset: 0em;
+    border-image-repeat: stretch stretch;
+    border-image-source: url("/gui/mc-dialog-border-transparent.png");
+    /* END: Custom border */
+    text-shadow: 1.8px 1.6px 0px rgba(29, 29, 29, 0.7);
+    @apply bg-gray-400 p-4;
+    color: white;
 }
 
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-}
 button:hover {
-    border-color: #646cff;
+    filter: brightness(1.2);
 }
-button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+
+button:active {
+    border-image-source: url("/gui/mc-dialog-border-transparent-inverted.png");
+    filter: brightness(0.9);
 }
 
 a,
@@ -116,18 +130,39 @@ button,
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
-    cursor: url("/textures/cursors/customcursor_cross.png"), pointer;
+    cursor: url("/textures/cursors/cursor_pointer.png"), pointer;
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
+/* BEGIN: Toast */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
-    a:hover {
-        color: #747bff;
-    }
-    button {
-        background-color: #f9f9f9;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
+
+@keyframes fadeOutUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+.toast-enter {
+    animation: fadeInUp 0.3s ease-out forwards;
+}
+
+.toast-leave {
+    animation: fadeOutUp 0.3s ease-in forwards;
+}
+
+/* END: Toast */
