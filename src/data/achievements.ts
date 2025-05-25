@@ -9,6 +9,7 @@ export const achievements = {
     },
     "iron.man_of_steel": {
         name: "Man of Steel",
+        parentId: "stone.stoner",
         texture_identifier: "iron_nugget",
         condition: (gamestore) => gamestore.resources.iron.amount >= 100,
         unlocked: false,
