@@ -2,7 +2,7 @@ import { exportSave, importSave } from "@/utils/save";
 
 export default function SaveManager() {
     return (
-        <div>
+        <div className="flex flex-row gap-3">
             <button
                 onClick={() => {
                     navigator.clipboard.writeText(exportSave());
