@@ -12,6 +12,7 @@ export default function CraftComponent({ craftId }: { craftId: CraftKey }) {
         <Tooltip
             className="aspect-square h-12 w-12"
             content={<CraftTooltipContent craft={craft} />}
+            align="end"
         >
             <div
                 className="item-slot relative flex items-center justify-center bg-none text-xs"
