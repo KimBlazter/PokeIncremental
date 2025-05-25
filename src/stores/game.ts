@@ -7,7 +7,12 @@ import { AgeSlice, createAgeSlice } from "./ages";
 import { CraftSlice, createCraftSlice } from "./crafts";
 import { AchievementSlice, createAchievementSlice } from "./achivements";
 
-export type GameStore = ItemSlice &
+type GameStoreUtils = {
+    init: () => void;
+};
+
+export type GameStore = GameStoreUtils &
+    ItemSlice &
     ResourceSlice &
     MultiplierSlice &
     UpgradeSlice &
@@ -23,4 +28,7 @@ export const useGameStore = create<GameStore>((...a) => ({
     ...createAgeSlice(...a),
     ...createCraftSlice(...a),
     ...createAchievementSlice(...a),
+    init: () => {
+        a["1"]().updateUnlockables(); // a["1"] => useGameStore.get
+    },
 }));
