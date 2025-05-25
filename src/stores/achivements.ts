@@ -8,7 +8,7 @@ export type AchievementKey = keyof typeof achievements;
 
 export type Achievement = {
     name: string;
-    parentId?: AchievementKey;
+    parentId?: string;
     texture_identifier: string; // image identifier
     condition: (gamestore: GameStore) => boolean;
     unlocked: boolean;
@@ -38,7 +38,10 @@ export const createAchievementSlice: StateCreator<
                 if (ach.unlocked) return;
 
                 // Do nothing if parent is not unlocked
-                if (ach.parentId && !state.achievements[ach.parentId].unlocked)
+                if (
+                    ach.parentId &&
+                    !state.achievements[ach.parentId as AchievementKey].unlocked
+                )
                     return;
 
                 // Unlock achievement
@@ -71,7 +74,8 @@ export const createAchievementSlice: StateCreator<
                         // If it has a parent, the parent must be unlocked
                         return (
                             !ach.parentId ||
-                            state.achievements[ach.parentId].unlocked
+                            state.achievements[ach.parentId as AchievementKey]
+                                .unlocked
                         );
                     }
                 ) as AchievementKey[];
