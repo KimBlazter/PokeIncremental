@@ -1,6 +1,7 @@
 import { createRootRoute, HeadContent, Outlet } from "@tanstack/react-router";
 
 import Header from "@/components/Header";
+import ToastContainer from "@/components/ToastContainer";
 export const Route = createRootRoute({
     component: () => (
         <>
@@ -9,6 +10,7 @@ export const Route = createRootRoute({
             <main className="h-screen pt-12">
                 <Outlet />
             </main>
+            <ToastContainer />
         </>
     ),
     head: () => ({
