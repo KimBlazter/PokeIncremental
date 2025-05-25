@@ -11,6 +11,7 @@
 }
 
 @layer components {
+    /* BEGIN: borders */
     .item-slot {
         border: solid 4px transparent;
         border-image: url("/gui/mc-slot-border-transparent.png") 8 round;
@@ -49,6 +50,7 @@
         border-image-repeat: stretch stretch;
         border-image-source: url("/gui/mc-dialog-border-transparent.png");
     }
+    /* END: borders */
 }
 
 @layer utilities {
