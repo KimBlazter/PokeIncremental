@@ -19,12 +19,10 @@ export default function AgeButton({
             position="bottom"
             align="start"
         >
-            <div
+            <button
                 className={clsx(
-                    "bg-mcInventoryBackground/50 border-inset relative flex aspect-square h-full flex-row items-center justify-center border-2 border-t-white/20 border-r-white/50 border-b-white/50 border-l-white/20 !p-2 text-xs",
-                    currentAge !== ageKey ?
-                        "!bg-mcInventoryBackground/30 hover:!bg-mcInventoryBackground/50"
-                    :   ""
+                    "relative flex aspect-square h-12 flex-row items-center justify-center",
+                    currentAge !== ageKey && "!bg-white/30"
                 )}
                 onClick={() => onClick(ageKey)}
             >
@@ -38,7 +36,7 @@ export default function AgeButton({
                     )}
                 />
                 {}
-            </div>
+            </button>
         </Tooltip>
     );
 }
