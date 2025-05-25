@@ -25,12 +25,14 @@ export const createResourceSlice: StateCreator<
     [],
     [],
     ResourceSlice
-> = (set) => ({
+> = (set, get) => ({
     resources: resources,
-    addResource: (resource, amount) =>
+    addResource: (resource, amount) => {
         set(
             produce((state: ResourceSlice) => {
                 state.resources[resource].amount += amount;
             })
-        ),
+        );
+        get().checkAchievements();
+    },
 });
