@@ -1,7 +1,7 @@
 import { createRootRoute, HeadContent, Outlet } from "@tanstack/react-router";
 
 import Header from "@/components/Header";
-import ToastContainer from "@/components/ToastContainer";
+import ToastContainer from "@/components/ui/ToastContainer";
 export const Route = createRootRoute({
     component: () => (
         <>

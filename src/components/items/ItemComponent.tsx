@@ -1,8 +1,8 @@
 import { Item } from "@/stores/items";
 import { getTextureFromIdentifier } from "@/utils/item-models";
 import clsx from "clsx";
-import { Tooltip } from "./Tooltip";
-import ItemTooltipContent from "./Tooltips/ItemTooltipContent";
+import { Tooltip } from "@/components/ui/Tooltip";
+import ItemTooltipContent from "@/components/Tooltips/ItemTooltipContent";
 
 export default function ItemComponent({ item }: { item: Item }) {
     return (

@@ -2,7 +2,7 @@ import { AgeKey } from "@/stores/ages";
 import { useGameStore } from "@/stores/game";
 import { getTextureFromIdentifier } from "@/utils/item-models";
 import clsx from "clsx";
-import { Tooltip } from "./Tooltip";
+import { Tooltip } from "../ui/Tooltip";
 
 export default function AgeButton({
     ageKey,

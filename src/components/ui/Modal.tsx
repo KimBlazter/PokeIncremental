@@ -67,6 +67,13 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
                     isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
                 }`}
             >
+                {/* Close modal */}
+                <button
+                    onClick={() => onClose()}
+                    className="absolute top-0 right-0 flex aspect-square flex-col items-center justify-center !bg-red-500 text-white"
+                >
+                    ×
+                </button>
                 {children}
             </div>
         </div>

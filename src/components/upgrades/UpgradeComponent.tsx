@@ -1,7 +1,7 @@
 import { useGameStore } from "@/stores/game";
 import { Upgrade, UpgradeKey } from "@/stores/upgrades";
 import clsx from "clsx";
-import { Tooltip } from "./Tooltip";
+import { Tooltip } from "../ui/Tooltip";
 
 export default function UpgradeComponent({
     upgradeKey,

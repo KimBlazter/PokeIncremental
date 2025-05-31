@@ -1,9 +1,9 @@
 import { CraftKey } from "@/stores/crafts";
 import { getTextureFromIdentifier } from "@/utils/item-models";
 import clsx from "clsx";
-import { Tooltip } from "./Tooltip";
+import { Tooltip } from "@/components/ui/Tooltip";
 import { useGameStore } from "@/stores/game";
-import CraftTooltipContent from "./Tooltips/CraftTooltipContent";
+import CraftTooltipContent from "@/components/Tooltips/CraftTooltipContent";
 
 export default function CraftComponent({ craftId }: { craftId: CraftKey }) {
     const craft = useGameStore((state) => state.crafts[craftId]);

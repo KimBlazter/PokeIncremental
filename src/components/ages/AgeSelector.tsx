@@ -1,6 +1,6 @@
 import { AgeKey } from "@/stores/ages";
 import { useGameStore } from "@/stores/game";
-import AgeButton from "./AgeButton";
+import AgeButton from "@/components/ages/AgeButton";
 
 export default function AgeSelector() {
     const ages = useGameStore((state) => state.ages);

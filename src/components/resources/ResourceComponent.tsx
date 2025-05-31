@@ -3,8 +3,8 @@ import { getTextureFromIdentifier } from "@/utils/item-models";
 import clsx from "clsx";
 import { formatNumber } from "@/utils/number-formatting-compact";
 import Decimal from "break_eternity.js";
-import { Tooltip } from "./Tooltip";
-import ResourceTooltipContent from "./Tooltips/ResourceTooltipContent";
+import { Tooltip } from "@/components/ui/Tooltip";
+import ResourceTooltipContent from "@/components/Tooltips/ResourceTooltipContent";
 
 export default function ResourceComponent({
     resourceData,

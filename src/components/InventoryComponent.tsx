@@ -1,5 +1,5 @@
-import ResourcesComponent from "@/components/ResourcesComponent";
-import ItemsComponent from "@/components/ItemsComponent";
+import ResourcesComponent from "@/components/resources/ResourcesComponent";
+import ItemsComponent from "@/components/items/ItemsComponent";
 
 export default function InventoryComponent() {
     return (
