@@ -4,6 +4,7 @@ import { produce } from "immer";
 
 export interface Toast {
     id: string;
+    title?: string;
     message: string;
     type: "success" | "info";
     duration: number; // in ms
