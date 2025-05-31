@@ -33,11 +33,14 @@ export default function ToastContainer() {
                     <div
                         key={toast.id}
                         className={clsx(
-                            "dialog-border-transparent !bg-amber-400 p-4 text-lg text-black/70 shadow-md transition-all",
+                            "dialog-border-transparent !bg-amber-400 p-4 px-6 text-black/70 shadow-md transition-all",
                             isLeaving ? "toast-leave" : "toast-enter"
                         )}
                     >
-                        {toast.message}
+                        {toast.title && (
+                            <h2 className="text-lg uppercase">{toast.title}</h2>
+                        )}
+                        <p className="text-base">{toast.message}</p>
                     </div>
                 );
             })}
