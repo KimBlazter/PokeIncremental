@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import AgeSplashScreen from "@/components/ages/AgeSplashScreen";
 import SettingsButton from "@/components/buttons/SettingsButton";
 import AchievementsButton from "@/components/achievements/AchievementsButton";
-import TabSwitcher from "@/components/ui/TabSwitcher";
 
 export const Route = createFileRoute("/")({
     component: Index,
