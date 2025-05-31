@@ -18,8 +18,8 @@ export interface AchievementSlice {
     achievements: Record<AchievementKey, Achievement>;
     unlockAchievement: (id: AchievementKey) => void;
     checkAchievements: () => void;
-    unlockables: AchievementKey[];
-    updateUnlockables: () => void;
+    unlockableAchievements: AchievementKey[];
+    updateUnlockableAchievements: () => void;
 }
 
 export const createAchievementSlice: StateCreator<
@@ -54,31 +54,34 @@ export const createAchievementSlice: StateCreator<
             })
         ),
     checkAchievements: () => {
-        Object.keys(get().achievements).forEach((achievementKey) => {
+        get().unlockableAchievements.forEach((achievementKey) => {
             const achievement =
                 get().achievements[achievementKey as AchievementKey];
-            if (achievement.condition(get()))
+            if (achievement.condition(get())) {
                 get().unlockAchievement(achievementKey as AchievementKey);
+                get().updateUnlockableAchievements();
+                get().checkAchievements();
+            }
         });
     },
-    unlockables: [],
-    updateUnlockables: () =>
+    unlockableAchievements: [],
+    updateUnlockableAchievements: () =>
         set(
             produce((state: AchievementSlice) => {
-                state.unlockables = Object.keys(state.achievements).filter(
-                    (key) => {
-                        const ach = state.achievements[key as AchievementKey];
-                        // Only consider achievements that aren't already unlocked
-                        if (ach.unlocked) return false;
+                state.unlockableAchievements = Object.keys(
+                    state.achievements
+                ).filter((key) => {
+                    const ach = state.achievements[key as AchievementKey];
+                    // Only consider achievements that aren't already unlocked
+                    if (ach.unlocked) return false;
 
-                        // If it has a parent, the parent must be unlocked
-                        return (
-                            !ach.parentId ||
-                            state.achievements[ach.parentId as AchievementKey]
-                                .unlocked
-                        );
-                    }
-                ) as AchievementKey[];
+                    // If it has a parent, the parent must be unlocked
+                    return (
+                        !ach.parentId ||
+                        state.achievements[ach.parentId as AchievementKey]
+                            .unlocked
+                    );
+                }) as AchievementKey[];
             })
         ),
 });

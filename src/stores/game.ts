@@ -29,6 +29,6 @@ export const useGameStore = create<GameStore>((...a) => ({
     ...createCraftSlice(...a),
     ...createAchievementSlice(...a),
     init: () => {
-        a["1"]().updateUnlockables(); // a["1"] => useGameStore.get
+        a["1"]().updateUnlockableAchievements(); // a["1"] => useGameStore.get
     },
 }));

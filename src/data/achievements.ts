@@ -1,9 +1,10 @@
 import { Achievement } from "@/stores/achivements";
+import { AgeKey } from "@/stores/ages";
 
 export const achievements = {
     "stone.stoner": {
         name: "Stoner",
-        texture_identifier: "stone_block",
+        texture_identifier: "stone",
         condition: (gamestore) => gamestore.resources.cobblestone.amount >= 42,
         unlocked: false,
     },
@@ -14,4 +15,6 @@ export const achievements = {
         condition: (gamestore) => gamestore.resources.iron.amount >= 100,
         unlocked: false,
     },
-} satisfies Record<string, Achievement>;
+} satisfies Record<AchievementKeyType, Achievement>;
+
+type AchievementKeyType = `${AgeKey}.${string}`;
