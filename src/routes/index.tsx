@@ -1,14 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import InventoryComponent from "@/components/InventoryComponent";
-import MineResourceButton from "@/components/MineResourceButton";
-import UpgradesComponent from "@/components/UpgradesComponent";
-import SaveManager from "@/components/SaveManager";
-import AgeSelector from "@/components/AgeSelector";
-import CraftsComponent from "@/components/CraftsComponent";
+import MineResourceButton from "@/components/buttons/MineResourceButton";
+import UpgradesComponent from "@/components/upgrades/UpgradesComponent";
+import AgeSelector from "@/components/ages/AgeSelector";
+import CraftsComponent from "@/components/crafts/CraftsComponent";
 import { useGameStore } from "@/stores/game";
 import { useEffect } from "react";
-import AgeSplashScreen from "@/components/Tooltips/AgeSplashScreen";
-import SettingsButton from "@/components/SettingsButton";
+import AgeSplashScreen from "@/components/ages/AgeSplashScreen";
+import SettingsButton from "@/components/buttons/SettingsButton";
+import AchievementsButton from "@/components/achievements/AchievementsButton";
+import TabSwitcher from "@/components/ui/TabSwitcher";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -28,13 +29,14 @@ function Index() {
         <div id="root" className="flex h-full w-full flex-row gap-2">
             {/* Left Panel */}
             <div
-                className="dialog-border-transparent flex h-full w-1/7 flex-col p-4"
+                className="dialog-border-transparent flex h-full w-1/7 flex-col gap-2 p-4"
                 style={{
                     backgroundImage: `url("/textures/blocks/oak_planks.png")`,
                     backgroundSize: "48px",
                     imageRendering: "pixelated",
                 }}
             >
+                <AchievementsButton />
                 <SettingsButton />
             </div>
 
@@ -46,7 +48,6 @@ function Index() {
                     <AgeSplashScreen>
                         <div className="flex h-full w-full flex-col items-center justify-between p-4">
                             <MineResourceButton />
-                            <SaveManager />
                         </div>
                     </AgeSplashScreen>
                 </div>
