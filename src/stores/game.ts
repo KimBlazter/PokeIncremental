@@ -6,6 +6,8 @@ import { createUpgradeSlice, UpgradeSlice } from "./upgrades";
 import { AgeSlice, createAgeSlice } from "./ages";
 import { CraftSlice, createCraftSlice } from "./crafts";
 import { AchievementSlice, createAchievementSlice } from "./achivements";
+import { createSettingsSlice, SettingsSlice } from "./settings";
+import { loadFromLocalStorage } from "@/utils/save";
 
 type GameStoreUtils = {
     init: () => void;
@@ -18,7 +20,8 @@ export type GameStore = GameStoreUtils &
     UpgradeSlice &
     AgeSlice &
     CraftSlice &
-    AchievementSlice;
+    AchievementSlice &
+    SettingsSlice;
 
 export const useGameStore = create<GameStore>((...a) => ({
     ...createItemSlice(...a),
@@ -28,7 +31,9 @@ export const useGameStore = create<GameStore>((...a) => ({
     ...createAgeSlice(...a),
     ...createCraftSlice(...a),
     ...createAchievementSlice(...a),
+    ...createSettingsSlice(...a),
     init: () => {
+        loadFromLocalStorage();
         a["1"]().updateUnlockableAchievements(); // a["1"] => useGameStore.get
     },
 }));
