@@ -4,9 +4,8 @@
  * @module save
  */
 
-import { AchievementKey } from "@/stores/achivements";
 import { GameStore, useGameStore } from "@/stores/game";
-import { UpgradeKey } from "@/stores/upgrades";
+import { useToastStore } from "@/stores/toast";
 import { produce } from "immer";
 
 type NonFunctionPropertyNames<T> = {
@@ -38,6 +37,35 @@ const storeToJson = (): GameStoreWithoutFunctions => {
         {} as GameStoreWithoutFunctions
     );
     return sortedStore;
+};
+
+export const saveToLocalStorage = (): void => {
+    window.localStorage.setItem(
+        "ageofsteveSave",
+        window.btoa(JSON.stringify(storeToJson()))
+    );
+    useToastStore.getState().addToast({
+        message: "Game saved",
+        type: "info",
+        duration: 5000,
+    });
+};
+
+export const loadFromLocalStorage = (): void => {
+    const { setState, getState } = useGameStore;
+    const cryptedSave = window.localStorage.getItem("ageofsteveSave");
+
+    if (!cryptedSave) {
+        console.warn("Failed to load save from localStorage");
+        return;
+    }
+
+    const imported = decodeSave(cryptedSave);
+
+    const merged = mergeStates(getState(), imported);
+
+    console.log(merged);
+    setState(merged);
 };
 
 /**
@@ -80,22 +108,21 @@ const mergeStates = (
     baseState: GameStore,
     importedState: Partial<GameStore>
 ): GameStore => {
-    // Merge upgrade.effect with the imported state because functions are not exported with JSON
-    const merged = produce(importedState, (draft) => {
-        Object.keys(draft.upgrades!).map(
-            (upgradeKey) =>
-                (draft.upgrades![upgradeKey as UpgradeKey].effect =
-                    baseState.upgrades[upgradeKey as UpgradeKey].effect)
-        );
-        Object.keys(draft.achievements!).map(
-            (achievementKey) =>
-                (draft.achievements![
-                    achievementKey as AchievementKey
-                ].condition =
-                    baseState.achievements[
-                        achievementKey as AchievementKey
-                    ].condition)
-        );
-    });
-    return { ...baseState, ...merged };
+    // DO NOT TOUCH IT WORKS... FOR NOW
+    const merge = (imported: GameStore, base: GameStore) => {
+        return produce(imported, (draft: Record<string, any>) => {
+            Object.entries(base).forEach(([key, value]) => {
+                if (typeof value === "function") {
+                    draft[key] = value;
+                } else if (typeof value === "object" && value !== null) {
+                    if (!draft[key] || typeof draft[key] !== "object") {
+                        draft[key] = {};
+                    }
+                    draft[key] = merge(draft[key], value);
+                }
+            });
+        });
+    };
+
+    return merge(importedState as GameStore, baseState);
 };
