@@ -7,8 +7,10 @@ import CraftsComponent from "@/components/crafts/CraftsComponent";
 import { useGameStore } from "@/stores/game";
 import { useEffect } from "react";
 import AgeSplashScreen from "@/components/ages/AgeSplashScreen";
-import SettingsButton from "@/components/buttons/SettingsButton";
+import SettingsButton from "@/components/settings/SettingsButton";
 import AchievementsButton from "@/components/achievements/AchievementsButton";
+import { useHotkeys } from "@/hooks/useHotkeys";
+import TabSwitcher from "@/components/ui/TabSwitcher";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -16,6 +18,7 @@ export const Route = createFileRoute("/")({
 
 // IMPORTANT: the id "root" of the first div is mandatory.. else it will break the TanStack Router
 function Index() {
+    useHotkeys();
     const init = useGameStore((state) => state.init);
 
     // Initialize the game state when the component mounts
@@ -60,7 +63,15 @@ function Index() {
             {/* Right Panel */}
             <div className="flex h-full w-1/3 flex-col bg-red-400 p-4">
                 <UpgradesComponent />
-                <CraftsComponent />
+                <TabSwitcher
+                    tabs={[
+                        {
+                            title: "Crafts",
+                            icon: "crafting_table",
+                            content: <CraftsComponent />,
+                        },
+                    ]}
+                />
             </div>
         </div>
     );
