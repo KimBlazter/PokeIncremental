@@ -11,8 +11,9 @@ export default function AchievementsButton() {
     return (
         <div className="mt-auto w-full">
             <button
-                onClick={() => setOpen(true)}
+                onClick={() => setOpen(!open)}
                 className="w-full !text-white"
+                id="open-achievements-button"
             >
                 Achievements
             </button>
