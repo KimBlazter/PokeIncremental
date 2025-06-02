@@ -1,4 +1,5 @@
 import { useGameStore } from "@/stores/game";
+import { useModalStore } from "@/stores/modals";
 import { HotkeySettingsData } from "@/stores/settings";
 import { exportSave, saveToLocalStorage } from "@/utils/save";
 
@@ -14,8 +15,7 @@ export const hotkeys = {
     },
     openAchievements: {
         hotkey: "A",
-        action: () =>
-            document.getElementById("open-achievements-button")?.click(),
+        action: () => useModalStore.getState().toggle("achievements-modal"),
     },
     saveGame: {
         hotkey: "S",
@@ -25,6 +25,6 @@ export const hotkeys = {
     },
     openSettings: {
         hotkey: "P",
-        action: () => document.getElementById("open-settings-button")?.click(),
+        action: () => useModalStore.getState().toggle("settings-modal"),
     },
 } satisfies Record<string, HotkeySettingsData>;
