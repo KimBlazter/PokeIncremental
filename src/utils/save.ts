@@ -46,7 +46,7 @@ export const saveToLocalStorage = (): void => {
     );
     useToastStore.getState().addToast({
         message: "Game saved",
-        type: "info",
+        type: "save",
         duration: 5000,
     });
 };
