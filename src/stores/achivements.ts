@@ -48,7 +48,7 @@ export const createAchievementSlice: StateCreator<
                 useToastStore.getState().addToast({
                     title: "Achivement Unlocked",
                     message: ach.name,
-                    type: "success",
+                    type: "achievement",
                     duration: 5000,
                 });
                 state.achievements[achievementId].unlocked = true;
