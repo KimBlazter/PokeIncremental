@@ -2,11 +2,13 @@ import { create } from "zustand";
 import { nanoid } from "nanoid";
 import { produce } from "immer";
 
+export type ToastType = "achievement" | "save" | "info" | "quest" | "error";
+
 export interface Toast {
     id: string;
     title?: string;
     message: string;
-    type: "success" | "info";
+    type: ToastType;
     duration: number; // in ms
 }
 
