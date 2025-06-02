@@ -1,4 +1,5 @@
 import { useToastStore } from "@/stores/toast";
+import { toastTypeToColor } from "@/utils/color";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
@@ -33,7 +34,8 @@ export default function ToastContainer() {
                     <div
                         key={toast.id}
                         className={clsx(
-                            "dialog-border-transparent !bg-amber-400 p-4 px-6 text-black/70 shadow-md transition-all",
+                            "dialog-border-transparent p-4 px-6 text-black/70 shadow-md transition-all",
+                            toastTypeToColor[toast.type],
                             isLeaving ? "toast-leave" : "toast-enter"
                         )}
                     >
