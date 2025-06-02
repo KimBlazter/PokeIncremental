@@ -1,31 +1,33 @@
 import { useEffect, useRef, useState } from "react";
+import { useModalStore } from "@/stores/modals";
 
 type ModalProps = {
-    isOpen: boolean;
-    onClose: () => void;
+    modalId: string;
     children: React.ReactNode;
 };
 
-export default function Modal({ isOpen, onClose, children }: ModalProps) {
+export default function Modal({ modalId, children }: ModalProps) {
     const overlayRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const [show, setShow] = useState(false);
 
-    // Animation mount/unmount
+    const { openModalId, close } = useModalStore();
+    const isOpen = openModalId === modalId;
+
+    // Animation
     useEffect(() => {
-        if (isOpen) {
-            setShow(true);
-        } else {
-            const timeout = setTimeout(() => setShow(false), 200); // durée = animation exit
+        if (isOpen) setShow(true);
+        else {
+            const timeout = setTimeout(() => setShow(false), 200);
             return () => clearTimeout(timeout);
         }
     }, [isOpen]);
 
-    // Click dehors / ESC
+    // ESC et click dehors
     useEffect(() => {
         if (!isOpen) return;
 
-        function handleClickOutside(e: MouseEvent) {
+        const handleClickOutside = (e: MouseEvent) => {
             if (
                 overlayRef.current &&
                 contentRef.current &&
@@ -33,24 +35,21 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
                 overlayRef.current.contains(e.target) &&
                 !contentRef.current.contains(e.target)
             ) {
-                onClose();
+                close();
             }
-        }
+        };
 
-        function handleEscKey(e: KeyboardEvent) {
-            if (e.key === "Escape") {
-                onClose();
-            }
-        }
+        const handleEscKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") close();
+        };
 
         document.addEventListener("mousedown", handleClickOutside);
         document.addEventListener("keydown", handleEscKey);
-
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
             document.removeEventListener("keydown", handleEscKey);
         };
-    }, [isOpen, onClose]);
+    }, [isOpen, close]);
 
     if (!show) return null;
 
@@ -67,9 +66,8 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
                     isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
                 }`}
             >
-                {/* Close modal */}
                 <button
-                    onClick={() => onClose()}
+                    onClick={() => close()}
                     className="absolute top-0 right-0 flex aspect-square flex-col items-center justify-center !bg-red-500 text-white"
                 >
                     ×
