@@ -1,23 +1,23 @@
-import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import { useGameStore } from "@/stores/game";
 import ItemIcon from "../ItemIcon";
 import clsx from "clsx";
+import { useModalStore } from "@/stores/modals";
 
 export default function AchievementsButton() {
     const achievements = useGameStore((state) => state.achievements);
 
-    const [open, setOpen] = useState(false);
+    const toggle = useModalStore((s) => s.toggle);
     return (
         <div className="mt-auto w-full">
             <button
-                onClick={() => setOpen(!open)}
+                onClick={() => toggle("achievements-modal")}
                 className="w-full !text-white"
                 id="open-achievements-button"
             >
                 Achievements
             </button>
-            <Modal isOpen={open} onClose={() => setOpen(false)}>
+            <Modal modalId="achievements-modal">
                 <div>
                     <h2 className="mb-6 text-xl font-bold">Achievements</h2>
 
