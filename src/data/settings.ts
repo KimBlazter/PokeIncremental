@@ -1,7 +1,7 @@
 import { useGameStore } from "@/stores/game";
 import { useModalStore } from "@/stores/modals";
 import { HotkeySettingsData } from "@/stores/settings";
-import { exportSave, saveToLocalStorage } from "@/utils/save";
+import { saveToLocalStorage } from "@/utils/save";
 
 export const hotkeys = {
     mineCurrent: {
