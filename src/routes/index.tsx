@@ -48,7 +48,7 @@ function Index() {
                 <div className="flex h-1/2 flex-col gap-1">
                     <AgeSelector />
                     <AgeSplashScreen>
-                        <div className="flex h-full w-full flex-col items-center justify-between p-4">
+                        <div className="flex h-full w-full flex-col items-center justify-center p-4">
                             <MineResourceButton />
                         </div>
                     </AgeSplashScreen>
