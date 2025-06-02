@@ -51,7 +51,7 @@ export default function TabSwitcher(props: TabSwitcher.Props) {
             </div>
 
             {/* Tab content */}
-            <div className="inventory-border z-5 h-60 w-full">
+            <div className="inventory-border z-5 h-60 h-full w-full">
                 <div className="bg-mcInventoryBackground h-full w-full">
                     {props.tabs[currentTab].content}
                 </div>

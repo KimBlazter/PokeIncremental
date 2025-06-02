@@ -66,11 +66,17 @@ function Index() {
                 <TabSwitcher
                     tabs={[
                         {
-                            title: "Crafts",
+                            title: "Craft",
                             icon: "crafting_table",
                             content: <CraftsComponent />,
                         },
+                        {
+                            title: "Smelt",
+                            icon: "furnace",
+                            content: "furnace",
+                        },
                     ]}
+                    className="h-5/10"
                 />
             </div>
         </div>
