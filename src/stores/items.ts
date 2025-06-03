@@ -1,11 +1,13 @@
 import { produce } from "immer";
 import { StateCreator } from "zustand";
 import { GameStore } from "./game";
+import { SlotType } from "./equipments";
 
 export type Item = {
     id: string;
     name: string;
     textureIdentifier?: string;
+    equipmentSlot?: SlotType;
 };
 
 export type ToolType = "axe" | "pickaxe" | "shovel" | "sword" | "hoe";
