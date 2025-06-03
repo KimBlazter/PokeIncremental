@@ -6,16 +6,19 @@ export const GAME_ITEMS = {
         id: "wooden_axe",
         name: "Wooden Axe",
         textureIdentifier: "wooden_axe",
+        equipmentSlot: "axe",
     },
     wooden_pickaxe: {
         id: "wooden_pickaxe",
         name: "Wooden Pickaxe",
         textureIdentifier: "wooden_pickaxe",
+        equipmentSlot: "pickaxe",
     },
     wooden_sword: {
         id: "wooden_sword",
         name: "Wooden Sword",
         textureIdentifier: "wooden_sword",
+        equipmentSlot: "sword",
     },
     campfire: {
         id: "campfire",
@@ -26,6 +29,7 @@ export const GAME_ITEMS = {
         id: "shield",
         name: "Shield",
         textureIdentifier: "shield",
+        equipmentSlot: "shield",
     },
     backpack: {
         id: "backpack",
@@ -48,16 +52,19 @@ export const GAME_ITEMS = {
         id: "stone_axe",
         name: "Stone Axe",
         textureIdentifier: "stone_axe",
+        equipmentSlot: "axe",
     },
     stone_pickaxe: {
         id: "stone_pickaxe",
         name: "Stone Pickaxe",
         textureIdentifier: "stone_pickaxe",
+        equipmentSlot: "pickaxe",
     },
     stone_sword: {
         id: "stone_sword",
         name: "Stone Sword",
         textureIdentifier: "stone_sword",
+        equipmentSlot: "sword",
     },
     stone_furnace: {
         id: "stone_furnace",
@@ -78,6 +85,7 @@ export const GAME_ITEMS = {
         id: "leather_boots",
         name: "Leather Boots",
         textureIdentifier: "leather_boots",
+        equipmentSlot: "boots",
     },
     binding: {
         id: "binding",
@@ -85,3 +93,5 @@ export const GAME_ITEMS = {
         textureIdentifier: "lead",
     },
 } satisfies Record<string, Item>;
+
+export type GameItemKey = keyof typeof GAME_ITEMS;
