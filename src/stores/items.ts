@@ -15,7 +15,7 @@ export type ToolType = "axe" | "pickaxe" | "shovel" | "sword" | "hoe";
 export interface ItemSlice {
     items: Item[];
     addItem: (item: Item) => void;
-    removeItem: (id: string) => void;
+    removeItem: (item: Item) => void;
     useItem: (id: string) => void;
     hasItem: (id: string) => boolean;
 }
@@ -31,16 +31,18 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
                 state.items.push(item);
             })
         ),
-    removeItem: (id) => {
+    removeItem: (item: Item) =>
         set(
-            produce((state: GameStore) => {
-                const index = state.items.findIndex((item) => item.id === id);
+            produce((state: ItemSlice) => {
+                const index = state.items.findIndex(
+                    (curr) => curr.id === item.id
+                );
+
                 if (index !== -1) {
                     state.items.splice(index, 1);
                 }
             })
-        );
-    },
+        ),
     useItem: () => {},
     hasItem: (id) => get().items.some((item: Item) => item.id === id),
 });
