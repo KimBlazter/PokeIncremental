@@ -3,7 +3,7 @@ import { Resource } from "./resources";
 import { Item } from "./items";
 import { crafts } from "@/data/crafts";
 import { GameStore } from "./game";
-import { GameItemKey } from "@/data/items";
+import { GAME_ITEMS, GameItemKey } from "@/data/items";
 
 export interface Craft {
     result: { item: Item; qty: number };
@@ -46,9 +46,12 @@ export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
             get().addResource(material, -amount)
         );
 
-        craft.cost.items?.forEach((itemName) => get().removeItem(itemName));
+        craft.cost.items?.forEach(
+            (itemName) => get().removeItem({ ...GAME_ITEMS[itemName] }) // create fake item to remove it from inventory
+        );
 
         // add item
+        console.log("adding : ", get().crafts[id].result.item);
         get().addItem(get().crafts[id].result.item);
     },
 });
