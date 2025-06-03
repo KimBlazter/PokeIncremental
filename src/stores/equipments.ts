@@ -22,6 +22,7 @@ export type Equiments = Record<SlotType, EquipmentData>;
 export interface EquipmentSlice {
     equipments: Equiments;
     equipItem: (item: Item) => void;
+    unequipItem: (slot: SlotType) => void;
 }
 
 export const createEquipmentsSlice: StateCreator<
@@ -29,7 +30,7 @@ export const createEquipmentsSlice: StateCreator<
     [],
     [],
     EquipmentSlice
-> = (set) => ({
+> = (set, get) => ({
     equipments: {
         sword: null,
         axe: null,
@@ -43,19 +44,26 @@ export const createEquipmentsSlice: StateCreator<
         boots: null,
     },
 
-    equipItem: (item) =>
+    equipItem: (item) => {
+        const itemSlot = item.equipmentSlot;
+        if (!itemSlot) return;
+
+        get().unequipItem(itemSlot); // unequip item if present
+        get().removeItem(item); // Remove the item from the inventory
+
+        // Equip the new item
         set(
             produce((state: GameStore) => {
-                const itemSlot = item.equipmentSlot;
-                if (!itemSlot) return;
-                if (state.equipments[itemSlot]) {
-                    // If there's already an item in this slot, unequip it
-                    state.addItem(state.equipments[itemSlot]);
-                    state.equipments[itemSlot] = null; // Remove the item from the slot
-                }
-                // Equip the new item
-                state.removeItem(item.id); // Remove the item from the inventory
                 state.equipments[itemSlot] = item; // Place the item in the equipment slot
             })
-        ),
+        );
+    },
+    unequipItem: (slot: SlotType) => {
+        if (get().equipments[slot]) {
+            // unequip and add back to items
+            get().addItem(get().equipments[slot]!);
+
+            set(produce((state: GameStore) => (state.equipments[slot] = null))); // Remove the item from the slot
+        }
+    },
 });
