@@ -13,6 +13,12 @@ export default function ResourceComponent({
     resourceData: ResourceData;
     resourceKey: Resource;
 }) {
+    // Do not render if the resource amount is 0
+    // This avoids rendering empty slots in the UI
+    if (resourceData.amount == 0) {
+        return;
+    }
+
     return (
         <Tooltip
             content={
