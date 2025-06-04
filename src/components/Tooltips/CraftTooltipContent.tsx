@@ -43,23 +43,29 @@ export default function CraftTooltipContent({ craft }: { craft: Craft }) {
                             </span>
                         ))}
                         {/* Item */}
-                        {craft.cost.items?.map((id) => (
+                        {craft.cost.items?.map((item) => (
                             <span
-                                key={id}
+                                key={item.key}
                                 className={clsx(
                                     "flex flex-row items-center",
-                                    hasItem(GAME_ITEMS[id as GameItemKey].id) ?
+                                    (
+                                        hasItem(
+                                            GAME_ITEMS[item.key as GameItemKey]
+                                                .id,
+                                            item.amount
+                                        )
+                                    ) ?
                                         "text-green-400"
                                     :   "text-red-400"
                                 )}
                             >
-                                1
+                                {item.amount ?? 1}
                                 <div
                                     aria-hidden
                                     className={clsx(
                                         "icon-minecraft-sm ml-0.5",
                                         getTextureFromIdentifier(
-                                            GAME_ITEMS[id as GameItemKey]
+                                            GAME_ITEMS[item.key as GameItemKey]
                                                 .textureIdentifier ?? "barrier"
                                         )
                                     )}
