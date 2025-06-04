@@ -12,6 +12,7 @@ import AchievementsButton from "@/components/achievements/AchievementsButton";
 import { useHotkeys } from "@/hooks/useHotkeys";
 import TabSwitcher from "@/components/ui/TabSwitcher";
 import ToolsHotbar from "@/components/equipments/ToolsHotbar";
+import ArmorsHotbar from "@/components/equipments/ArmorsHotbar";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -53,6 +54,7 @@ function Index() {
                             <MineResourceButton />
                         </div>
                         <ToolsHotbar className="absolute right-0 mr-0.5" />
+                        <ArmorsHotbar className="absolute left-0 ml-0.5" />
                     </AgeSplashScreen>
                 </div>
 
