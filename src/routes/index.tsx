@@ -11,6 +11,7 @@ import SettingsButton from "@/components/settings/SettingsButton";
 import AchievementsButton from "@/components/achievements/AchievementsButton";
 import { useHotkeys } from "@/hooks/useHotkeys";
 import TabSwitcher from "@/components/ui/TabSwitcher";
+import ToolsHotbar from "@/components/equipments/ToolsHotbar";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -47,10 +48,11 @@ function Index() {
                 {/* Central top */}
                 <div className="flex h-1/2 flex-col gap-1">
                     <AgeSelector />
-                    <AgeSplashScreen>
+                    <AgeSplashScreen className="relative flex items-center">
                         <div className="flex h-full w-full flex-col items-center justify-center p-4">
                             <MineResourceButton />
                         </div>
+                        <ToolsHotbar className="absolute right-0 mr-0.5" />
                     </AgeSplashScreen>
                 </div>
 
