@@ -63,7 +63,11 @@ export const createEquipmentsSlice: StateCreator<
             // unequip and add back to items
             get().addItem(get().equipments[slot]!);
 
-            set(produce((state: GameStore) => (state.equipments[slot] = null))); // Remove the item from the slot
+            set(
+                produce((state: GameStore) => {
+                    state.equipments[slot] = null; // Remove the item from the slot
+                })
+            );
         }
     },
 });
