@@ -206,3 +206,26 @@ input[type="reset"] {
 }
 
 /* END: Mining animation */
+
+/* BEGIN: Item "Squeak" animation */
+
+@keyframes itemSqueak {
+    0% {
+        transform: scale(1, 1);
+    }
+    30% {
+        transform: scale(1.3, 0.7);
+    }
+    60% {
+        transform: scale(0.95, 1.05);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+.item-squeak {
+    animation: itemSqueak 200ms ease-out;
+}
+
+/* END: Item "Squeak" animation */

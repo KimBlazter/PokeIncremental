@@ -1,10 +1,11 @@
 import { Resource, ResourceData } from "@/stores/resources";
-import { getTextureFromIdentifier } from "@/utils/item-models";
-import clsx from "clsx";
 import { formatNumber } from "@/utils/number-formatting-compact";
 import Decimal from "break_eternity.js";
 import { Tooltip } from "@/components/ui/Tooltip";
 import ResourceTooltipContent from "@/components/Tooltips/ResourceTooltipContent";
+import ItemIcon from "../ItemIcon";
+import { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
 
 export default function ResourceComponent({
     resourceData,
@@ -19,6 +20,18 @@ export default function ResourceComponent({
         return;
     }
 
+    const [animate, setAnimate] = useState(false);
+    const prevAmount = useRef(resourceData.amount);
+
+    useEffect(() => {
+        if (resourceData.amount >= prevAmount.current) {
+            setAnimate(true);
+            const timeout = setTimeout(() => setAnimate(false), 150);
+            return () => clearTimeout(timeout);
+        }
+        prevAmount.current = resourceData.amount;
+    }, [resourceData.amount]);
+
     return (
         <Tooltip
             content={
@@ -31,14 +44,9 @@ export default function ResourceComponent({
             align="start"
         >
             <div className="item-slot relative flex items-center justify-center text-xs">
-                <div
-                    aria-hidden
-                    className={clsx(
-                        "icon-minecraft",
-                        getTextureFromIdentifier(
-                            resourceData.texture_identifier
-                        )
-                    )}
+                <ItemIcon
+                    textureIdentifier={resourceData.texture_identifier}
+                    className={clsx(animate && "item-squeak")}
                 />
                 <span
                     className="mc-text-shadow absolute right-0 bottom-0 text-right text-sm"
