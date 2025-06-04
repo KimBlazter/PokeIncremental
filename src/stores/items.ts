@@ -17,7 +17,7 @@ export interface ItemSlice {
     addItem: (item: Item) => void;
     removeItem: (item: Item) => void;
     useItem: (id: string) => void;
-    hasItem: (id: string) => boolean;
+    hasItem: (id: string, amount?: number) => boolean;
 }
 
 export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
@@ -44,5 +44,8 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
             })
         ),
     useItem: () => {},
-    hasItem: (id) => get().items.some((item: Item) => item.id === id),
+    hasItem: (id, amount?) => {
+        const count = get().items.filter((item: Item) => item.id === id).length;
+        return count >= (amount ?? 1);
+    },
 });
