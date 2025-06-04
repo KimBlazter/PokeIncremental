@@ -9,7 +9,7 @@ export interface Craft {
     result: { item: Item; qty: number };
     cost: {
         resources?: { material: Resource; amount: number }[];
-        items?: GameItemKey[];
+        items?: { key: GameItemKey; amount?: number }[];
     };
 }
 
@@ -35,8 +35,8 @@ export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
             }, true) ?? true;
 
         const enoughItems =
-            craft.cost.items?.reduce((acc, itemName) => {
-                return acc && get().hasItem(itemName);
+            craft.cost.items?.reduce((acc, item) => {
+                return acc && get().hasItem(item.key, item.amount);
             }, true) ?? true;
 
         if (!enoughItems || !enoughResources) return;
@@ -47,11 +47,10 @@ export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
         );
 
         craft.cost.items?.forEach(
-            (itemName) => get().removeItem({ ...GAME_ITEMS[itemName] }) // create fake item to remove it from inventory
+            (itemName) => get().removeItem({ ...GAME_ITEMS[itemName.key] }) // create fake item to remove it from inventory
         );
 
         // add item
-        console.log("adding : ", get().crafts[id].result.item);
         get().addItem(get().crafts[id].result.item);
     },
 });

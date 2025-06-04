@@ -39,14 +39,14 @@ export const crafts = {
             resources: [{ material: "wood", amount: 20 }],
         },
     },
-    wooden_shield: {
+    shield: {
         result: {
             qty: 1,
             item: { ...GAME_ITEMS.shield },
         },
         cost: {
             resources: [{ material: "wood", amount: 15 }],
-            items: ["rope"],
+            items: [{ key: "rope" }],
         },
     },
     rope: {
@@ -65,7 +65,7 @@ export const crafts = {
         },
         cost: {
             resources: [{ material: "wood", amount: 25 }],
-            items: ["rope", "rope"],
+            items: [{ key: "rope", amount: 2 }],
         },
     },
     log_pile: {
@@ -89,7 +89,7 @@ export const crafts = {
                 { material: "cobblestone", amount: 15 },
                 { material: "wood", amount: 5 },
             ],
-            items: ["wooden_axe"],
+            items: [{ key: "wooden_axe" }],
         },
     },
     stone_pickaxe: {
@@ -99,7 +99,7 @@ export const crafts = {
         },
         cost: {
             resources: [{ material: "cobblestone", amount: 15 }],
-            items: ["wooden_pickaxe"],
+            items: [{ key: "wooden_pickaxe" }],
         },
     },
     stone_sword: {
@@ -109,7 +109,7 @@ export const crafts = {
         },
         cost: {
             resources: [{ material: "cobblestone", amount: 20 }],
-            items: ["wooden_sword"],
+            items: [{ key: "wooden_sword" }],
         },
     },
     stone_furnace: {
@@ -149,7 +149,7 @@ export const crafts = {
         },
         cost: {
             resources: [{ material: "cobblestone", amount: 5 }],
-            items: ["rope", "rope"],
+            items: [{ key: "rope", amount: 2 }],
         },
     },
     leather_boots: {
@@ -159,7 +159,7 @@ export const crafts = {
         },
         cost: {
             resources: [{ material: "cobblestone", amount: 10 }],
-            items: ["binding"],
+            items: [{ key: "binding" }],
         },
     },
 } satisfies Record<string, Craft>;
