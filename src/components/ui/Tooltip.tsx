@@ -111,7 +111,8 @@ export function Tooltip({
                         ref={tooltipRef}
                         className={clsx(
                             "tooltip-border fixed z-50 rounded bg-black px-2 py-1 text-xs whitespace-nowrap text-white shadow-lg transition-opacity",
-                            visible ? "opacity-100" : "opacity-0"
+                            visible ? "opacity-100" : "opacity-0",
+                            content ? "" : "hidden"
                         )}
                         style={{
                             top: coords.top,
