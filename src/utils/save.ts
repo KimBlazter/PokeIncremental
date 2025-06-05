@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 /**
  * Utility functions for saving and loading game state.
  *
@@ -18,6 +20,11 @@ type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
  * removed, making it suitable for JSON serialization.
  */
 type GameStoreWithoutFunctions = NonFunctionProperties<GameStore>;
+
+/**
+ * Fields to be ignored when loading a save (must be depth 0 fields)
+ */
+const IGNORED_FILEDS: string[] = ["ages", "crafts"];
 
 /**
  * Converts the game store to a JSON-compatible object.
@@ -64,7 +71,6 @@ export const loadFromLocalStorage = (): void => {
 
     const merged = mergeStates(getState(), imported);
 
-    console.log(merged);
     setState(merged);
 };
 
@@ -109,20 +115,23 @@ const mergeStates = (
     importedState: Partial<GameStore>
 ): GameStore => {
     // DO NOT TOUCH IT WORKS... FOR NOW
-    const merge = (imported: GameStore, base: GameStore) => {
+    const merge = (imported: GameStore, base: GameStore, depth: number) => {
         return produce(imported, (draft: Record<string, any>) => {
             Object.entries(base).forEach(([key, value]) => {
-                if (typeof value === "function") {
+                if (
+                    typeof value === "function" ||
+                    (depth === 0 && IGNORED_FILEDS.includes(key)) // ignore secific fields
+                ) {
                     draft[key] = value;
                 } else if (typeof value === "object" && value !== null) {
                     if (!draft[key] || typeof draft[key] !== "object") {
                         draft[key] = {};
                     }
-                    draft[key] = merge(draft[key], value);
+                    draft[key] = merge(draft[key], value, depth + 1);
                 }
             });
         });
     };
 
-    return merge(importedState as GameStore, baseState);
+    return merge(importedState as GameStore, baseState, 0);
 };
