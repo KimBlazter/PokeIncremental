@@ -25,12 +25,14 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
     get
 ) => ({
     items: [],
-    addItem: (item) =>
+    addItem: (item) => {
         set(
             produce((state: ItemSlice) => {
                 state.items.push(item);
             })
-        ),
+        );
+        get().checkAchievements();
+    },
     removeItem: (item: Item) =>
         set(
             produce((state: ItemSlice) => {
