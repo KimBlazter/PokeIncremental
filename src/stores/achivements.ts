@@ -9,6 +9,8 @@ export type AchievementKey = keyof typeof achievements;
 export type Achievement = {
     name: string;
     parentId?: string;
+    hint?: string;
+    description: string;
     texture_identifier: string; // image identifier
     condition: (gamestore: GameStore) => boolean;
     unlocked: boolean;

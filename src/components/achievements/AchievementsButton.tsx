@@ -48,7 +48,9 @@ export default function AchievementsButton() {
                                 <div className="flex h-full w-full flex-col items-start justify-center">
                                     <span>{ach.name}</span>
                                     <p className="text-sm opacity-50">
-                                        A really good description...
+                                        {ach.unlocked ?
+                                            ach.description
+                                        :   (ach.hint ?? "???")}
                                     </p>
                                 </div>
                             </div>
