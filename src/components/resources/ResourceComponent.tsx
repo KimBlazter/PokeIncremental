@@ -14,12 +14,6 @@ export default function ResourceComponent({
     resourceData: ResourceData;
     resourceKey: Resource;
 }) {
-    // Do not render if the resource amount is 0
-    // This avoids rendering empty slots in the UI
-    if (resourceData.amount == 0) {
-        return;
-    }
-
     const [animate, setAnimate] = useState(false);
     const prevAmount = useRef(resourceData.amount);
 
@@ -31,6 +25,12 @@ export default function ResourceComponent({
         }
         prevAmount.current = resourceData.amount;
     }, [resourceData.amount]);
+
+    // Do not render if the resource amount is 0
+    // This avoids rendering empty slots in the UI
+    if (resourceData.amount == 0) {
+        return;
+    }
 
     return (
         <Tooltip
