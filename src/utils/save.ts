@@ -63,7 +63,7 @@ export const loadFromLocalStorage = (): void => {
     const cryptedSave = window.localStorage.getItem("ageofsteveSave");
 
     if (!cryptedSave) {
-        console.warn("Failed to load save from localStorage");
+        // console.warn("Failed to load save from localStorage");
         return;
     }
 
