@@ -30,7 +30,9 @@ export default function EquipmentSlot({
     const unequipItem = useGameStore((state) => state.unequipItem);
     return (
         <Tooltip
-            content={item ? <ItemTooltipContent item={item} /> : null}
+            content={
+                item ? <ItemTooltipContent item={item} equiped={true} /> : null
+            }
             position={tooltipPosition}
         >
             <div
