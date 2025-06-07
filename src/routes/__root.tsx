@@ -2,6 +2,8 @@ import { createRootRoute, HeadContent, Outlet } from "@tanstack/react-router";
 
 import Header from "@/components/Header";
 import ToastContainer from "@/components/ui/ToastContainer";
+import "@/assets/css/index.css";
+
 export const Route = createRootRoute({
     component: () => (
         <>
@@ -21,12 +23,6 @@ export const Route = createRootRoute({
             },
             {
                 title: "Craft&Click",
-            },
-        ],
-        links: [
-            {
-                href: "/src/assets/css/index.css",
-                rel: "stylesheet",
             },
         ],
     }),
