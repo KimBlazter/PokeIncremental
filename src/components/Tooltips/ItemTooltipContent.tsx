@@ -22,16 +22,16 @@ export default function ItemTooltipContent({
                     {item.name}
                 </span>
                 <span className="flex flex-row items-center gap-1 text-sm text-white/30">
-                    <span className="capitalize">{item.type}</span>
+                    <span className="flex items-center justify-center rounded-sm bg-white/60 px-1 pt-0 text-black capitalize text-shadow-none">
+                        {item.type}
+                    </span>
                     {item.type === "tool" && (
-                        <>
-                            (
+                        <span className="flex items-center justify-center gap-1 rounded-sm bg-white/60 px-0.5 py-0.5 text-black text-shadow-none">
                             <ItemIcon
-                                className="icon-minecraft-sm text-white opacity-30 brightness-0 invert-100"
+                                className="icon-minecraft-sm brightness-0"
                                 textureIdentifier={"iron_" + item.toolType}
                             />
-                            )
-                        </>
+                        </span>
                     )}
                 </span>
                 {/* Mining speed */}
