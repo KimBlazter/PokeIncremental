@@ -4,6 +4,9 @@ import ItemIcon from "../ItemIcon";
 import clsx from "clsx";
 import { ResourceData } from "@/stores/resources";
 import { Equiments } from "@/stores/equipments";
+import { isEffectiveTool } from "@/utils/items";
+import { ToolItem } from "@/stores/items";
+import { c } from "node_modules/vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf";
 
 export default function MineResourceButton() {
     const resource = useGameStore(
@@ -74,11 +77,15 @@ function computeMiningTime(
 ): number {
     const DEFAULT_MINING_TIME = 2000; // Default mining time in milliseconds
 
-    const t = equipments[resourceData.effective_tool];
-    if (t && t.type === "tool" && t.toolType === resourceData.effective_tool)
+    const correspondingEquipedItem = equipments[resourceData.effective_tool];
+    if (
+        correspondingEquipedItem &&
+        correspondingEquipedItem.type === "tool" &&
+        isEffectiveTool(correspondingEquipedItem, resourceData)
+    )
         return (
-            DEFAULT_MINING_TIME / (t.miningSpeed ?? 1) // Adjust mining time based on tool speed
+            DEFAULT_MINING_TIME / (correspondingEquipedItem.miningSpeed ?? 1) // Adjust mining time based on tool speed
         );
 
-    return 2000;
+    return DEFAULT_MINING_TIME;
 }
