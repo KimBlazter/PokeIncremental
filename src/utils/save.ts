@@ -24,7 +24,7 @@ type GameStoreWithoutFunctions = NonFunctionProperties<GameStore>;
 /**
  * Fields to be ignored when loading a save (must be depth 0 fields)
  */
-const IGNORED_FILEDS: string[] = ["ages", "crafts"];
+const IGNORED_FILEDS: string[] = ["crafts"];
 
 /**
  * Converts the game store to a JSON-compatible object.
