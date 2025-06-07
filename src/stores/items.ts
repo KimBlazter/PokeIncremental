@@ -3,14 +3,56 @@ import { StateCreator } from "zustand";
 import { GameStore } from "./game";
 import { SlotType } from "./equipments";
 
-export type Item = {
+export type ToolType = "axe" | "pickaxe" | "shovel" | "hoe";
+
+// Base Item Interface
+// This interface defines the common properties for all items in the game.
+export interface BaseItem {
     id: string;
     name: string;
     textureIdentifier?: string;
-    equipmentSlot?: SlotType;
-};
+}
 
-export type ToolType = "axe" | "pickaxe" | "shovel" | "sword" | "hoe";
+// Tool
+export interface ToolItem extends BaseItem {
+    type: "tool";
+    toolType: ToolType;
+    equipmentSlot?: SlotType;
+    miningSpeed?: number; // optional mining speed, if applicable
+}
+
+// Weapon
+export interface WeaponItem extends BaseItem {
+    type: "weapon";
+    damage: number; // damage dealt by the weapon
+    attackSpeed?: number; // optional attack speed, if applicable
+    equipmentSlot: SlotType;
+}
+
+// Armor
+export interface ArmorItem extends BaseItem {
+    type: "armor";
+    defense: number;
+    equipmentSlot: SlotType;
+}
+
+// Consumable
+export interface ConsumableItem extends BaseItem {
+    type: "consumable";
+    effect: () => void; // function to apply the effect of the consumable
+}
+
+// Generic Item
+export interface GenericItem extends BaseItem {
+    type: "generic";
+}
+
+export type Item =
+    | ToolItem
+    | WeaponItem
+    | ArmorItem
+    | ConsumableItem
+    | GenericItem;
 
 export interface ItemSlice {
     items: Item[];
