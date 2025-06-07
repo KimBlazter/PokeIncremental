@@ -45,6 +45,13 @@ export const createEquipmentsSlice: StateCreator<
     },
 
     equipItem: (item) => {
+        // Check the item type and ensure it has an equipment slot
+        if (
+            item.type !== "weapon" &&
+            item.type !== "armor" &&
+            item.type !== "tool"
+        )
+            return;
         const itemSlot = item.equipmentSlot;
         if (!itemSlot) return;
 
