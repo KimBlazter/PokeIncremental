@@ -229,3 +229,32 @@ input[type="reset"] {
 }
 
 /* END: Item "Squeak" animation */
+
+/* BEGIN: Enchant glint effect */
+.enchanted {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        rgba(128, 0, 128, 0) 0%,
+        rgba(186, 85, 211, 0.4) 45%,
+        rgba(128, 0, 128, 0) 80%
+    );
+    background-size: 200% 100%;
+    animation: glintAnimation 2s linear infinite;
+    mix-blend-mode: color-dodge;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(2px);
+}
+
+@keyframes glintAnimation {
+    0% {
+        background-position: -200% 0%;
+    }
+    100% {
+        background-position: 200% 0%;
+    }
+}
+/* END: Enchant glint effect */
