@@ -18,6 +18,7 @@ export const GAME_ITEMS = {
         textureIdentifier: "wooden_pickaxe",
         equipmentSlot: "pickaxe",
         toolType: "pickaxe",
+        miningSpeed: 1.3,
     },
     wooden_sword: {
         type: "weapon",
@@ -68,6 +69,7 @@ export const GAME_ITEMS = {
         textureIdentifier: "stone_axe",
         equipmentSlot: "axe",
         toolType: "axe",
+        miningSpeed: 1.5,
     },
     stone_pickaxe: {
         type: "tool",
@@ -76,6 +78,7 @@ export const GAME_ITEMS = {
         textureIdentifier: "stone_pickaxe",
         equipmentSlot: "pickaxe",
         toolType: "pickaxe",
+        miningSpeed: 1.5,
     },
     stone_sword: {
         type: "weapon",
