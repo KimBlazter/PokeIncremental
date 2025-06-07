@@ -2,6 +2,8 @@ import { useGameStore } from "@/stores/game";
 import { useState } from "react";
 import ItemIcon from "../ItemIcon";
 import clsx from "clsx";
+import { ResourceData } from "@/stores/resources";
+import { Equiments } from "@/stores/equipments";
 
 export default function MineResourceButton() {
     const resource = useGameStore(
@@ -10,10 +12,11 @@ export default function MineResourceButton() {
     const resourceData = useGameStore((state) => state.resources[resource]);
     const addResource = useGameStore((state) => state.addResource);
     const multiplier = useGameStore((state) => state.multiplier[resource]);
+    const equipments = useGameStore((state) => state.equipments);
 
     const [isMining, setIsMining] = useState(false);
 
-    const MINING_DURATION = 2000;
+    const MINING_DURATION = computeMiningTime(resourceData, equipments);
 
     const handleMine = async () => {
         if (isMining) return;
@@ -63,4 +66,19 @@ export default function MineResourceButton() {
             </div>
         </div>
     );
+}
+
+function computeMiningTime(
+    resourceData: ResourceData,
+    equipments: Equiments
+): number {
+    const DEFAULT_MINING_TIME = 2000; // Default mining time in milliseconds
+
+    const t = equipments[resourceData.effective_tool];
+    if (t && t.type === "tool" && t.toolType === resourceData.effective_tool)
+        return (
+            DEFAULT_MINING_TIME / (t.miningSpeed ?? 1) // Adjust mining time based on tool speed
+        );
+
+    return 2000;
 }
