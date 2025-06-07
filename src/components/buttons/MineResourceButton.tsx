@@ -5,8 +5,6 @@ import clsx from "clsx";
 import { ResourceData } from "@/stores/resources";
 import { Equiments } from "@/stores/equipments";
 import { isEffectiveTool } from "@/utils/items";
-import { ToolItem } from "@/stores/items";
-import { c } from "node_modules/vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf";
 
 export default function MineResourceButton() {
     const resource = useGameStore(
