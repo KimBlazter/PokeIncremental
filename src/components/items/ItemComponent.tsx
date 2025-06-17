@@ -5,7 +5,7 @@ import { useGameStore } from "@/stores/game";
 import ItemIcon from "../ItemIcon";
 
 export default function ItemComponent({ item }: { item: Item }) {
-    const equipItem = useGameStore((state) => state.equipItem);
+    const useItem = useGameStore((state) => state.useItem);
 
     return (
         <Tooltip
@@ -15,7 +15,7 @@ export default function ItemComponent({ item }: { item: Item }) {
         >
             <div
                 className="item-slot relative flex items-center justify-center text-xs"
-                onClick={() => equipItem(item)}
+                onClick={() => useItem(item)}
             >
                 <ItemIcon textureIdentifier={item.textureIdentifier} />
                 {false && <div className="enchanted" />}
