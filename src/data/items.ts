@@ -1,3 +1,4 @@
+import { useGameStore } from "@/stores/game";
 import { Item } from "@/stores/items";
 
 export const GAME_ITEMS = {
@@ -119,6 +120,23 @@ export const GAME_ITEMS = {
         id: "binding",
         name: "Binding",
         textureIdentifier: "lead",
+    },
+
+    // Consumables
+    watermelon: {
+        type: "consumable",
+        id: "watermelon",
+        name: "Watermelon",
+        textureIdentifier: "melon_slice",
+        consumeOnUse: true,
+        effect: () => {
+            const durationMs = 10 * 1000; // 10s
+            useGameStore.getState().addTimedBonus("wood", {
+                baseGain: 10,
+                source: "watermelon",
+                expiresAt: new Date(Date.now() + durationMs).toISOString(),
+            });
+        },
     },
 } satisfies Record<string, Item>;
 
