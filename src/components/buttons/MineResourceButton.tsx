@@ -12,7 +12,9 @@ export default function MineResourceButton() {
     );
     const resourceData = useGameStore((state) => state.resources[resource]);
     const addResource = useGameStore((state) => state.addResource);
-    const multiplier = useGameStore((state) => state.multiplier[resource]);
+    const multiplier = useGameStore((state) =>
+        state.computeResourcesYield(resource)
+    );
     const equipments = useGameStore((state) => state.equipments);
 
     const [isMining, setIsMining] = useState(false);
