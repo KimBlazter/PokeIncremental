@@ -65,7 +65,14 @@ function Index() {
             </div>
 
             {/* Right Panel */}
-            <div className="flex h-full w-1/3 flex-col bg-red-400 p-4">
+            <div
+                className="dialog-border-transparent flex h-full w-1/3 flex-col bg-gradient-to-b from-gray-600 to-gray-900 p-4"
+                style={{
+                    backgroundImage: `url("/textures/blocks/bricks.png")`,
+                    backgroundSize: "48px",
+                    imageRendering: "pixelated",
+                }}
+            >
                 <UpgradesComponent />
                 <TabSwitcher
                     tabs={[
