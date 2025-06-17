@@ -11,7 +11,9 @@ export default function ResourceTooltipContent({
     resourceData: ResourceData;
     resourceKey: Resource;
 }) {
-    const perClick = useGameStore((state) => state.multiplier[resourceKey]);
+    const perClick = useGameStore((state) =>
+        state.computeResourcesYield(resourceKey)
+    );
 
     // console.log("Resource re-render");
 
