@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createItemSlice, ItemSlice } from "./items";
 import { createResourceSlice, ResourceSlice } from "./resources";
-import { createMultiplierSlice, MultiplierSlice } from "./multipliers";
+import { BonusSlice, createBonusSlice } from "./bonuses";
 import { createUpgradeSlice, UpgradeSlice } from "./upgrades";
 import { AgeSlice, createAgeSlice } from "./ages";
 import { CraftSlice, createCraftSlice } from "./crafts";
@@ -17,7 +17,7 @@ type GameStoreUtils = {
 export type GameStore = GameStoreUtils &
     ItemSlice &
     ResourceSlice &
-    MultiplierSlice &
+    BonusSlice &
     UpgradeSlice &
     AgeSlice &
     CraftSlice &
@@ -28,7 +28,7 @@ export type GameStore = GameStoreUtils &
 export const useGameStore = create<GameStore>((...a) => ({
     ...createItemSlice(...a),
     ...createResourceSlice(...a),
-    ...createMultiplierSlice(...a),
+    ...createBonusSlice(...a),
     ...createUpgradeSlice(...a),
     ...createAgeSlice(...a),
     ...createCraftSlice(...a),
