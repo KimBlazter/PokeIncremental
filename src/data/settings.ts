@@ -9,7 +9,7 @@ export const hotkeys = {
         action: () => {
             const gameStore = useGameStore.getState();
             const resource = gameStore.ages[gameStore.currentAge].collectible;
-            const multiplier = gameStore.multiplier[resource];
+            const multiplier = gameStore.computeResourcesYield(resource);
             gameStore.addResource(resource, multiplier);
         },
     },
