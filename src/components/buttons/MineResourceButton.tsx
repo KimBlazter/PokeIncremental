@@ -35,7 +35,7 @@ export default function MineResourceButton() {
                 <ItemIcon
                     texture={resourceData.texture}
                     className={clsx(
-                        "z-3 scale-100",
+                        "z-3 scale-85",
                         isMining && "animate-bounce"
                     )}
                     style={{ animationDuration: "0.5s" }}
