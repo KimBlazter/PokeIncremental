@@ -3,6 +3,7 @@ import { produce } from "immer";
 import { Resource } from "./resources";
 import { ages } from "@/data/ages";
 import { GameStore } from "./game";
+import { Texture } from "@/utils/spriteLoader";
 
 export type AgeKey = keyof typeof ages;
 
@@ -10,7 +11,7 @@ export type Age = {
     name: string;
     unlocked: boolean;
     collectible: Resource;
-    iconIdentifier?: string;
+    texture?: Texture;
     splashScreenUrl?: string;
 };
 

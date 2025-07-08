@@ -2,6 +2,9 @@ import { produce } from "immer";
 import { StateCreator } from "zustand";
 import { GameStore } from "./game";
 import { SlotType } from "./equipments";
+import { ItemEffect } from "@/data/effects";
+import { ITEM_EFFECTS } from "@/data/effects";
+import { Texture } from "@/utils/spriteLoader";
 
 export type ToolType = "axe" | "pickaxe" | "shovel" | "hoe";
 
@@ -10,7 +13,7 @@ export type ToolType = "axe" | "pickaxe" | "shovel" | "hoe";
 export interface BaseItem {
     id: string;
     name: string;
-    textureIdentifier?: string;
+    texture: Texture;
 }
 
 // Tool
@@ -40,7 +43,7 @@ export interface ArmorItem extends BaseItem {
 export interface ConsumableItem extends BaseItem {
     type: "consumable";
     consumeOnUse?: boolean; // whether the item is consumed on use
-    effect: () => void; // function to apply the effect of the consumable
+    effect: ItemEffect;
 }
 
 // Generic Item
@@ -96,7 +99,10 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
                 get().equipItem(item);
                 break;
             case "consumable":
-                item.effect();
+                ITEM_EFFECTS[item.effect.id](
+                    item.effect.value,
+                    item.effect.duration
+                );
                 if (item.consumeOnUse) {
                     get().removeItem(item);
                 }

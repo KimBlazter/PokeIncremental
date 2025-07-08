@@ -67,12 +67,27 @@ export const createBonusSlice: StateCreator<GameStore, [], [], BonusSlice> = (
                     );
             })
         ),
-    addTimedBonus: (resource, bonus) =>
-        set(
-            produce((state: BonusSlice) => {
-                state.timedBonuses[resource].push(bonus);
-            })
-        ),
+    addTimedBonus: (resource, bonus) => {
+        const bonusExistsIndex = get().timedBonuses[resource].findIndex(
+            (b) => b.source === bonus.source
+        );
+        if (bonusExistsIndex === -1) {
+            // If no bonus with the same source already
+            set(
+                produce((state: BonusSlice) => {
+                    state.timedBonuses[resource].push(bonus);
+                })
+            );
+        } else {
+            set(
+                produce((state: BonusSlice) => {
+                    // If a bonus with the same source exists, update it
+                    state.timedBonuses[resource][bonusExistsIndex].expiresAt =
+                        bonus.expiresAt;
+                })
+            );
+        }
+    },
     cleanupExpiredBonuses: () =>
         set(
             produce((state: BonusSlice) => {

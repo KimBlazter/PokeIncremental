@@ -3,13 +3,14 @@ import { StateCreator } from "zustand";
 import { ToolType } from "./items";
 import { resources } from "@/data/resources";
 import { GameStore } from "./game";
+import { Texture } from "@/utils/spriteLoader";
 
 export type Resource = keyof typeof resources;
 
 export interface ResourceData {
     name: string;
     amount: number;
-    texture_identifier: string; // image identifier
+    texture: Texture; // image identifier
     effective_tool: ToolType;
 }
 

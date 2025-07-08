@@ -3,6 +3,7 @@ import { StateCreator } from "zustand";
 import { GameStore } from "./game";
 import { achievements } from "@/data/achievements";
 import { useToastStore } from "./toast";
+import { Texture } from "@/utils/spriteLoader";
 
 export type AchievementKey = keyof typeof achievements;
 
@@ -11,7 +12,7 @@ export type Achievement = {
     parentId?: string;
     hint?: string;
     description: string;
-    texture_identifier: string; // image identifier
+    texture: Texture;
     condition: (gamestore: GameStore) => boolean;
     unlocked: boolean;
 };
