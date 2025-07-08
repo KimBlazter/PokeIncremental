@@ -45,7 +45,7 @@ export default function ResourceComponent({
         >
             <div className="item-slot relative flex items-center justify-center text-xs">
                 <ItemIcon
-                    textureIdentifier={resourceData.texture_identifier}
+                    texture={resourceData.texture}
                     className={clsx(animate && "item-squeak")}
                 />
                 <span

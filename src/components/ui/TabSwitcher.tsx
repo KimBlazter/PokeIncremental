@@ -1,11 +1,12 @@
 import clsx from "clsx";
 import { ReactNode, useState } from "react";
 import ItemIcon from "../ItemIcon";
+import { Texture } from "@/utils/spriteLoader";
 
 namespace TabSwitcher {
     export type Tab = {
         title: string;
-        icon?: string;
+        icon?: Texture;
         backgroundImage?: string;
         content: ReactNode;
     };
@@ -32,7 +33,7 @@ export default function TabSwitcher(props: TabSwitcher.Props) {
                                 currentTab === index ? "z-5" : "brightness-85"
                             )}
                         >
-                            <ItemIcon textureIdentifier={tab.icon} />
+                            <ItemIcon texture={tab.icon} className="h-10" />
                             <span className="h-auto text-black">
                                 {tab.title}
                             </span>
@@ -51,7 +52,7 @@ export default function TabSwitcher(props: TabSwitcher.Props) {
             </div>
 
             {/* Tab content */}
-            <div className="inventory-border z-5 h-60 h-full w-full">
+            <div className="inventory-border z-5 h-full w-full">
                 <div className="bg-mcInventoryBackground h-full w-full">
                     {props.tabs[currentTab].content}
                 </div>

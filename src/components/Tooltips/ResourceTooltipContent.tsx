@@ -3,6 +3,7 @@ import { Resource, ResourceData } from "@/stores/resources";
 import { formatNumber } from "@/utils/number-formatting-compact";
 import Decimal from "break_eternity.js";
 import ItemIcon from "../ItemIcon";
+import { TextureId } from "@/utils/spriteLoader";
 
 export default function ResourceTooltipContent({
     resourceData,
@@ -34,7 +35,10 @@ export default function ResourceTooltipContent({
                 <span className="text-xs text-white/40">{perClick}/click</span>(
                 <ItemIcon
                     className="icon-minecraft-sm text-white opacity-30 brightness-0 invert-100"
-                    textureIdentifier={"iron_" + resourceData.effective_tool}
+                    texture={
+                        ("item:iron_" +
+                            resourceData.effective_tool) as TextureId
+                    }
                 />
                 )
             </div>

@@ -1,8 +1,8 @@
 import { GAME_ITEMS, GameItemKey } from "@/data/items";
 import { Craft } from "@/stores/crafts";
 import { useGameStore } from "@/stores/game";
-import { getTextureFromIdentifier } from "@/utils/item-models";
 import clsx from "clsx";
+import ItemIcon from "../ItemIcon";
 
 export default function CraftTooltipContent({ craft }: { craft: Craft }) {
     const resources = useGameStore((state) => state.resources);
@@ -30,15 +30,12 @@ export default function CraftTooltipContent({ craft }: { craft: Craft }) {
                                 )}
                             >
                                 {amount}
-                                <div
-                                    aria-hidden
-                                    className={clsx(
-                                        "icon-minecraft-sm ml-0.5",
-                                        getTextureFromIdentifier(
-                                            resources[material]
-                                                .texture_identifier ?? "barrier"
-                                        )
-                                    )}
+                                {/* Texture icon */}
+                                <ItemIcon
+                                    className="ml-0.5 size-7"
+                                    texture={
+                                        resources[material].texture ?? "barrier"
+                                    }
                                 />
                             </span>
                         ))}
@@ -60,15 +57,12 @@ export default function CraftTooltipContent({ craft }: { craft: Craft }) {
                                 )}
                             >
                                 {item.amount ?? 1}
-                                <div
-                                    aria-hidden
-                                    className={clsx(
-                                        "icon-minecraft-sm ml-0.5",
-                                        getTextureFromIdentifier(
-                                            GAME_ITEMS[item.key as GameItemKey]
-                                                .textureIdentifier ?? "barrier"
-                                        )
-                                    )}
+                                <ItemIcon
+                                    className="ml-0.5 size-7"
+                                    texture={
+                                        GAME_ITEMS[item.key as GameItemKey]
+                                            .texture
+                                    }
                                 />
                             </span>
                         ))}
@@ -77,14 +71,9 @@ export default function CraftTooltipContent({ craft }: { craft: Craft }) {
 
                 <span className={"flex flex-row justify-start gap-1"}>
                     result: {craft.result.qty}
-                    <div
-                        aria-hidden
-                        className={clsx(
-                            "icon-minecraft-sm",
-                            getTextureFromIdentifier(
-                                craft.result.item.textureIdentifier ?? "barrier"
-                            )
-                        )}
+                    <ItemIcon
+                        texture={craft.result.item.texture}
+                        className="size-7"
                     />
                 </span>
 

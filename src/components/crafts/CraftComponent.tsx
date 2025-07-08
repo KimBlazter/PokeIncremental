@@ -1,9 +1,8 @@
 import { CraftKey } from "@/stores/crafts";
-import { getTextureFromIdentifier } from "@/utils/item-models";
-import clsx from "clsx";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { useGameStore } from "@/stores/game";
 import CraftTooltipContent from "@/components/Tooltips/CraftTooltipContent";
+import ItemIcon from "@/components/ItemIcon";
 
 export default function CraftComponent({ craftId }: { craftId: CraftKey }) {
     const craft = useGameStore((state) => state.crafts[craftId]);
@@ -18,15 +17,7 @@ export default function CraftComponent({ craftId }: { craftId: CraftKey }) {
                 className="item-slot relative flex items-center justify-center bg-none text-xs"
                 onClick={() => craftAction(craftId)}
             >
-                <div
-                    aria-hidden
-                    className={clsx(
-                        "icon-minecraft",
-                        getTextureFromIdentifier(
-                            craft.result.item.textureIdentifier ?? "barrier"
-                        )
-                    )}
-                />
+                <ItemIcon texture={craft.result.item.texture} />
             </div>
         </Tooltip>
     );

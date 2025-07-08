@@ -4,18 +4,34 @@ import ItemIcon from "../ItemIcon";
 import { useGameStore } from "@/stores/game";
 import { Tooltip } from "../ui/Tooltip";
 import ItemTooltipContent from "../Tooltips/ItemTooltipContent";
+import { Texture } from "@/utils/spriteLoader";
 
-const slotTypeToTextureIdentifier: Record<SlotType, string> = {
-    sword: "wooden_sword",
-    axe: "wooden_axe",
-    pickaxe: "wooden_pickaxe",
-    shovel: "wooden_shovel",
-    hoe: "wooden_hoe",
-    helmet: "leather_helmet",
-    chestplate: "leather_chestplate",
-    leggings: "leather_leggings",
-    boots: "leather_boots",
-    shield: "shield",
+const slotTypeToTextureIdentifier: Record<SlotType, Texture> = {
+    sword: "item:wooden_sword",
+    axe: "item:wooden_axe",
+    pickaxe: "item:wooden_pickaxe",
+    shovel: "item:wooden_shovel",
+    hoe: "item:wooden_hoe",
+    helmet: {
+        base: "item:leather_helmet",
+        overlay: {
+            base: "item:leather_helmet_overlay",
+        },
+    },
+    chestplate: "item:leather_chestplate",
+    leggings: {
+        base: "item:leather_leggings",
+        overlay: {
+            base: "item:leather_leggings_overlay",
+        },
+    },
+    boots: {
+        base: "item:leather_boots",
+        overlay: {
+            base: "item:leather_boots_overlay",
+        },
+    },
+    shield: "item:barrier",
 };
 
 export default function EquipmentSlot({
@@ -40,14 +56,9 @@ export default function EquipmentSlot({
                 onClick={() => unequipItem(slotType)}
             >
                 {item ?
-                    <ItemIcon
-                        textureIdentifier={item.textureIdentifier}
-                        className="z-3"
-                    />
+                    <ItemIcon texture={item.texture} className="z-3" />
                 :   <ItemIcon
-                        textureIdentifier={
-                            slotTypeToTextureIdentifier[slotType]
-                        }
+                        texture={slotTypeToTextureIdentifier[slotType]}
                         className="absolute z-2 opacity-20 brightness-0"
                     />
                 }

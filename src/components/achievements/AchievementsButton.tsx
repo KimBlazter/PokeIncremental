@@ -38,11 +38,7 @@ export default function AchievementsButton() {
                                 )}
                             >
                                 <div className="item-slot bg-mcSlotBackground flex aspect-square size-12 items-center justify-center">
-                                    <ItemIcon
-                                        textureIdentifier={
-                                            ach.texture_identifier
-                                        }
-                                    />
+                                    <ItemIcon texture={ach.texture} />
                                 </div>
 
                                 <div className="flex h-full w-full flex-col items-start justify-center">

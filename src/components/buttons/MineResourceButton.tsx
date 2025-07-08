@@ -1,6 +1,6 @@
 import { useGameStore } from "@/stores/game";
 import { useState } from "react";
-import ItemIcon from "../ItemIcon";
+import ItemIcon from "@/components/ItemIcon";
 import clsx from "clsx";
 import { ResourceData } from "@/stores/resources";
 import { Equiments } from "@/stores/equipments";
@@ -33,9 +33,9 @@ export default function MineResourceButton() {
         <div className="flex flex-col items-center gap-2">
             <div className="dialog-border-transparent !bg-mcInventoryBackground/50 relative flex size-20 items-center justify-center">
                 <ItemIcon
-                    textureIdentifier={resourceData.texture_identifier}
+                    texture={resourceData.texture}
                     className={clsx(
-                        "z-3 scale-150",
+                        "z-3 scale-100",
                         isMining && "animate-bounce"
                     )}
                     style={{ animationDuration: "0.5s" }}

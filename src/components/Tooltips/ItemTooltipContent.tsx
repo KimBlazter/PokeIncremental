@@ -2,6 +2,7 @@ import { Item } from "@/stores/items";
 import ItemIcon from "../ItemIcon";
 import { useGameStore } from "@/stores/game";
 import clsx from "clsx";
+import { TextureId } from "@/utils/spriteLoader";
 
 export default function ItemTooltipContent({
     item,
@@ -29,7 +30,9 @@ export default function ItemTooltipContent({
                         <span className="flex items-center justify-center gap-1 rounded-sm bg-white/60 px-0.5 py-0.5 text-black text-shadow-none">
                             <ItemIcon
                                 className="icon-minecraft-sm brightness-0"
-                                textureIdentifier={"iron_" + item.toolType}
+                                texture={
+                                    ("item:iron_" + item.toolType) as TextureId
+                                }
                             />
                         </span>
                     )}

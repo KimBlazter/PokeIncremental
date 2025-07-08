@@ -1,8 +1,8 @@
 import { AgeKey } from "@/stores/ages";
 import { useGameStore } from "@/stores/game";
-import { getTextureFromIdentifier } from "@/utils/item-models";
 import clsx from "clsx";
 import { Tooltip } from "../ui/Tooltip";
+import ItemIcon from "../ItemIcon";
 
 export default function AgeButton({
     ageKey,
@@ -21,21 +21,15 @@ export default function AgeButton({
         >
             <button
                 className={clsx(
-                    "relative flex aspect-square h-12 flex-row items-center justify-center",
+                    "relative flex aspect-square h-12 flex-row items-center justify-center !p-0.5",
                     currentAge !== ageKey && "!bg-white/30"
                 )}
                 onClick={() => onClick(ageKey)}
             >
-                <div
-                    aria-hidden
-                    className={clsx(
-                        "icon-minecraft aspect-square",
-                        getTextureFromIdentifier(
-                            ageProperties.iconIdentifier ?? "barrier"
-                        )
-                    )}
+                <ItemIcon
+                    texture={ageProperties.texture}
+                    className="aspect-square size-10"
                 />
-                {}
             </button>
         </Tooltip>
     );
