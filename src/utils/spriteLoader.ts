@@ -38,6 +38,17 @@ async function loadSpriteSheet(): Promise<HTMLImageElement> {
 }
 
 /**
+ * Determines whether a texture should be scaled based on its identifier.
+ *
+ * @param textureId - The identifier of the texture to check.
+ * @returns `true` if the texture identifier starts with "block:", indicating
+ *          that the texture should be scaled; otherwise, `false`.
+ */
+function shouldScaleTexture(textureId: TextureId): boolean {
+    return textureId.startsWith("block:");
+}
+
+/**
  * Retrieves a specific sprite from the sprite sheet and draws it onto a new canvas element.
  *
  * @param {TextureId} texture - The identifier of the sprite to retrieve, corresponding to a key in the sprite map JSON.
@@ -61,16 +72,22 @@ export async function getTextureCanvas(
         const ctx = canvas.getContext("2d");
         if (!ctx) throw new Error("Unable to get 2D context of the canvas");
 
+        const scale = shouldScaleTexture(texture) ? 1.1 : 1;
+        const drawWidth = sprite.width * scale;
+        const drawHeight = sprite.height * scale;
+        const offsetX = (canvas.width - drawWidth) / 2;
+        const offsetY = (canvas.height - drawHeight) / 2;
+
         ctx.drawImage(
             image,
             sprite.x,
             sprite.y,
             sprite.width,
             sprite.height,
-            0,
-            0,
-            sprite.width,
-            sprite.height
+            offsetX,
+            offsetY,
+            drawWidth,
+            drawHeight
         );
 
         return canvas;
