@@ -162,4 +162,16 @@ export const crafts = {
             items: [{ key: "binding" }],
         },
     },
+
+    // CONSUMABLES
+    watermelon: {
+        result: {
+            item: { ...GAME_ITEMS.watermelon },
+            qty: 2,
+        },
+        cost: {
+            resources: [],
+            items: [],
+        },
+    },
 } satisfies Record<string, Craft>;

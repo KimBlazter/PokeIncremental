@@ -4,25 +4,25 @@ export const resources = {
     wood: {
         name: "Wood",
         amount: 0,
-        texture_identifier: "oak_log",
+        texture: "block:oak_log",
         effective_tool: "axe",
     },
     cobblestone: {
         name: "Cobblestone",
         amount: 0,
-        texture_identifier: "cobblestone",
+        texture: "block:cobblestone",
         effective_tool: "pickaxe",
     },
     iron: {
         name: "Iron",
         amount: 0,
-        texture_identifier: "raw_iron",
+        texture: "item:iron_ingot",
         effective_tool: "pickaxe",
     },
     gold: {
         name: "Gold",
         amount: 0,
-        texture_identifier: "raw_gold",
+        texture: "item:gold_ingot",
         effective_tool: "pickaxe",
     },
 } satisfies Record<string, ResourceData>;

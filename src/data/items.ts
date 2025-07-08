@@ -1,4 +1,3 @@
-import { useGameStore } from "@/stores/game";
 import { Item } from "@/stores/items";
 
 export const GAME_ITEMS = {
@@ -7,7 +6,7 @@ export const GAME_ITEMS = {
         type: "tool",
         id: "wooden_axe",
         name: "Wooden Axe",
-        textureIdentifier: "wooden_axe",
+        texture: "item:wooden_axe",
         equipmentSlot: "axe",
         toolType: "axe",
         miningSpeed: 1.3,
@@ -16,7 +15,7 @@ export const GAME_ITEMS = {
         type: "tool",
         id: "wooden_pickaxe",
         name: "Wooden Pickaxe",
-        textureIdentifier: "wooden_pickaxe",
+        texture: "item:wooden_pickaxe",
         equipmentSlot: "pickaxe",
         toolType: "pickaxe",
         miningSpeed: 1.3,
@@ -25,7 +24,7 @@ export const GAME_ITEMS = {
         type: "weapon",
         id: "wooden_sword",
         name: "Wooden Sword",
-        textureIdentifier: "wooden_sword",
+        texture: "item:wooden_sword",
         equipmentSlot: "sword",
         damage: 3,
     },
@@ -33,13 +32,16 @@ export const GAME_ITEMS = {
         type: "generic",
         id: "campfire",
         name: "Campfire",
-        textureIdentifier: "campfire",
+        texture: "item:campfire",
     },
     shield: {
         type: "armor",
         id: "shield",
         name: "Shield",
-        textureIdentifier: "shield",
+        texture: {
+            base: "block:grass_block",
+            tint: "#7cbd6b", // minecraft grass color
+        },
         equipmentSlot: "shield",
         defense: 4,
     },
@@ -47,19 +49,19 @@ export const GAME_ITEMS = {
         type: "generic",
         id: "backpack",
         name: "Backpack",
-        textureIdentifier: "backpack",
+        texture: "item:bundle",
     },
     log_pile: {
         type: "generic",
         id: "log_pile",
         name: "Log Pile",
-        textureIdentifier: "log_pile",
+        texture: "block:stripped_oak_log",
     },
     rope: {
         type: "generic",
         id: "rope",
         name: "Rope",
-        textureIdentifier: "string",
+        texture: "item:string",
     },
 
     // STONE AGE
@@ -67,7 +69,7 @@ export const GAME_ITEMS = {
         type: "tool",
         id: "stone_axe",
         name: "Stone Axe",
-        textureIdentifier: "stone_axe",
+        texture: "item:stone_axe",
         equipmentSlot: "axe",
         toolType: "axe",
         miningSpeed: 1.5,
@@ -76,7 +78,7 @@ export const GAME_ITEMS = {
         type: "tool",
         id: "stone_pickaxe",
         name: "Stone Pickaxe",
-        textureIdentifier: "stone_pickaxe",
+        texture: "item:stone_pickaxe",
         equipmentSlot: "pickaxe",
         toolType: "pickaxe",
         miningSpeed: 1.5,
@@ -85,7 +87,7 @@ export const GAME_ITEMS = {
         type: "weapon",
         id: "stone_sword",
         name: "Stone Sword",
-        textureIdentifier: "stone_sword",
+        texture: "item:stone_sword",
         equipmentSlot: "sword",
         damage: 5,
     },
@@ -93,25 +95,31 @@ export const GAME_ITEMS = {
         type: "generic",
         id: "stone_furnace",
         name: "Stone Furnace",
-        textureIdentifier: "furnace",
+        texture: "block:furnace",
     },
     grindstone: {
         type: "generic",
         id: "grindstone",
         name: "Grindstone",
-        textureIdentifier: "grindstone",
+        texture: "block:grindstone",
     },
     stone_chest: {
         type: "generic",
         id: "stone_chest",
         name: "Stone Chest",
-        textureIdentifier: "chest",
+        texture: "item:barrier",
     },
     leather_boots: {
         type: "armor",
         id: "leather_boots",
         name: "Leather Boots",
-        textureIdentifier: "leather_boots",
+        texture: {
+            base: "item:leather_boots",
+            tint: "#955e3b",
+            overlay: {
+                base: "item:leather_boots_overlay",
+            },
+        },
         equipmentSlot: "boots",
         defense: 1,
     },
@@ -119,7 +127,7 @@ export const GAME_ITEMS = {
         type: "generic",
         id: "binding",
         name: "Binding",
-        textureIdentifier: "lead",
+        texture: "item:lead",
     },
 
     // Consumables
@@ -127,15 +135,15 @@ export const GAME_ITEMS = {
         type: "consumable",
         id: "watermelon",
         name: "Watermelon",
-        textureIdentifier: "melon_slice",
+        texture: "item:melon_slice",
         consumeOnUse: true,
-        effect: () => {
-            const durationMs = 10 * 1000; // 10s
-            useGameStore.getState().addTimedBonus("wood", {
-                baseGain: 10,
-                source: "watermelon",
-                expiresAt: new Date(Date.now() + durationMs).toISOString(),
-            });
+        effect: {
+            id: "increaseWoodGain",
+            name: "???",
+            description: "Increases wood gain for a short time.",
+            icon: "melon_slice",
+            duration: 5000, // 5 seconds
+            value: 1, // Increase wood gain by 1
         },
     },
 } satisfies Record<string, Item>;
