@@ -13,6 +13,7 @@ import { useHotkeys } from "@/hooks/useHotkeys";
 import TabSwitcher from "@/components/ui/TabSwitcher";
 import ToolsHotbar from "@/components/equipments/ToolsHotbar";
 import ArmorsHotbar from "@/components/equipments/ArmorsHotbar";
+import CurrentBonuses from "@/components/bonuses/CurrentBonuses";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -45,7 +46,7 @@ function Index() {
             </div>
 
             {/* Central panel */}
-            <div className="flex h-full flex-1 flex-col">
+            <div className="relative flex h-full flex-1 flex-col">
                 {/* Central top */}
                 <div className="flex h-1/2 flex-col gap-1">
                     <AgeSelector />
@@ -56,6 +57,11 @@ function Index() {
                         <ToolsHotbar className="absolute right-0 mr-0.5" />
                         <ArmorsHotbar className="absolute left-0 ml-0.5" />
                     </AgeSplashScreen>
+                </div>
+
+                {/* Central Top Right Corner */}
+                <div className="absolute top-20 right-0 z-10">
+                    <CurrentBonuses />
                 </div>
 
                 {/* Central bottom */}
@@ -78,12 +84,12 @@ function Index() {
                     tabs={[
                         {
                             title: "Craft",
-                            icon: "crafting_table",
+                            icon: "block:crafting_table",
                             content: <CraftsComponent />,
                         },
                         {
                             title: "Smelt",
-                            icon: "furnace",
+                            icon: "block:furnace",
                             content: "furnace",
                         },
                     ]}
