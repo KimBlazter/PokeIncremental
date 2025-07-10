@@ -16,13 +16,13 @@ export const resources = {
     iron: {
         name: "Iron",
         amount: 0,
-        texture: "item:iron_ingot",
+        texture: "item:raw_iron",
         effective_tool: "pickaxe",
     },
     gold: {
         name: "Gold",
         amount: 0,
-        texture: "item:gold_ingot",
+        texture: "item:raw_gold",
         effective_tool: "pickaxe",
     },
 } satisfies Record<string, ResourceData>;
