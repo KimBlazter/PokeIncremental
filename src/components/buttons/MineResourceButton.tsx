@@ -2,90 +2,116 @@ import { useGameStore } from "@/stores/game";
 import { useState } from "react";
 import ItemIcon from "@/components/ItemIcon";
 import clsx from "clsx";
-import { ResourceData } from "@/stores/resources";
-import { Equiments } from "@/stores/equipments";
-import { isEffectiveTool } from "@/utils/items";
+import { FloatingNumbers, useFloatingNumbers } from "../ui/FloatingNumbers";
+import { formatNumber } from "@/utils/number-formatting-compact";
 
 export default function MineResourceButton() {
     const resource = useGameStore(
         (state) => state.ages[state.currentAge].collectible
     );
     const resourceData = useGameStore((state) => state.resources[resource]);
-    const addResource = useGameStore((state) => state.addResource);
-    const multiplier = useGameStore((state) =>
-        state.computeResourcesYield(resource)
+    const mineResource = useGameStore((state) => state.mineResource);
+
+    const currentResourceHealth = useGameStore(
+        (state) => state.miningResources[resource].current_hp
     );
-    const equipments = useGameStore((state) => state.equipments);
 
-    const [isMining, setIsMining] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
+    const [isBroken, setIsBroken] = useState(false);
 
-    const MINING_DURATION = computeMiningTime(resourceData, equipments);
+    // Use the custom hook for floating numbers
+    const { numbers, spawnNumber, removeNumber } = useFloatingNumbers();
 
     const handleMine = async () => {
-        if (isMining) return;
-        setIsMining(true);
-        await new Promise((resolve) => setTimeout(resolve, MINING_DURATION));
-        addResource(resource, multiplier);
-        setIsMining(false);
+        // Trigger click animation
+        setIsClicked(true);
+        const { damageDealt, critical, broken } = mineResource(resource);
+        setTimeout(() => setIsClicked(false), 75);
+
+        spawnNumber(
+            damageDealt.toString(),
+            Math.random() * 100,
+            Math.random() * 100,
+            {
+                color: "white",
+                size: 1.25,
+                borderColor: "rgba(0, 0, 0, 0.8)",
+                borderWidth: 2,
+            }
+        );
     };
 
     return (
         <div className="flex flex-col items-center gap-2">
             <div className="dialog-border-transparent !bg-mcInventoryBackground/50 relative flex size-20 items-center justify-center">
-                <ItemIcon
-                    texture={resourceData.texture}
-                    className={clsx(
-                        "z-3 scale-85",
-                        isMining && "animate-bounce"
-                    )}
-                    style={{ animationDuration: "0.5s" }}
-                />
-            </div>
-
-            <div className="relative w-64">
                 <button
+                    className="h-full w-full"
                     onClick={handleMine}
-                    disabled={isMining}
-                    className="relative w-full rounded-md border-2 !bg-gradient-to-b from-gray-400 to-gray-500 px-4 py-3 text-lg font-bold text-black uppercase shadow-md transition-all duration-200 hover:brightness-105 active:scale-95 disabled:cursor-not-allowed"
+                    style={{
+                        all: "unset",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
                 >
-                    {isMining ?
-                        <span className="flex items-center justify-center gap-1">
-                            ⛏ Mining
-                            <span className="dot-ellipsis" />
-                        </span>
-                    :   `⛏ Mine ${resource}`}
-                    {/* Progress overlay */}
-                    {isMining && (
-                        <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden rounded-md">
-                            <div
-                                className="animate-progress h-full w-full bg-black/30"
-                                style={{
-                                    animationDuration: `${MINING_DURATION}ms`,
-                                }}
-                            />
-                        </div>
-                    )}
+                    <ItemIcon
+                        texture={resourceData.obtainedFrom.texture}
+                        className={clsx(
+                            "transition-all duration-200 hover:scale-90",
+                            isClicked ? "scale-110" : "scale-80"
+                        )}
+                        style={
+                            isClicked ?
+                                {
+                                    transform: `scale(1.2) rotate(${Math.random() * 20 - 10}deg)`,
+                                    transition:
+                                        "all 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                                    filter: `brightness(${1.1 + Math.random() * 0.4}) saturate(${1.0 + Math.random() * 0.5})`,
+                                }
+                            :   {
+                                    transition: "all 0.2s ease-out",
+                                }
+                        }
+                    />
                 </button>
+                <FloatingNumbers
+                    numbers={numbers}
+                    onNumberComplete={removeNumber}
+                />
+
+                {/* Health bar */}
+                <div className="absolute -top-9 left-1/2 flex w-full -translate-x-1/2 flex-col">
+                    <div
+                        className="mx-auto text-sm font-bold text-black transition-all"
+                        style={{
+                            transform: isClicked ? "scale(0.8)" : "scale(1)",
+                        }}
+                    >
+                        <span>
+                            {formatNumber(currentResourceHealth, 3, 3, 10)}/
+                            {formatNumber(resourceData.hp, 2, 3, 10)}
+                        </span>
+                    </div>
+                    {/* Progress Bar */}
+                    <div
+                        className="h-3 w-full transform border-3 border-black bg-red-950 transition-all"
+                        style={{
+                            transform: isClicked ? "scaleX(0.8)" : "scaleX(1)",
+                            transformOrigin: "center",
+                        }}
+                    >
+                        <div
+                            className="h-full bg-green-500 transition-all duration-200 ease-in-out"
+                            style={{
+                                width: `${(currentResourceHealth / resourceData.hp) * 100}%`,
+                            }}
+                        ></div>
+                        {/* Progress bar highlight */}
+                        <div className="absolute top-0 h-1/2 w-19/20 bg-white/30 mix-blend-lighten" />
+                    </div>
+                </div>
             </div>
         </div>
     );
-}
-
-function computeMiningTime(
-    resourceData: ResourceData,
-    equipments: Equiments
-): number {
-    const DEFAULT_MINING_TIME = 2000; // Default mining time in milliseconds
-
-    const correspondingEquipedItem = equipments[resourceData.effective_tool];
-    if (
-        correspondingEquipedItem &&
-        correspondingEquipedItem.type === "tool" &&
-        isEffectiveTool(correspondingEquipedItem, resourceData)
-    )
-        return (
-            DEFAULT_MINING_TIME / (correspondingEquipedItem.miningSpeed ?? 1) // Adjust mining time based on tool speed
-        );
-
-    return DEFAULT_MINING_TIME;
 }
