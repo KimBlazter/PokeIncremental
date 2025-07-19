@@ -1,23 +1,25 @@
 import { useGameStore } from "@/stores/game";
+import { ItemEffect } from "@/stores/items";
 
-export type ItemEffect = {
-    id: ItemEffectKeys;
-    name: string;
-    description: string;
-    icon: string;
-    duration?: number; // Duration in ms, if applicable
-    value?: number;
-};
+type Effect = (
+    value?: number,
+    duration?: number,
+    effectMetadata?: ItemEffect
+) => void;
 
-type Effect = (value?: number, duration?: number) => void;
+export type EffectKey = keyof typeof EFFECTS;
 
-export type ItemEffectKeys = keyof typeof ITEM_EFFECTS;
-
-export const ITEM_EFFECTS = {
-    increaseWoodGain: (value = 1, duration = 5000) =>
+export const EFFECTS = {
+    increaseWoodGain: (
+        value = 1,
+        duration = 5000,
+        effectMetadata = undefined
+    ) =>
         useGameStore.getState().addTimedBonus("wood", {
             baseGain: value,
             source: "item",
+            createdAt: new Date().toISOString(),
             expiresAt: new Date(Date.now() + duration).toISOString(),
+            effectMetadata: effectMetadata,
         }),
 } satisfies Record<string, Effect>;

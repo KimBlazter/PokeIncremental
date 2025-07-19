@@ -2,18 +2,21 @@ import { StateCreator } from "zustand";
 import { Resource } from "./resources";
 import { produce } from "immer";
 import { GameStore } from "./game";
+import { ItemEffect } from "./items";
 
-interface Bonus {
+export interface Bonus {
     baseGain: number;
     multiplier: number;
 }
 type ResourceBonus = Record<Resource, Bonus>;
 
-interface TimedBonus {
+export interface TimedBonus {
     multiplier?: number;
     baseGain?: number;
+    createdAt: string; // timestamp ISO string
     expiresAt: string; // timestamp ISO string /!\ important /!\
     source?: string; // e.g., "powerup", "skill", "item"
+    effectMetadata?: ItemEffect; // Metadata for the effect, if applicable
 }
 type ResourceTimedBonus = Record<Resource, TimedBonus[]>;
 
@@ -84,6 +87,8 @@ export const createBonusSlice: StateCreator<GameStore, [], [], BonusSlice> = (
                     // If a bonus with the same source exists, update it
                     state.timedBonuses[resource][bonusExistsIndex].expiresAt =
                         bonus.expiresAt;
+                    state.timedBonuses[resource][bonusExistsIndex].createdAt =
+                        bonus.createdAt;
                 })
             );
         }
