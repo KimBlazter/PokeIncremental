@@ -2,6 +2,12 @@ import { Item } from "@/stores/items";
 
 export const GAME_ITEMS = {
     // WOOD AGE
+    oak_log: {
+        type: "generic",
+        id: "oak_log",
+        name: "Oak Log",
+        texture: "block:oak_log",
+    },
     wooden_axe: {
         type: "tool",
         id: "wooden_axe",
@@ -9,7 +15,7 @@ export const GAME_ITEMS = {
         texture: "item:wooden_axe",
         equipmentSlot: "axe",
         toolType: "axe",
-        miningSpeed: 1.3,
+        damage: 20,
     },
     wooden_pickaxe: {
         type: "tool",
@@ -18,7 +24,7 @@ export const GAME_ITEMS = {
         texture: "item:wooden_pickaxe",
         equipmentSlot: "pickaxe",
         toolType: "pickaxe",
-        miningSpeed: 1.3,
+        damage: 35,
     },
     wooden_sword: {
         type: "weapon",
@@ -65,6 +71,12 @@ export const GAME_ITEMS = {
     },
 
     // STONE AGE
+    stone: {
+        type: "generic",
+        id: "stone",
+        name: "Stone",
+        texture: "block:stone",
+    },
     stone_axe: {
         type: "tool",
         id: "stone_axe",
@@ -72,7 +84,7 @@ export const GAME_ITEMS = {
         texture: "item:stone_axe",
         equipmentSlot: "axe",
         toolType: "axe",
-        miningSpeed: 1.5,
+        damage: 1.5,
     },
     stone_pickaxe: {
         type: "tool",
@@ -81,7 +93,7 @@ export const GAME_ITEMS = {
         texture: "item:stone_pickaxe",
         equipmentSlot: "pickaxe",
         toolType: "pickaxe",
-        miningSpeed: 1.5,
+        damage: 1.5,
     },
     stone_sword: {
         type: "weapon",
@@ -130,6 +142,22 @@ export const GAME_ITEMS = {
         texture: "item:lead",
     },
 
+    // IRON AGE
+    iron_ore: {
+        type: "generic",
+        id: "iron_ore",
+        name: "Iron Ore",
+        texture: "block:iron_ore",
+    },
+
+    // GOLD AGE
+    gold_ore: {
+        type: "generic",
+        id: "gold_ore",
+        name: "Gold Ore",
+        texture: "block:gold_ore",
+    },
+
     // Consumables
     watermelon: {
         type: "consumable",
@@ -139,9 +167,9 @@ export const GAME_ITEMS = {
         consumeOnUse: true,
         effect: {
             id: "increaseWoodGain",
-            name: "???",
+            name: "Lumber Frenzy",
             description: "Increases wood gain for a short time.",
-            icon: "melon_slice",
+            icon: "item:melon_slice",
             duration: 5000, // 5 seconds
             value: 1, // Increase wood gain by 1
         },
