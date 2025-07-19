@@ -2,11 +2,19 @@ import { produce } from "immer";
 import { StateCreator } from "zustand";
 import { GameStore } from "./game";
 import { SlotType } from "./equipments";
-import { ItemEffect } from "@/data/effects";
-import { ITEM_EFFECTS } from "@/data/effects";
+import { type EffectKey, EFFECTS } from "@/data/effects";
 import { Texture } from "@/utils/spriteLoader";
 
 export type ToolType = "axe" | "pickaxe" | "shovel" | "hoe";
+
+export type ItemEffect = {
+    id: EffectKey;
+    name: string;
+    description: string;
+    icon: Texture;
+    duration?: number; // Duration in ms, if applicable
+    value?: number;
+};
 
 // Base Item Interface
 // This interface defines the common properties for all items in the game.
@@ -21,7 +29,7 @@ export interface ToolItem extends BaseItem {
     type: "tool";
     toolType: ToolType;
     equipmentSlot?: SlotType;
-    miningSpeed?: number; // optional mining speed, if applicable
+    damage: number; // Damage dealt by the tool
 }
 
 // Weapon
@@ -99,9 +107,11 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
                 get().equipItem(item);
                 break;
             case "consumable":
-                ITEM_EFFECTS[item.effect.id](
+                // Call the effect function
+                EFFECTS[item.effect.id](
                     item.effect.value,
-                    item.effect.duration
+                    item.effect.duration,
+                    item.effect
                 );
                 if (item.consumeOnUse) {
                     get().removeItem(item);
