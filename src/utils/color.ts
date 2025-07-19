@@ -15,7 +15,7 @@ export function hexToRGB(hex: string): [number, number, number] {
     return [r, g, b];
 }
 
-const GRAY_TOLERANCE = 20;
+const GRAY_TOLERANCE = 18;
 
 export function isGrayscale(r: number, g: number, b: number): boolean {
     return (
