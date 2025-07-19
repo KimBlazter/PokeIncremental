@@ -9,6 +9,7 @@ import { AchievementSlice, createAchievementSlice } from "./achivements";
 import { createSettingsSlice, SettingsSlice } from "./settings";
 import { loadFromLocalStorage } from "@/utils/save";
 import { createEquipmentsSlice, EquipmentSlice } from "./equipments";
+import { createMiningSlice, MiningSlice } from "./mining";
 
 type GameStoreUtils = {
     init: () => void;
@@ -23,7 +24,8 @@ export type GameStore = GameStoreUtils &
     CraftSlice &
     AchievementSlice &
     EquipmentSlice &
-    SettingsSlice;
+    SettingsSlice &
+    MiningSlice;
 
 export const useGameStore = create<GameStore>((...a) => ({
     ...createItemSlice(...a),
@@ -35,6 +37,7 @@ export const useGameStore = create<GameStore>((...a) => ({
     ...createAchievementSlice(...a),
     ...createSettingsSlice(...a),
     ...createEquipmentsSlice(...a),
+    ...createMiningSlice(...a),
     init: () => {
         loadFromLocalStorage();
         a["1"]().updateUnlockableAchievements(); // a["1"] => useGameStore.get
