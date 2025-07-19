@@ -38,9 +38,9 @@ export default function ItemTooltipContent({
                     )}
                 </span>
                 {/* Mining speed */}
-                {item.type === "tool" && item.miningSpeed && (
+                {item.type === "tool" && item.damage && (
                     <span className="mt-1 text-xs text-white/70">
-                        ⛏ Mining speed:{" "}
+                        ⛏ Mining damage:{" "}
                         <span
                             className={clsx(
                                 (
@@ -51,7 +51,7 @@ export default function ItemTooltipContent({
                                 :   "text-white/60"
                             )}
                         >
-                            x{item.miningSpeed}
+                            +{item.damage}
                         </span>
                     </span>
                 )}
