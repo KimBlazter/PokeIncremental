@@ -56,12 +56,9 @@ function Index() {
                         </div>
                         <ToolsHotbar className="absolute right-0 mr-0.5" />
                         <ArmorsHotbar className="absolute left-0 ml-0.5" />
+                        {/* Current bonuses */}
+                        <CurrentBonuses className="absolute top-0 left-1/2 mt-3 h-12 w-7/10 -translate-x-1/2" />
                     </AgeSplashScreen>
-                </div>
-
-                {/* Central Top Right Corner */}
-                <div className="absolute top-20 right-0 z-10">
-                    <CurrentBonuses />
                 </div>
 
                 {/* Central bottom */}
