@@ -1,6 +1,5 @@
 import { Resource, ResourceData } from "@/stores/resources";
 import { formatNumber } from "@/utils/number-formatting-compact";
-import Decimal from "break_eternity.js";
 import { Tooltip } from "@/components/ui/Tooltip";
 import ResourceTooltipContent from "@/components/Tooltips/ResourceTooltipContent";
 import ItemIcon from "../ItemIcon";
@@ -56,7 +55,7 @@ export default function ResourceComponent({
                         fontKerning: "none",
                     }}
                 >
-                    {formatNumber(Decimal.fromNumber(resourceData.amount))}
+                    {formatNumber(resourceData.amount)}
                 </span>
             </div>
         </Tooltip>
