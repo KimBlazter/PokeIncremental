@@ -1,6 +1,6 @@
 import { produce } from "immer";
 import { StateCreator } from "zustand";
-import { ToolType } from "./items";
+import { Item, ToolType } from "./items";
 import { resources } from "@/data/resources";
 import { GameStore } from "./game";
 import { Texture } from "@/utils/spriteLoader";
@@ -11,7 +11,9 @@ export interface ResourceData {
     name: string;
     amount: number;
     texture: Texture; // image identifier
+    obtainedFrom: Item;
     effective_tool: ToolType;
+    hp: number; // Base health points for the resource
 }
 
 export type Resources = Record<Resource, ResourceData>;
