@@ -18,7 +18,6 @@ export default function ItemComponent({ item }: { item: Item }) {
                 onClick={() => useItem(item)}
             >
                 <ItemIcon texture={item.texture} />
-                {false && <div className="enchanted" />}
             </div>
         </Tooltip>
     );
