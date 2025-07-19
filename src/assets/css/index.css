@@ -232,29 +232,110 @@ input[type="reset"] {
 
 /* BEGIN: Enchant glint effect */
 .enchanted {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.enchanted::before,
+.enchanted::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        120deg,
-        rgba(128, 0, 128, 0) 0%,
-        rgba(186, 85, 211, 0.4) 45%,
-        rgba(128, 0, 128, 0) 80%
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent 0px,
+        transparent 4px,
+        rgba(255, 255, 255, 0.8) 4px,
+        rgba(255, 255, 255, 0.8) 6px,
+        rgba(186, 85, 211, 0.9) 6px,
+        rgba(186, 85, 211, 0.9) 8px,
+        rgba(128, 0, 128, 0.7) 8px,
+        rgba(128, 0, 128, 0.7) 10px,
+        transparent 10px,
+        transparent 16px
     );
-    background-size: 200% 100%;
-    animation: glintAnimation 2s linear infinite;
-    mix-blend-mode: color-dodge;
-    pointer-events: none;
-    z-index: 1;
-    filter: blur(2px);
+    background-size: 32px 32px;
+    mix-blend-mode: screen;
+    animation: enchantGlint1 3s linear infinite;
+    filter: blur(4px);
 }
 
-@keyframes glintAnimation {
+.enchanted::after {
+    background: repeating-linear-gradient(
+        45deg,
+        transparent 0px,
+        transparent 6px,
+        rgba(255, 255, 255, 0.6) 6px,
+        rgba(255, 255, 255, 0.6) 8px,
+        rgba(221, 160, 221, 0.8) 8px,
+        rgba(221, 160, 221, 0.8) 10px,
+        rgba(147, 112, 219, 0.6) 10px,
+        rgba(147, 112, 219, 0.6) 12px,
+        transparent 12px,
+        transparent 20px
+    );
+    background-size: 40px 40px;
+    animation: enchantGlint2 4s linear infinite reverse;
+    opacity: 0.7;
+    filter: blur(3px);
+}
+
+@keyframes enchantGlint1 {
     0% {
-        background-position: -200% 0%;
+        transform: translateX(-100%) translateY(-100%);
     }
     100% {
-        background-position: 200% 0%;
+        transform: translateX(100%) translateY(100%);
+    }
+}
+
+@keyframes enchantGlint2 {
+    0% {
+        transform: translateX(-100%) translateY(100%);
+    }
+    100% {
+        transform: translateX(100%) translateY(-100%);
     }
 }
 /* END: Enchant glint effect */
+
+/* BEGIN: Floating Numbers Animation */
+.floating-number {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.5rem;
+    pointer-events: none;
+    z-index: 100;
+    animation: floatUp 1s ease-out forwards;
+    transform: translate(-50%, -50%);
+
+    /* Pixel-perfect rendering for pixelated fonts */
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    font-smooth: never;
+
+    /* Ensure pixel alignment */
+    text-rendering: geometricPrecision;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -80px) scale(0.5);
+    }
+}
+/* END: Floating Numbers Animation */
