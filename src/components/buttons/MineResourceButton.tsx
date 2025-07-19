@@ -17,7 +17,6 @@ export default function MineResourceButton() {
     );
 
     const [isClicked, setIsClicked] = useState(false);
-    const [isBroken, setIsBroken] = useState(false);
 
     // Use the custom hook for floating numbers
     const { numbers, spawnNumber, removeNumber } = useFloatingNumbers();
@@ -25,7 +24,7 @@ export default function MineResourceButton() {
     const handleMine = async () => {
         // Trigger click animation
         setIsClicked(true);
-        const { damageDealt, critical, broken } = mineResource(resource);
+        const { damageDealt } = mineResource(resource);
         setTimeout(() => setIsClicked(false), 75);
 
         spawnNumber(
