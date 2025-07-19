@@ -35,7 +35,7 @@ const SUFFIXES = [
  * @returns string - Ex: "999K", "1.2M", "1.0B", "1.2e123"
  */
 export function formatNumber(
-    value: Decimal,
+    value: number,
     maxDigits = 3,
     maxLength = 4,
     scientificFromSuffixIndex = 9 // "Oc" (1e27)
