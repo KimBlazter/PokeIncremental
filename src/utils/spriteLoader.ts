@@ -57,7 +57,7 @@ function shouldScaleTexture(textureId: TextureId): boolean {
  */
 export async function getTextureCanvas(
     texture: Texture
-): Promise<HTMLCanvasElement> {
+): Promise<{ canvas: HTMLCanvasElement }> {
     const image = await loadSpriteSheet();
 
     // Texture simple (string)
@@ -72,7 +72,9 @@ export async function getTextureCanvas(
         const ctx = canvas.getContext("2d");
         if (!ctx) throw new Error("Unable to get 2D context of the canvas");
 
-        const scale = shouldScaleTexture(texture) ? 1.1 : 1;
+        ctx.imageSmoothingEnabled = false; // Disable antialiasing for pixel-perfect rendering
+
+        const scale = 1;
         const drawWidth = sprite.width * scale;
         const drawHeight = sprite.height * scale;
         const offsetX = (canvas.width - drawWidth) / 2;
@@ -90,11 +92,11 @@ export async function getTextureCanvas(
             drawHeight
         );
 
-        return canvas;
+        return { canvas };
     }
 
     // Composite texture (object)
-    const baseCanvas = await getTextureCanvas(texture.base);
+    const { canvas: baseCanvas } = await getTextureCanvas(texture.base);
     const canvas = document.createElement("canvas");
     canvas.width = baseCanvas.width;
     canvas.height = baseCanvas.height;
@@ -139,11 +141,13 @@ export async function getTextureCanvas(
 
     // 3. Draw overlay if it exists
     if (texture.overlay) {
-        const overlayCanvas = await getTextureCanvas(texture.overlay);
+        const { canvas: overlayCanvas } = await getTextureCanvas(
+            texture.overlay
+        );
         ctx.drawImage(overlayCanvas, 0, 0);
     }
 
-    return canvas;
+    return { canvas };
 }
 
 /**
@@ -153,7 +157,13 @@ export async function getTextureCanvas(
  * @returns {Promise<string>} A promise that resolves to a base64-encoded data URL of the requested sprite.
  * @throws {Error} If the sprite name is not found in the JSON or if the 2D context of the canvas cannot be obtained.
  */
-export default async function getTexture(texture: Texture): Promise<string> {
-    const canvas = await getTextureCanvas(texture);
-    return canvas.toDataURL();
+export default async function getTexture(
+    texture: Texture
+): Promise<{ texture: string; width: number; height: number }> {
+    const { canvas } = await getTextureCanvas(texture);
+    return {
+        texture: canvas.toDataURL(),
+        width: canvas.width,
+        height: canvas.height,
+    };
 }
