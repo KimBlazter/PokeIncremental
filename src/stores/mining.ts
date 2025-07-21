@@ -53,6 +53,12 @@ export const createMiningSlice: StateCreator<GameStore, [], [], MiningSlice> = (
                     damage += BARE_HANDS_DAMAGE;
                 }
 
+                const isCritical = Math.random() < 0.05; // 5% chance for a critical hit
+                if (isCritical) {
+                    critical = true;
+                    damage *= 2; // Double the damage for a critical hit
+                }
+
                 damageDealt = damage;
 
                 const new_hp = current.current_hp - damage;
@@ -66,7 +72,8 @@ export const createMiningSlice: StateCreator<GameStore, [], [], MiningSlice> = (
         // If the resource's hp reaches 0, add it to the player's resources and reset its hp
         if (get().miningResources[resource].current_hp <= 0) {
             broken = true;
-            get().addResource(resource, 1);
+            const gain = get().computeResourcesYield(resource);
+            get().addResource(resource, gain);
             set(
                 produce((state: GameStore) => {
                     state.miningResources[resource].current_hp =
