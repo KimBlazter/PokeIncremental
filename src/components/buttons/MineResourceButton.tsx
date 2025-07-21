@@ -24,7 +24,7 @@ export default function MineResourceButton() {
     const handleMine = async () => {
         // Trigger click animation
         setIsClicked(true);
-        const { damageDealt } = mineResource(resource);
+        const { damageDealt, critical } = mineResource(resource);
         setTimeout(() => setIsClicked(false), 75);
 
         spawnNumber(
@@ -32,8 +32,8 @@ export default function MineResourceButton() {
             Math.random() * 100,
             Math.random() * 100,
             {
-                color: "white",
-                size: 1.25,
+                color: critical ? "orange" : "white",
+                size: critical ? 2 : 1.25,
                 borderColor: "rgba(0, 0, 0, 0.8)",
                 borderWidth: 2,
             }
