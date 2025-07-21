@@ -1,6 +1,6 @@
 import ItemComponent from "./ItemComponent";
 import { useGameStore } from "@/stores/game";
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 
 const MIN_VISIBLE_SLOTS = 16;
 
@@ -14,7 +14,7 @@ export default function ItemsComponent() {
             <h2 className="text-mcInventoryText text-lg font-bold">Items</h2>
             <div className="flex flex-row flex-wrap overflow-y-auto pt-1">
                 {items.map((item) => (
-                    <ItemComponent key={uuidv4()} item={item} />
+                    <ItemComponent key={nanoid()} item={item} />
                 ))}
                 {/* Empty slots */}
                 {Array.from({ length: emptySlotsCount }).map((_, idx) => (
