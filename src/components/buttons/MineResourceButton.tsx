@@ -44,14 +44,10 @@ export default function MineResourceButton() {
         <div className="flex flex-col items-center gap-2">
             <div className="dialog-border-transparent !bg-mcInventoryBackground/50 relative flex size-20 items-center justify-center">
                 <button
-                    className="h-full w-full"
+                    className="h-full w-full !bg-transparent !p-1"
                     onClick={handleMine}
                     style={{
-                        all: "unset",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        border: "none",
                     }}
                 >
                     <ItemIcon
