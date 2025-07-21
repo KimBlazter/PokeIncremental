@@ -84,7 +84,7 @@ export const GAME_ITEMS = {
         texture: "item:stone_axe",
         equipmentSlot: "axe",
         toolType: "axe",
-        damage: 1.5,
+        damage: 50,
     },
     stone_pickaxe: {
         type: "tool",
@@ -93,7 +93,7 @@ export const GAME_ITEMS = {
         texture: "item:stone_pickaxe",
         equipmentSlot: "pickaxe",
         toolType: "pickaxe",
-        damage: 1.5,
+        damage: 50,
     },
     stone_sword: {
         type: "weapon",
