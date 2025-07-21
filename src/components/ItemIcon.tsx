@@ -19,7 +19,9 @@ export default function ItemIcon({
     useEffect(() => {
         if (texture) {
             getTexture(texture)
-                .then(setTextureDataURL)
+                .then((data) => {
+                    setTextureDataURL(data.texture);
+                })
                 .catch((error) => {
                     console.error(
                         `Failed to load texture for ${texture}:`,
@@ -58,33 +60,7 @@ export default function ItemIcon({
                 )}
             </div>
         );
+    } else {
+        return <div>No image</div>;
     }
-
-    return (
-        <div className={clsx("relative", className)} style={style}>
-            <div
-                aria-hidden
-                className={clsx(
-                    "icon-minecraft aspect-square",
-                    getTextureFromIdentifier("barrier")
-                )}
-            />
-            {enchanted && (
-                <div
-                    className={clsx(
-                        "enchanted",
-                        getTextureFromIdentifier("barrier")
-                    )}
-                    style={{
-                        background:
-                            "linear-gradient(120deg, rgba(128, 0, 128, 0) 0%, rgba(186, 85, 211, 0.4) 45%, rgba(128, 0, 128, 0) 80%)",
-                        backgroundSize: "200% 100%",
-                        animation: "glintAnimation 2s linear infinite",
-                        mixBlendMode: "color-dodge" as const,
-                        filter: "blur(2px)",
-                    }}
-                />
-            )}
-        </div>
-    );
 }
