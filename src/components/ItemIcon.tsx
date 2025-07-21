@@ -31,11 +31,15 @@ export default function ItemIcon({
 
     if (textureDataURL) {
         return (
-            <div className={clsx("relative p-1", className)} style={style}>
+            <div
+                className={clsx("relative p-1 select-none", className)}
+                style={style}
+            >
                 <img
                     src={textureDataURL}
                     alt=""
                     className="aspect-square h-full w-full"
+                    draggable={false}
                 />
                 {enchanted && (
                     <div
