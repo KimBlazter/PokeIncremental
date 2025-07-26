@@ -44,10 +44,7 @@ export const GAME_ITEMS = {
         type: "armor",
         id: "shield",
         name: "Shield",
-        texture: {
-            base: "block:grass_block",
-            tint: "#7cbd6b", // minecraft grass color
-        },
+        texture: "item:shield",
         equipmentSlot: "shield",
         defense: 4,
     },
@@ -61,7 +58,7 @@ export const GAME_ITEMS = {
         type: "generic",
         id: "log_pile",
         name: "Log Pile",
-        texture: "block:stripped_oak_log",
+        texture: "block:log_pile",
     },
     rope: {
         type: "generic",
@@ -119,7 +116,7 @@ export const GAME_ITEMS = {
         type: "generic",
         id: "stone_chest",
         name: "Stone Chest",
-        texture: "item:barrier",
+        texture: "block:chest_block",
     },
     leather_boots: {
         type: "armor",
