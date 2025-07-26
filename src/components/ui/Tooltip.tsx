@@ -6,6 +6,7 @@ type TooltipProps = {
     children: ReactNode;
     content: ReactNode;
     className?: string;
+    style?: React.CSSProperties;
     position?: "top" | "bottom" | "left" | "right";
     align?: "start" | "center" | "end";
 };
@@ -14,6 +15,7 @@ export function Tooltip({
     children,
     content,
     className,
+    style,
     position = "top",
     align = "center",
 }: TooltipProps) {
@@ -101,6 +103,7 @@ export function Tooltip({
                 onMouseEnter={() => setVisible(true)}
                 onMouseLeave={() => setVisible(false)}
                 className={clsx("inline-flex", className)}
+                style={style}
             >
                 {children}
             </div>
