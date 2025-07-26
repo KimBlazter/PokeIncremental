@@ -17,8 +17,10 @@ export type Achievement = {
     unlocked: boolean;
 };
 
+export type Achivements = Record<AchievementKey, Achievement>;
+
 export interface AchievementSlice {
-    achievements: Record<AchievementKey, Achievement>;
+    achievements: Achivements;
     unlockAchievement: (id: AchievementKey) => void;
     checkAchievements: () => void;
     unlockableAchievements: AchievementKey[];
