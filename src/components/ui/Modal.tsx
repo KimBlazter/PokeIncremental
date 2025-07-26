@@ -23,7 +23,7 @@ export default function Modal({ modalId, children }: ModalProps) {
         }
     }, [isOpen]);
 
-    // ESC et click dehors
+    // ESC key and click outside to close
     useEffect(() => {
         if (!isOpen) return;
 
@@ -51,6 +51,32 @@ export default function Modal({ modalId, children }: ModalProps) {
         };
     }, [isOpen, close]);
 
+    useEffect(() => {
+        if (isOpen) {
+            // Save the current scroll position
+            const scrollY = window.scrollY;
+
+            // Apply styles to block scrolling
+            document.body.style.position = "fixed";
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.left = "0";
+            document.body.style.right = "0";
+            document.body.style.overflow = "hidden";
+
+            return () => {
+                // Restore original styles
+                document.body.style.position = "";
+                document.body.style.top = "";
+                document.body.style.left = "";
+                document.body.style.right = "";
+                document.body.style.overflow = "";
+
+                // Restore scroll position
+                window.scrollTo(0, scrollY);
+            };
+        }
+    }, [isOpen]);
+
     if (!show) return null;
 
     return (
@@ -62,7 +88,7 @@ export default function Modal({ modalId, children }: ModalProps) {
         >
             <div
                 ref={contentRef}
-                className={`inventory-border text-mcInventoryText relative w-full max-w-md transform p-2 shadow-lg transition-all duration-200 ${
+                className={`inventory-border text-mcInventoryText relative w-full max-w-xl min-w-md transform p-2 shadow-lg transition-all duration-200 ${
                     isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
                 }`}
             >
