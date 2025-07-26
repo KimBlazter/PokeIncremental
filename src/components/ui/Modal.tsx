@@ -88,7 +88,7 @@ export default function Modal({ modalId, children }: ModalProps) {
         >
             <div
                 ref={contentRef}
-                className={`inventory-border text-mcInventoryText relative w-full max-w-xl min-w-md transform p-2 shadow-lg transition-all duration-200 ${
+                className={`inventory-border text-mcInventoryText relative w-min max-w-8/10 min-w-md transform p-2 shadow-lg transition-all duration-200 ${
                     isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
                 }`}
             >
