@@ -31,7 +31,7 @@ const slotTypeToTextureIdentifier: Record<SlotType, Texture> = {
             base: "item:leather_boots_overlay",
         },
     },
-    shield: "item:barrier",
+    shield: "item:shield",
 };
 
 export default function EquipmentSlot({
