@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "@/assets/css/icons-minecraft-215.css";
 
 @theme static {
     --color-mcInventoryBackground: #c6c6c6;
