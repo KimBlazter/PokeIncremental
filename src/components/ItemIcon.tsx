@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getTextureFromIdentifier } from "@/utils/item-models";
 import getTexture, { Texture } from "@/utils/spriteLoader";
 import clsx from "clsx";
 
