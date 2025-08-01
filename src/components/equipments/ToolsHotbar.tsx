@@ -3,13 +3,7 @@ import { useGameStore } from "@/stores/game";
 import EquipmentSlot from "./EquipmentSlot";
 import clsx from "clsx";
 
-export const toolsSlots: SlotType[] = [
-    "sword",
-    "axe",
-    "pickaxe",
-    "shovel",
-    "hoe",
-];
+const toolsSlots: SlotType[] = ["sword", "axe", "pickaxe", "shovel", "hoe"];
 
 export default function ToolsHotbar({ className }: { className?: string }) {
     const equipmentSlots = useGameStore((state) => state.equipments);

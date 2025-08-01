@@ -3,7 +3,7 @@ import { useGameStore } from "@/stores/game";
 import EquipmentSlot from "./EquipmentSlot";
 import clsx from "clsx";
 
-export const toolsSlots: SlotType[] = [
+const toolsSlots: SlotType[] = [
     "helmet",
     "chestplate",
     "leggings",
