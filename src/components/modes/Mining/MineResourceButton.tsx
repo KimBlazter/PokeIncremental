@@ -2,7 +2,7 @@ import { useGameStore } from "@/stores/game";
 import { useState } from "react";
 import ItemIcon from "@/components/ItemIcon";
 import clsx from "clsx";
-import { FloatingNumbers, useFloatingNumbers } from "../ui/FloatingNumbers";
+import { FloatingNumbers, useFloatingNumbers } from "../../ui/FloatingNumbers";
 import { formatNumber } from "@/utils/number-formatting-compact";
 
 export default function MineResourceButton() {
