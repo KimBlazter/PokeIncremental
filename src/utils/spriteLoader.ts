@@ -1,12 +1,57 @@
 import { hexToRGB, isGrayscale } from "./color";
 
-import SpriteMap from "/textures/combined_spritemap.png";
-import SpriteMapData from "@/assets/data/combined_spritemap.json";
+import BlocksAndItemsSpritemap from "/textures/combined_spritemap.png";
+import BlocksAndItemsSpritemapData from "@/assets/data/combined_spritemap.json";
 
-export type TextureId = keyof (typeof SpriteMapData)["sprites"];
+import MobSpritemap from "/textures/mobs_spritemap.png";
+import MobSpritemapData from "@/assets/data/mobs_spritemap.json";
+
+type Sprite = {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+};
+
+interface SpritemapConfig {
+    image: string; // Path to the sprite sheet image
+    data: {
+        width: number;
+        height: number;
+        tileSize: number; // Size of each tile in pixels
+        rows: number;
+        cols: number;
+        sprites: {
+            [key: string]: Sprite;
+        };
+    };
+}
+
+const SPRITEMAPS = {
+    blocks_and_items: {
+        image: BlocksAndItemsSpritemap,
+        data: BlocksAndItemsSpritemapData,
+    },
+    mobs: {
+        image: MobSpritemap,
+        data: MobSpritemapData,
+    },
+} as const satisfies Record<string, SpritemapConfig>;
+
+type SpritemapName = keyof typeof SPRITEMAPS;
+
+export type TextureId = {
+    [K in SpritemapName]: keyof (typeof SPRITEMAPS)[K]["data"]["sprites"];
+}[SpritemapName];
+
+export type QualifiedTextureId = {
+    spritemap: SpritemapName;
+    texture: TextureId;
+};
 
 export type Texture =
     | TextureId
+    | QualifiedTextureId
     | {
           base: Texture; // Base texture
           overlay?: Texture; // overlay texture
@@ -14,55 +59,124 @@ export type Texture =
           opacity?: number; // opacity between 0 and 1
       };
 
-let spriteSheetImage: HTMLImageElement | null = null;
+// Cache for loaded sprite sheet images
+// This helps avoid reloading the same image multiple times, improving performance.
+const spriteSheetImages = new Map<SpritemapName, HTMLImageElement>();
 
 /**
  * Loads the sprite sheet image asynchronously. If the image is already loaded,
  * it returns the cached image. Otherwise, it creates a new `HTMLImageElement`,
  * sets its source to the sprite map, and resolves the promise once the image is loaded.
  *
+ * @param {SpritemapName} spritemapName - The name of the sprite map to load.
  * @returns {Promise<HTMLImageElement>} A promise that resolves to the loaded sprite sheet image.
  */
-async function loadSpriteSheet(): Promise<HTMLImageElement> {
-    if (spriteSheetImage) return spriteSheetImage;
+async function loadSpriteSheet(
+    spritemapName: SpritemapName
+): Promise<HTMLImageElement> {
+    const cached = spriteSheetImages.get(spritemapName);
+    if (cached) return cached;
+
+    const config = SPRITEMAPS[spritemapName];
 
     return new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = SpriteMap;
+        img.src = config.image;
         img.onload = () => {
-            spriteSheetImage = img;
+            spriteSheetImages.set(spritemapName, img);
             resolve(img);
         };
-        img.onerror = reject;
+        img.onerror = () =>
+            reject(new Error(`Failed to load spritemap: ${spritemapName}`));
     });
 }
 
 /**
- * Determines whether a texture should be scaled based on its identifier.
+ * Finds the sprite data associated with a given texture ID.
  *
- * @param textureId - The identifier of the texture to check.
- * @returns `true` if the texture identifier starts with "block:", indicating
- *          that the texture should be scaled; otherwise, `false`.
+ * This function iterates through the entries of the `SPRITEMAPS` object to locate
+ * the sprite data corresponding to the provided texture ID. If found, it returns
+ * the name of the spritemap and the sprite's dimensions and position. If no match
+ * is found, it returns `null`.
+ *
+ * @param texture - The ID of the texture to search for in the spritemaps.
+ * @returns An object containing the spritemap name and sprite data
+ *          (position and dimensions) if the texture is found, or `null` if not.
  */
-function shouldScaleTexture(textureId: TextureId): boolean {
-    return textureId.startsWith("block:");
+function findSpriteData(texture: TextureId): {
+    spritemapName: SpritemapName;
+    sprite: { x: number; y: number; width: number; height: number };
+} | null {
+    for (const [spritemapName, config] of Object.entries(SPRITEMAPS) as [
+        SpritemapName,
+        SpritemapConfig,
+    ][]) {
+        const sprite = config.data.sprites[texture];
+        if (sprite) {
+            return { spritemapName, sprite };
+        }
+    }
+    return null;
+}
+
+async function resolveTexture(texture: Texture): Promise<{
+    spritemapName: SpritemapName;
+    sprite: Sprite;
+    image: HTMLImageElement;
+}> {
+    // Case 1: Qualified texture
+    if (
+        typeof texture === "object" &&
+        "spritemap" in texture &&
+        "texture" in texture
+    ) {
+        const config = SPRITEMAPS[texture.spritemap];
+        const sprite =
+            config.data.sprites[
+                texture.texture as keyof typeof config.data.sprites
+            ];
+
+        if (!sprite) {
+            throw new Error(
+                `Sprite "${texture.texture}" not found in spritemap "${texture.spritemap}"`
+            );
+        }
+
+        const image = await loadSpriteSheet(texture.spritemap);
+        return { spritemapName: texture.spritemap, sprite, image };
+    }
+
+    // Case 2: Simple texture (string) - search in all spritemaps
+    if (typeof texture === "string") {
+        const spriteData = findSpriteData(texture);
+        if (!spriteData) {
+            throw new Error(`Sprite "${texture}" not found in any spritemap`);
+        }
+
+        const image = await loadSpriteSheet(spriteData.spritemapName);
+        return { ...spriteData, image };
+    }
+
+    // Case 3: Composite texture (object) - resolve base texture
+    return resolveTexture(texture.base);
 }
 
 /**
  * Retrieves a specific sprite from the sprite sheet and draws it onto a new canvas element.
  *
- * @param {TextureId} texture - The identifier of the sprite to retrieve, corresponding to a key in the sprite map JSON.
+ * @param {Texture} texture - The texture to retrieve, which can be a string (texture ID), a qualified texture object, or a composite texture object.
  * @returns {Promise<HTMLCanvasElement>} A promise that resolves to a canvas element containing the requested sprite.
  * @throws {Error} If the sprite name is not found in the JSON or if the 2D context of the canvas cannot be obtained.
  */
 export async function getTextureCanvas(
     texture: Texture
 ): Promise<{ canvas: HTMLCanvasElement }> {
-    const image = await loadSpriteSheet();
-
-    // Texture simple (string)
-    if (typeof texture === "string") {
-        const sprite = SpriteMapData.sprites[texture];
+    // Simple texture or qualified
+    if (
+        typeof texture === "string" ||
+        (typeof texture === "object" && "spritemap" in texture)
+    ) {
+        const { sprite, image } = await resolveTexture(texture);
         if (!sprite) throw new Error(`Sprite "${texture}" not found`);
 
         const canvas = document.createElement("canvas");
@@ -121,9 +235,9 @@ export async function getTextureCanvas(
             const a = data[i + 3];
 
             if (a === 0) continue; // transparent
-            if (!isGrayscale(r, g, b)) continue; // pas un pixel gris
+            if (!isGrayscale(r, g, b)) continue; // not greyscale
 
-            const brightness = r / 255; // ou moyenne RGB pour une meilleure précision
+            const brightness = r / 255; // or average RGB for better accuracy
 
             data[i + 0] = Math.round(
                 tr * brightness * opacity + r * (1 - opacity)
