@@ -10,7 +10,7 @@ export const hotkeys = {
             const gameStore = useGameStore.getState();
             const resource = gameStore.ages[gameStore.currentAge].collectible;
             const multiplier = gameStore.computeResourcesYield(resource);
-            gameStore.addResource(resource, multiplier);
+            gameStore.updateResource(resource, multiplier);
         },
     },
     openAchievements: {

@@ -43,7 +43,7 @@ export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
 
         // If can craft then remove all materials and items
         craft.cost.resources?.forEach(({ material, amount }) =>
-            get().addResource(material, -amount)
+            get().updateResource(material, -amount)
         );
 
         craft.cost.items?.forEach(

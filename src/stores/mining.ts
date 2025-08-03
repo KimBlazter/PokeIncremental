@@ -73,7 +73,7 @@ export const createMiningSlice: StateCreator<GameStore, [], [], MiningSlice> = (
         if (get().miningResources[resource].current_hp <= 0) {
             broken = true;
             const gain = get().computeResourcesYield(resource);
-            get().addResource(resource, gain);
+            get().updateResource(resource, +gain);
             set(
                 produce((state: GameStore) => {
                     state.miningResources[resource].current_hp =

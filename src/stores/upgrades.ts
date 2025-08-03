@@ -34,7 +34,7 @@ export const createUpgradeSlice: StateCreator<
             get().upgrades[upgradeId].cost.amount
         )
             return;
-        get().addResource(
+        get().updateResource(
             get().upgrades[upgradeId].cost.resource,
             -get().upgrades[upgradeId].cost.amount
         );

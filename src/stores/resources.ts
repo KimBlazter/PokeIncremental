@@ -20,7 +20,8 @@ export type Resources = Record<Resource, ResourceData>;
 
 export interface ResourceSlice {
     resources: Resources;
-    addResource: (resource: Resource, amount: number) => void;
+    discoveredResources: Resource[]; // List of resources that have been discovered
+    updateResource: (resource: Resource, amount: number) => void;
 }
 
 export const createResourceSlice: StateCreator<
@@ -30,10 +31,24 @@ export const createResourceSlice: StateCreator<
     ResourceSlice
 > = (set, get) => ({
     resources: resources,
-    addResource: (resource, amount) => {
+    discoveredResources: [],
+    updateResource: (resource, amount) => {
         set(
             produce((state: ResourceSlice) => {
-                state.resources[resource].amount += amount;
+                const oldAmount = state.resources[resource].amount;
+                const newAmount = oldAmount + amount;
+
+                state.resources[resource].amount = Math.max(newAmount, 0);
+
+                // Newly discovered resource
+                if (oldAmount === 0 && newAmount > 0) {
+                    state.discoveredResources.push(resource);
+                }
+
+                if (oldAmount > 0 && newAmount <= 0) {
+                    state.discoveredResources =
+                        state.discoveredResources.filter((r) => r !== resource);
+                }
             })
         );
         get().checkAchievements();
