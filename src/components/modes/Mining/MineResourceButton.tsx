@@ -3,7 +3,8 @@ import { useState } from "react";
 import ItemIcon from "@/components/ItemIcon";
 import clsx from "clsx";
 import { FloatingNumbers, useFloatingNumbers } from "../../ui/FloatingNumbers";
-import { formatNumber } from "@/utils/number-formatting-compact";
+import ProgressBar from "@/components/ui/ProgressBar";
+import ProgressCounter from "@/components/ui/ProgressCounter";
 
 export default function MineResourceButton() {
     const resource = useGameStore(
@@ -53,7 +54,7 @@ export default function MineResourceButton() {
                     <ItemIcon
                         texture={resourceData.obtainedFrom.texture}
                         className={clsx(
-                            "transition-all duration-200 hover:scale-90",
+                            "[&_img]:!image-auto transition-all duration-200 hover:scale-90",
                             isClicked ? "scale-110" : "scale-80"
                         )}
                         style={
@@ -77,34 +78,22 @@ export default function MineResourceButton() {
 
                 {/* Health bar */}
                 <div className="absolute -top-9 left-1/2 flex w-full -translate-x-1/2 flex-col">
-                    <div
-                        className="mx-auto text-sm font-bold text-black transition-all"
+                    <ProgressCounter
+                        value={currentResourceHealth}
+                        maxValue={resourceData.hp}
+                        className="text-center text-sm leading-5 font-bold tracking-wider text-white"
                         style={{
                             transform: isClicked ? "scale(0.8)" : "scale(1)",
                         }}
-                    >
-                        <span>
-                            {formatNumber(currentResourceHealth, 3, 3, 10)}/
-                            {formatNumber(resourceData.hp, 2, 3, 10)}
-                        </span>
-                    </div>
-                    {/* Progress Bar */}
-                    <div
-                        className="h-3 w-full transform border-3 border-black bg-red-950 transition-all"
+                    />
+                    <ProgressBar
+                        value={currentResourceHealth}
+                        maxValue={resourceData.hp}
                         style={{
                             transform: isClicked ? "scaleX(0.8)" : "scaleX(1)",
                             transformOrigin: "center",
                         }}
-                    >
-                        <div
-                            className="h-full bg-green-500 transition-all duration-200 ease-in-out"
-                            style={{
-                                width: `${(currentResourceHealth / resourceData.hp) * 100}%`,
-                            }}
-                        ></div>
-                        {/* Progress bar highlight */}
-                        <div className="absolute top-0 h-1/2 w-19/20 bg-white/30 mix-blend-lighten" />
-                    </div>
+                    />
                 </div>
             </div>
         </div>
