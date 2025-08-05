@@ -1,0 +1,579 @@
+{
+    "width": 144,
+    "height": 176,
+    "tileSize": 16,
+    "cols": 9,
+    "rows": 11,
+    "sprites": {
+        "mob:chicken": {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:pig": {
+            "x": 16,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:sheep": {
+            "x": 32,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:cow": {
+            "x": 48,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:mooshroom": {
+            "x": 64,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:rabbit": {
+            "x": 80,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:wolf": {
+            "x": 96,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:cat": {
+            "x": 112,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:ocelot": {
+            "x": 128,
+            "y": 0,
+            "width": 16,
+            "height": 16
+        },
+        "mob:horse": {
+            "x": 0,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:mule": {
+            "x": 16,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:donkey": {
+            "x": 32,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:zombie_horse": {
+            "x": 48,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:skeleton_horse": {
+            "x": 64,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:spider": {
+            "x": 80,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:cave_spider": {
+            "x": 96,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:creeper": {
+            "x": 112,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:zombie": {
+            "x": 128,
+            "y": 16,
+            "width": 16,
+            "height": 16
+        },
+        "mob:husk": {
+            "x": 0,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:skeleton": {
+            "x": 16,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:stray": {
+            "x": 32,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:bogged": {
+            "x": 48,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:wither_skeleton": {
+            "x": 64,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:piglin": {
+            "x": 80,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:brute_piglin": {
+            "x": 96,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:zombified_piglin": {
+            "x": 112,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:hoglin": {
+            "x": 128,
+            "y": 32,
+            "width": 16,
+            "height": 16
+        },
+        "mob:zoglin": {
+            "x": 0,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:strider": {
+            "x": 16,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:ghast": {
+            "x": 32,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:magma_cube": {
+            "x": 48,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:slime": {
+            "x": 64,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:blaze": {
+            "x": 80,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:breeze": {
+            "x": 96,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:snowman": {
+            "x": 112,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:silverfish": {
+            "x": 128,
+            "y": 48,
+            "width": 16,
+            "height": 16
+        },
+        "mob:phantom": {
+            "x": 0,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:bat": {
+            "x": 16,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:bee": {
+            "x": 32,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:parrot": {
+            "x": 48,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:panda": {
+            "x": 64,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:fox": {
+            "x": 80,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:goat": {
+            "x": 96,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:camel": {
+            "x": 112,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:llama": {
+            "x": 128,
+            "y": 64,
+            "width": 16,
+            "height": 16
+        },
+        "mob:trader_llama": {
+            "x": 0,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:armadillo": {
+            "x": 16,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:polar_bear": {
+            "x": 32,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:sniffer": {
+            "x": 48,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:temperate_frog": {
+            "x": 64,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:tadpole": {
+            "x": 80,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:turtle": {
+            "x": 96,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:axolotl_lucy": {
+            "x": 112,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:cod": {
+            "x": 128,
+            "y": 80,
+            "width": 16,
+            "height": 16
+        },
+        "mob:salmon": {
+            "x": 0,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:clownfish": {
+            "x": 16,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:pufferfish": {
+            "x": 32,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:dolphin": {
+            "x": 48,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:guardian": {
+            "x": 64,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:elder_guardian": {
+            "x": 80,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:squid": {
+            "x": 96,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:glow_squid": {
+            "x": 112,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:drowned": {
+            "x": 128,
+            "y": 96,
+            "width": 16,
+            "height": 16
+        },
+        "mob:allay": {
+            "x": 0,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:vexes": {
+            "x": 16,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:evoker": {
+            "x": 32,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:pillager": {
+            "x": 48,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:vindicator": {
+            "x": 64,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:illusioner": {
+            "x": 80,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:witch": {
+            "x": 96,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:ravager": {
+            "x": 112,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:wandering_trader": {
+            "x": 128,
+            "y": 112,
+            "width": 16,
+            "height": 16
+        },
+        "mob:villager": {
+            "x": 0,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:zombie_villager": {
+            "x": 16,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:iron_golem": {
+            "x": 32,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:endermite": {
+            "x": 48,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:shulker": {
+            "x": 64,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:enderman": {
+            "x": 80,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:warden": {
+            "x": 96,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:wither_boss": {
+            "x": 112,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:ender_dragon": {
+            "x": 128,
+            "y": 128,
+            "width": 16,
+            "height": 16
+        },
+        "mob:steve": {
+            "x": 0,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:snowman_with_pumpkin": {
+            "x": 16,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:mooshroom_brown": {
+            "x": 32,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:axololt_gold": {
+            "x": 48,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:axolotl_blue": {
+            "x": 64,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:axolotl_cyan": {
+            "x": 80,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:axolotl_wild": {
+            "x": 96,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:snow_fox": {
+            "x": 112,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:warm_frog": {
+            "x": 128,
+            "y": 144,
+            "width": 16,
+            "height": 16
+        },
+        "mob:cold_frog": {
+            "x": 0,
+            "y": 160,
+            "width": 16,
+            "height": 16
+        },
+        "mob:copper_helmet": {
+            "x": 16,
+            "y": 160,
+            "width": 16,
+            "height": 16
+        },
+        "mob:gold_helmet": {
+            "x": 32,
+            "y": 160,
+            "width": 16,
+            "height": 16
+        },
+        "mob:iron_helmet": {
+            "x": 48,
+            "y": 160,
+            "width": 16,
+            "height": 16
+        },
+        "mob:diamond_helmet": {
+            "x": 64,
+            "y": 160,
+            "width": 16,
+            "height": 16
+        }
+    }
+}
