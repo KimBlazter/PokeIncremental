@@ -6,7 +6,6 @@ import {
     type Achivements,
 } from "@/stores/achivements";
 import { JSX, useCallback, useRef, useState } from "react";
-import { eventNames } from "process";
 import { Tooltip } from "../ui/Tooltip";
 import AchievementTooltipContent from "../Tooltips/AchievementTooltipContent";
 import clsx from "clsx";
