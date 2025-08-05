@@ -16,9 +16,9 @@ type Grid = {
 };
 
 const ISO_CONFIG = {
-    tileWidth: 52,
-    tileHeight: 25,
-    blockHeight: 31,
+    tileWidth: 56,
+    tileHeight: 28,
+    blockHeight: 35,
     scale: 1,
 };
 
@@ -367,6 +367,10 @@ export default function Isometric() {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
@@ -392,12 +396,11 @@ export default function Isometric() {
             </div>
             <canvas
                 ref={canvasRef}
-                width={800}
-                height={600}
-                className="cursor-crosshair rounded border border-gray-300"
+                className="h-full w-full cursor-crosshair rounded"
                 style={{ imageRendering: "pixelated" }}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
+                draggable={false}
             />
         </div>
     );
