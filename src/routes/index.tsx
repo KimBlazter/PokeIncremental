@@ -1,19 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import InventoryComponent from "@/components/InventoryComponent";
-import MineResourceButton from "@/components/buttons/MineResourceButton";
 import UpgradesComponent from "@/components/upgrades/UpgradesComponent";
-import AgeSelector from "@/components/ages/AgeSelector";
 import CraftsComponent from "@/components/crafts/CraftsComponent";
 import { useGameStore } from "@/stores/game";
 import { useEffect } from "react";
-import AgeSplashScreen from "@/components/ages/AgeSplashScreen";
 import SettingsButton from "@/components/settings/SettingsButton";
 import AchievementsButton from "@/components/achievements/AchievementsButton";
 import { useHotkeys } from "@/hooks/useHotkeys";
 import TabSwitcher from "@/components/ui/TabSwitcher";
-import ToolsHotbar from "@/components/equipments/ToolsHotbar";
-import ArmorsHotbar from "@/components/equipments/ArmorsHotbar";
-import CurrentBonuses from "@/components/bonuses/CurrentBonuses";
+import ModeSelectionButtons from "@/components/modes/ModeSelectionButtons";
+import Mining from "@/components/modes/Mining/Mining";
+import Battle from "@/components/modes/Battle/Battle";
+import Farming from "@/components/modes/Farming/Farming";
 
 export const Route = createFileRoute("/")({
     component: Index,
@@ -22,7 +20,10 @@ export const Route = createFileRoute("/")({
 // IMPORTANT: the id "root" of the first div is mandatory.. else it will break the TanStack Router
 function Index() {
     useHotkeys();
+    // useGameLoop(); // Start the game loop
     const init = useGameStore((state) => state.init);
+
+    const currentMode = useGameStore((state) => state.currentMode);
 
     // Initialize the game state when the component mounts
     useEffect(() => {
@@ -41,28 +42,21 @@ function Index() {
                     imageRendering: "pixelated",
                 }}
             >
+                <ModeSelectionButtons />
                 <AchievementsButton />
                 <SettingsButton />
             </div>
 
             {/* Central panel */}
             <div className="relative flex h-full flex-1 flex-col">
-                {/* Central top */}
-                <div className="flex h-1/2 flex-col gap-1">
-                    <AgeSelector />
-                    <AgeSplashScreen className="relative flex items-center">
-                        <div className="flex h-full w-full flex-col items-center justify-center p-4">
-                            <MineResourceButton />
-                        </div>
-                        <ToolsHotbar className="absolute right-0 mr-0.5" />
-                        <ArmorsHotbar className="absolute left-0 ml-0.5" />
-                        {/* Current bonuses */}
-                        <CurrentBonuses className="absolute top-0 left-1/2 mt-3 h-12 w-7/10 -translate-x-1/2" />
-                    </AgeSplashScreen>
+                {/* Central top - Current mode */}
+                <div className="flex h-6/10 flex-col gap-1">
+                    {currentMode === "mining" && <Mining />}
+                    {currentMode === "battles" && <Battle />}
+                    {currentMode === "farming" && <Farming />}
                 </div>
-
                 {/* Central bottom */}
-                <div className="h-1/2">
+                <div className="h-4/10">
                     <InventoryComponent />
                 </div>
             </div>
