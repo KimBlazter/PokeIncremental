@@ -58,6 +58,28 @@
     }
 }
 
+@utility image-pixalated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    font-smooth: never;
+
+    /* Ensure pixel alignment */
+    text-rendering: geometricPrecision;
+}
+
+@utility image-auto {
+    image-rendering: auto;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+    font-smooth: auto;
+
+    /* Ensure pixel alignment */
+    text-rendering: optimizeLegibility;
+}
+
 @font-face {
     font-family: "Monocraft";
     src: url("/src/assets/fonts/Monocraft.otf") format("opentype");
@@ -338,3 +360,17 @@ input[type="reset"] {
     }
 }
 /* END: Floating Numbers Animation */
+
+/* BEGIN: Damage Flash Animation */
+@keyframes damageFlash {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+/* END: Damage Flash Animation */
