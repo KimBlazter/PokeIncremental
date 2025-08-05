@@ -23,7 +23,7 @@ export default function ItemTooltipContent({
                     {item.name}
                 </span>
                 <span className="flex flex-row items-center gap-1 text-sm text-white/30">
-                    <span className="flex items-center justify-center rounded-sm bg-white/60 px-1 pt-0 text-black capitalize text-shadow-none">
+                    <span className="flex items-center justify-center rounded-sm bg-white/60 px-2 pb-0.5 leading-4 text-black capitalize text-shadow-none">
                         {item.type}
                     </span>
                     {item.type === "tool" && (
@@ -37,7 +37,7 @@ export default function ItemTooltipContent({
                         </span>
                     )}
                 </span>
-                {/* Mining speed */}
+                {/* Tool stats */}
                 {item.type === "tool" && item.damage && (
                     <span className="mt-1 text-xs text-white/70">
                         ⛏ Mining damage:{" "}
@@ -55,6 +55,34 @@ export default function ItemTooltipContent({
                         </span>
                     </span>
                 )}
+
+                {/* Weapon stats */}
+                {item.type === "weapon" && item.damage && (
+                    <div className="flex flex-col">
+                        <span className="mt-1 -mb-1.5 text-xs text-white/70">
+                            Damage:{" "}
+                            <span className="text-green-400">
+                                +{item.damage}
+                            </span>
+                        </span>
+                        <span className="mt-1 text-xs text-white/70">
+                            Attack speed:{" "}
+                            <span className="text-green-400">
+                                {item.attackSpeed}
+                            </span>
+                        </span>
+                    </div>
+                )}
+
+                {/* Armor stats */}
+                {item.type === "armor" && (
+                    <span className="mt-1 text-xs text-white/70">
+                        Defense:{" "}
+                        <span className="text-blue-400">{item.defense}</span>
+                    </span>
+                )}
+
+                {/* Generic item stats */}
 
                 {/* Equip/Unequip message */}
                 {(item.type === "tool" ||
