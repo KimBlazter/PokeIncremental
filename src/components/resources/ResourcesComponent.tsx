@@ -1,19 +1,17 @@
-import { Resource } from "@/stores/resources";
 import ResourceComponent from "./ResourceComponent";
 import { useGameStore } from "@/stores/game";
 
 const MIN_VISIBLE_SLOTS = 18;
 
 export default function ResourcesComponent() {
+    const discoveredResources = useGameStore(
+        (state) => state.discoveredResources
+    );
     const resources = useGameStore((state) => state.resources);
-
-    const resourceKeys = Object.keys(resources).filter(
-        (key) => resources[key as Resource].amount > 0
-    ) as Resource[];
 
     const emptySlotsCount = Math.max(
         0,
-        MIN_VISIBLE_SLOTS - resourceKeys.length
+        MIN_VISIBLE_SLOTS - discoveredResources.length
     );
 
     return (
@@ -23,8 +21,7 @@ export default function ResourcesComponent() {
             </h2>
             <div className="max-h-96 overflow-y-auto pb-4">
                 <div className="flex flex-row flex-wrap pt-1">
-                    {Object.keys(resources).map((resourceKey) => {
-                        const resource = resourceKey as Resource;
+                    {discoveredResources.map((resource) => {
                         return (
                             <ResourceComponent
                                 resourceData={resources[resource]}
