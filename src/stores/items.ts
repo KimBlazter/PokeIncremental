@@ -21,7 +21,10 @@ export type ItemEffect = {
 export interface BaseItem {
     id: string;
     name: string;
+    description?: string;
     texture: Texture;
+    stackable: boolean;
+    quantity?: number; // Optional quantity for stackable items
 }
 
 // Tool
@@ -68,7 +71,7 @@ export type Item =
 
 export interface ItemSlice {
     items: Item[];
-    addItem: (item: Item) => void;
+    addItem: (item: Item, quantity?: number) => void;
     removeItem: (item: Item) => void;
     useItem: (item: Item) => void;
     hasItem: (id: string, amount?: number) => boolean;
@@ -79,10 +82,23 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
     get
 ) => ({
     items: [],
-    addItem: (item) => {
+    addItem: (item, qty = 1) => {
         set(
             produce((state: ItemSlice) => {
-                state.items.push(item);
+                // Check if the item is stackable
+                if (!item.stackable) {
+                    state.items.push(item);
+                } else {
+                    // If not stackable, add a new item instance
+                    const existing = state.items.find((i) => i.id === item.id);
+                    if (existing) {
+                        existing.quantity = (existing.quantity || 0) + qty;
+                        return; // Exit early if item already exists
+                    }
+                    // Otherwise, add a new item instance
+                    item = { ...item, quantity: qty }; // Ensure quantity is set
+                    state.items.push(item);
+                }
             })
         );
         get().checkAchievements();
