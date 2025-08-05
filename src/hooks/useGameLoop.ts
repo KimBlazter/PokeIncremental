@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useGameStore } from "@/stores/game";
 
 export function useGameLoop() {
     const [totalTicks, setTotalTicks] = useState(0); // Compteur total des ticks
@@ -12,7 +13,10 @@ export function useGameLoop() {
             const elapsedTime = now - lastTickTime.current; // Temps écoulé depuis le dernier tick
 
             setTotalTicks((prevTicks) => prevTicks + 1); // Incrémenter le compteur des ticks
-            lastTickTime.current = now; // Mettre à jour le dernier temps de tick
+
+            // Call combat tick every 100ms for smooth combat
+            const tickCombat = useGameStore.getState().tickCombat;
+            tickCombat();
 
             // Si 1 seconde s'est écoulée, on effectue l'action
             if (elapsedTime >= 1000) {
