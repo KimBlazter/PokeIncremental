@@ -41,6 +41,15 @@ export default function ItemIcon({
                     alt=""
                     className="aspect-square h-full w-full"
                     draggable={false}
+                    style={{
+                        imageRendering:
+                            (
+                                typeof texture === "string" &&
+                                texture.startsWith("block:")
+                            ) ?
+                                "auto"
+                            :   "pixelated",
+                    }}
                 />
                 {enchanted && (
                     <div
