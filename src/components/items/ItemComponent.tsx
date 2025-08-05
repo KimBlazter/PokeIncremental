@@ -3,6 +3,7 @@ import { Tooltip } from "@/components/ui/Tooltip";
 import ItemTooltipContent from "@/components/Tooltips/ItemTooltipContent";
 import { useGameStore } from "@/stores/game";
 import ItemIcon from "@/components/ItemIcon";
+import { formatNumber } from "@/utils/number-formatting-compact";
 
 export default function ItemComponent({ item }: { item: Item }) {
     const useItem = useGameStore((state) => state.useItem);
@@ -18,6 +19,18 @@ export default function ItemComponent({ item }: { item: Item }) {
                 onClick={() => useItem(item)}
             >
                 <ItemIcon texture={item.texture} />
+                {item.quantity && (
+                    <span
+                        className="mc-text-shadow absolute right-0 bottom-0 text-right text-sm"
+                        style={{
+                            lineHeight: "1",
+                            fontVariantLigatures: "none",
+                            fontKerning: "none",
+                        }}
+                    >
+                        {formatNumber(item.quantity)}
+                    </span>
+                )}
             </div>
         </Tooltip>
     );
