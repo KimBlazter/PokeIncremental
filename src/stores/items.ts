@@ -72,7 +72,7 @@ export type Item =
 export interface ItemSlice {
     items: Item[];
     addItem: (item: Item, quantity?: number) => void;
-    removeItem: (item: Item) => void;
+    removeItem: (item: Item, quantity?: number) => void;
     useItem: (item: Item) => void;
     hasItem: (id: string, amount?: number) => boolean;
 }
@@ -103,15 +103,39 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
         );
         get().checkAchievements();
     },
-    removeItem: (item: Item) =>
+    removeItem: (item, quantity = 1) =>
         set(
             produce((state: ItemSlice) => {
-                const index = state.items.findIndex(
-                    (curr) => curr.id === item.id
-                );
+                let qtyToRemove = quantity;
 
-                if (index !== -1) {
-                    state.items.splice(index, 1);
+                // Traverse the items array to find and remove the item(s)
+                for (
+                    let i = 0;
+                    i < state.items.length && qtyToRemove > 0;
+                    i++
+                ) {
+                    const current = state.items[i];
+                    if (current.id === item.id) {
+                        if (current.stackable && current.quantity) {
+                            const removeQty = Math.min(
+                                current.quantity,
+                                qtyToRemove
+                            );
+                            current.quantity -= removeQty;
+                            qtyToRemove -= removeQty;
+
+                            // Delete the item if quantity goes to zero
+                            if (current.quantity <= 0) {
+                                state.items.splice(i, 1);
+                                i--; // Decrement index to account for removed item
+                            }
+                        } else {
+                            // Non stackable : remove the item directly
+                            state.items.splice(i, 1);
+                            qtyToRemove--;
+                            i--; // Decrement index to account for removed item
+                        }
+                    }
                 }
             })
         ),
@@ -138,7 +162,11 @@ export const createItemSlice: StateCreator<GameStore, [], [], ItemSlice> = (
         }
     },
     hasItem: (id, amount?) => {
-        const count = get().items.filter((item: Item) => item.id === id).length;
+        const count = get()
+            .items.filter((item: Item) => item.id === id)
+            .reduce((acc, item) => {
+                return acc + (item.quantity || 1); // Use quantity if available, otherwise count as 1
+            }, 0);
         return count >= (amount ?? 1);
     },
 });
