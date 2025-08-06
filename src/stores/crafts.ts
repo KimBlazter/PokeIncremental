@@ -47,7 +47,7 @@ export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
         );
 
         craft.cost.items?.forEach(
-            (itemName) => get().removeItem({ ...GAME_ITEMS[itemName.key] }) // create fake item to remove it from inventory
+            (item) => get().removeItem({ ...GAME_ITEMS[item.key] }, item.amount) // create fake item to remove it from inventory
         );
 
         // add item
