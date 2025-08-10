@@ -2,7 +2,7 @@ import { GAME_ITEMS, GameItemKey } from "@/data/items";
 import { Craft } from "@/stores/crafts";
 import { useGameStore } from "@/stores/game";
 import clsx from "clsx";
-import ItemIcon from "../ItemIcon";
+import ItemIcon from "@components/ItemIcon";
 
 export default function CraftTooltipContent({ craft }: { craft: Craft }) {
     const resources = useGameStore((state) => state.resources);
@@ -15,7 +15,7 @@ export default function CraftTooltipContent({ craft }: { craft: Craft }) {
                     {craft.result.item.name}
                 </span>
 
-                <span className="flex flex-row">
+                <span className="flex flex-row items-center">
                     cost:{" "}
                     <div className="ml-1 flex flex-row items-center gap-1">
                         {/* Resources */}
@@ -67,10 +67,14 @@ export default function CraftTooltipContent({ craft }: { craft: Craft }) {
                             </span>
                         ))}
                     </div>
+                    {craft.cost.items?.length === 0 &&
+                        craft.cost.resources?.length === 0 && (
+                            <span className="text-green-400">Free</span>
+                        )}
                 </span>
 
                 {/* Result */}
-                <span className={"flex flex-row justify-start gap-1"}>
+                <span className={"flex flex-row items-center"}>
                     result: {craft.result.qty}
                     <ItemIcon
                         texture={craft.result.item.texture}
