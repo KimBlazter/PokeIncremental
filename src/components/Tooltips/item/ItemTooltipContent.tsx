@@ -1,8 +1,9 @@
 import { Item } from "@/stores/items";
-import ItemIcon from "../ItemIcon";
+import ItemIcon from "../../ItemIcon";
 import { useGameStore } from "@/stores/game";
 import clsx from "clsx";
 import { TextureId } from "@/utils/spriteLoader";
+import ToolDescription from "./ToolDescription";
 
 export default function ItemTooltipContent({
     item,
@@ -38,22 +39,8 @@ export default function ItemTooltipContent({
                     )}
                 </span>
                 {/* Tool stats */}
-                {item.type === "tool" && item.damage && (
-                    <span className="mt-1 text-xs text-white/70">
-                        ⛏ Mining damage:{" "}
-                        <span
-                            className={clsx(
-                                (
-                                    item.toolType === currentEffectiveTool &&
-                                        equiped
-                                ) ?
-                                    "text-green-400"
-                                :   "text-white/60"
-                            )}
-                        >
-                            +{item.damage}
-                        </span>
-                    </span>
+                {item.type === "tool" && (
+                    <ToolDescription item={item} equiped={equiped} />
                 )}
 
                 {/* Weapon stats */}
