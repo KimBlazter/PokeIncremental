@@ -21,10 +21,4 @@ export const ages = {
         collectible: "iron",
         texture: "block:iron_block",
     },
-    gold: {
-        name: "Gold",
-        unlocked: false,
-        collectible: "gold",
-        texture: "block:gold_block",
-    },
 } satisfies Record<string, Age>;
