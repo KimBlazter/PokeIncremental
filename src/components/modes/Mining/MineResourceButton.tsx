@@ -5,6 +5,8 @@ import clsx from "clsx";
 import { FloatingNumbers, useFloatingNumbers } from "../../ui/FloatingNumbers";
 import ProgressBar from "@/components/ui/ProgressBar";
 import ProgressCounter from "@/components/ui/ProgressCounter";
+import { Tooltip } from "@/components/ui/Tooltip";
+import MineResourceContent from "@/components/Tooltips/MineResourceContent";
 
 export default function MineResourceButton() {
     const resource = useGameStore(
@@ -94,6 +96,21 @@ export default function MineResourceButton() {
                             transformOrigin: "center",
                         }}
                     />
+                </div>
+
+                {/* Info Button */}
+                <div className="absolute top-0 -right-6.5 flex !w-7 flex-col">
+                    <Tooltip
+                        content={
+                            <MineResourceContent resourceData={resourceData} />
+                        }
+                        position="right"
+                        align="start"
+                    >
+                        <div className="ml-1 flex size-6 items-center justify-center border-2 border-black !bg-black/40 p-1">
+                            ?
+                        </div>
+                    </Tooltip>
                 </div>
             </div>
         </div>
