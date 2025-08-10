@@ -70,6 +70,23 @@ export const GAME_ITEMS = {
         texture: "block:log_pile",
         stackable: true,
     },
+    rotten_flesh: {
+        type: "consumable",
+        id: "rotten_flesh",
+        name: "Rotten Flesh",
+        description: "A piece of rotten flesh.",
+        texture: "item:rotten_flesh",
+        stackable: true,
+        consumeOnUse: true,
+        effect: {
+            id: "hunger",
+            name: "Hunger",
+            description: "Increases hunger when consumed.",
+            icon: "item:rotten_flesh",
+            duration: 10000, // 10 seconds
+            value: 1, // Decrease hunger by 1
+        },
+    },
 
     // STONE AGE
     stone: {
