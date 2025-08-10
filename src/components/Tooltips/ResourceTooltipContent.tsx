@@ -19,9 +19,9 @@ export default function ResourceTooltipContent({
 
     return (
         <div className="mc-text-shadow letter-sp flex flex-col text-base tracking-normal">
-            <span>
-                {resourceData.name}{" "}
-                <span className="text-sm opacity-60">
+            <span className="flex flex-row items-baseline justify-between text-amber-400">
+                {resourceData.name}
+                <span className="text-xs text-blue-300/80">
                     x{formatNumber(resourceData.amount, 3, 6)}
                 </span>
             </span>
