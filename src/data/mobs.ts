@@ -61,11 +61,27 @@ export const ZONES: Zone[] = [
                 mob: { ...GAME_MOBS.zombie },
                 spawnChance: 60,
                 lootTable: [
-                    { items: [{ id: "rope", quantity: 1 }], chance: 50 },
+                    {
+                        items: [{ id: "rotten_flesh", quantity: 1 }],
+                        chance: 50,
+                    }, // 50% chance to drop 1 rotten flesh
+                    {
+                        items: [{ id: "rotten_flesh", quantity: 2 }],
+                        chance: 10,
+                    }, // 10% chance to drop 2 rotten flesh
                 ],
             },
             { mob: { ...GAME_MOBS.baby_zombie }, spawnChance: 30 },
-            { mob: { ...GAME_MOBS.giant }, spawnChance: 10 },
+            {
+                mob: { ...GAME_MOBS.giant },
+                spawnChance: 10,
+                lootTable: [
+                    {
+                        items: [{ id: "rotten_flesh", quantity: 5 }],
+                        chance: 100,
+                    }, // 100% chance to drop 5 rotten flesh
+                ],
+            },
         ],
     },
     {
