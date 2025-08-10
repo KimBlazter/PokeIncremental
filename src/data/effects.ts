@@ -22,4 +22,5 @@ export const EFFECTS = {
             expiresAt: new Date(Date.now() + duration).toISOString(),
             effectMetadata: effectMetadata,
         }),
+    hunger: () => console.log("Hunger effect triggered"),
 } satisfies Record<string, Effect>;
