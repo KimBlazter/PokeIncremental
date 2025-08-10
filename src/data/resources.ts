@@ -28,14 +28,4 @@ export const resources = {
         hp: 600,
         effective_tool: "pickaxe",
     },
-    gold: {
-        name: "Gold",
-        amount: 0,
-        texture: "item:raw_gold",
-        obtainedFrom: {
-            ...GAME_ITEMS.gold_ore,
-        },
-        hp: 800,
-        effective_tool: "pickaxe",
-    },
 } satisfies Record<string, ResourceData>;
