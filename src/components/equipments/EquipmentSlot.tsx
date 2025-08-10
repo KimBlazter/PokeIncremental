@@ -3,7 +3,7 @@ import { Item } from "@/stores/items";
 import ItemIcon from "../ItemIcon";
 import { useGameStore } from "@/stores/game";
 import { Tooltip } from "../ui/Tooltip";
-import ItemTooltipContent from "../Tooltips/ItemTooltipContent";
+import ItemTooltipContent from "../Tooltips/item/ItemTooltipContent";
 import { Texture } from "@/utils/spriteLoader";
 
 const slotTypeToTextureIdentifier: Record<SlotType, Texture> = {
