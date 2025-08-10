@@ -1,6 +1,6 @@
 import { Item } from "@/stores/items";
 import { Tooltip } from "@/components/ui/Tooltip";
-import ItemTooltipContent from "@/components/Tooltips/ItemTooltipContent";
+import ItemTooltipContent from "@/components/Tooltips/item/ItemTooltipContent";
 import { useGameStore } from "@/stores/game";
 import ItemIcon from "@/components/ItemIcon";
 import { formatNumber } from "@/utils/number-formatting-compact";
