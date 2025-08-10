@@ -46,26 +46,7 @@ export const crafts = {
         },
         cost: {
             resources: [{ material: "wood", amount: 15 }],
-            items: [{ key: "rope" }],
-        },
-    },
-    rope: {
-        result: {
-            qty: 1,
-            item: { ...GAME_ITEMS.rope },
-        },
-        cost: {
-            resources: [{ material: "wood", amount: 5 }],
-        },
-    },
-    backpack: {
-        result: {
-            qty: 1,
-            item: { ...GAME_ITEMS.backpack },
-        },
-        cost: {
-            resources: [{ material: "wood", amount: 25 }],
-            items: [{ key: "rope", amount: 2 }],
+            items: [],
         },
     },
     log_pile: {
@@ -112,46 +93,6 @@ export const crafts = {
             items: [{ key: "wooden_sword" }],
         },
     },
-    stone_furnace: {
-        result: {
-            qty: 1,
-            item: { ...GAME_ITEMS.stone_furnace },
-        },
-        cost: {
-            resources: [
-                { material: "cobblestone", amount: 30 },
-                { material: "wood", amount: 10 },
-            ],
-        },
-    },
-    grindstone: {
-        result: {
-            qty: 1,
-            item: { ...GAME_ITEMS.grindstone },
-        },
-        cost: {
-            resources: [{ material: "cobblestone", amount: 25 }],
-        },
-    },
-    stone_chest: {
-        result: {
-            qty: 1,
-            item: { ...GAME_ITEMS.stone_chest },
-        },
-        cost: {
-            resources: [{ material: "cobblestone", amount: 40 }],
-        },
-    },
-    binding: {
-        result: {
-            qty: 1,
-            item: { ...GAME_ITEMS.binding },
-        },
-        cost: {
-            resources: [{ material: "cobblestone", amount: 5 }],
-            items: [{ key: "rope", amount: 2 }],
-        },
-    },
     leather_boots: {
         result: {
             qty: 1,
@@ -159,7 +100,7 @@ export const crafts = {
         },
         cost: {
             resources: [{ material: "cobblestone", amount: 10 }],
-            items: [{ key: "binding" }],
+            items: [],
         },
     },
 
