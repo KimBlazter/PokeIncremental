@@ -190,7 +190,7 @@ export const GAME_ITEMS = {
             name: "Lumber Frenzy",
             description: "Increases wood gain for a short time.",
             icon: "item:melon_slice",
-            duration: 5000, // 5 seconds
+            duration: 15000, // 15 seconds
             value: 1, // Increase wood gain by 1
         },
     },
