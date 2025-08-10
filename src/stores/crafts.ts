@@ -39,18 +39,19 @@ export const createCraftSlice: StateCreator<GameStore, [], [], CraftSlice> = (
                 return acc && get().hasItem(item.key, item.amount);
             }, true) ?? true;
 
-        if (!enoughItems || !enoughResources) return;
+        if (!enoughItems || !enoughResources) return; // TODO: Handle insufficient resources/items message
 
-        // If can craft then remove all materials and items
+        // If can craft then remove all resources
         craft.cost.resources?.forEach(({ material, amount }) =>
             get().updateResource(material, -amount)
         );
 
+        // Remove all items
         craft.cost.items?.forEach(
             (item) => get().removeItem({ ...GAME_ITEMS[item.key] }, item.amount) // create fake item to remove it from inventory
         );
 
         // add item
-        get().addItem(get().crafts[id].result.item);
+        get().addItem(craft.result.item, craft.result.qty);
     },
 });
