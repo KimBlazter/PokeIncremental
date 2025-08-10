@@ -168,7 +168,7 @@ const renderIsometricGrid = async (
     grid: Grid,
     canvasWidth: number,
     canvasHeight: number,
-    gridZ: number = 0,
+    _gridZ: number = 0,
     hoveredBlock: { x: number; y: number; z: number } | null = null
 ) => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);

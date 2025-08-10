@@ -23,7 +23,7 @@ export default function Battle() {
     // Player floating numbers
     const {
         numbers: playerNumbers,
-        spawnNumber: spawnPlayerNumber,
+        spawnNumber: _spawnPlayerNumber,
         removeNumber: removePlayerNumber,
     } = useFloatingNumbers();
 
