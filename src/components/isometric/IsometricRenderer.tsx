@@ -1,4 +1,4 @@
-import { Block, BlockState, BlockType, Grid } from "@/types/isometric";
+import { Block, Grid } from "@/types/isometric";
 import {
     configureNoAntialias,
     drawBlockHighlight,
@@ -8,7 +8,6 @@ import {
     toIsometric,
 } from "@/utils/isometric";
 import { getTextureCanvas } from "@/utils/spriteLoader";
-import { c } from "node_modules/vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf";
 import { useEffect, useRef, useState } from "react";
 
 export const ISO_CONFIG = {
@@ -25,7 +24,6 @@ function getTextureKey(texture: any): string {
 interface IsometricRendererProps {
     grid: Grid;
     onGridChange: (grid: Grid) => void;
-    blockTypes: Record<string, BlockType>;
     tickInterval?: number;
     className?: string;
 }
@@ -33,7 +31,6 @@ interface IsometricRendererProps {
 export default function IsometricRenderer({
     grid,
     onGridChange,
-    blockTypes,
     tickInterval = 1000,
     className = "",
 }: IsometricRendererProps) {
