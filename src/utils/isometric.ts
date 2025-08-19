@@ -1,27 +1,26 @@
-import { Block, IsometricConfig } from "@/types/isometric";
-import { getTextureCanvas, Texture } from "@/utils/spriteLoader";
+import { ISO_CONFIG } from "@/components/isometric/IsometricRenderer";
+import { Block, BlockType, Grid } from "@/types/isometric";
 
-const DEFAULT_CONFIG: IsometricConfig = {
-    tileWidth: 56,
-    tileHeight: 28,
-    blockHeight: 35,
-    scale: 1,
+export const configureNoAntialias = (ctx: CanvasRenderingContext2D) => {
+    ctx.imageSmoothingEnabled = false;
+    // @ts-ignore - Propriétés spécifiques aux navigateurs
+    ctx.webkitImageSmoothingEnabled = false;
+    // @ts-ignore
+    ctx.mozImageSmoothingEnabled = false;
+    // @ts-ignore
+    ctx.msImageSmoothingEnabled = false;
+    // @ts-ignore
+    ctx.oImageSmoothingEnabled = false;
 };
 
-export const createIsometricConfig = (
-    config?: Partial<IsometricConfig>
-): IsometricConfig => {
-    return { ...DEFAULT_CONFIG, ...config };
+export const getBlocksAt = (grid: Grid, x: number, y: number): Block[] => {
+    return grid.blocks.filter((block) => block.x === x && block.y === y);
 };
 
-export const toIsometric = (
-    x: number,
-    y: number,
-    z: number = 0,
-    config: IsometricConfig
-) => {
-    const isoX = (x - y) * (config.tileWidth / 2);
-    const isoY = (x + y) * (config.tileHeight / 2) - z * config.blockHeight;
+export const toIsometric = (x: number, y: number, z: number = 0) => {
+    const isoX = (x - y) * (ISO_CONFIG.tileWidth / 2);
+    const isoY =
+        (x + y) * (ISO_CONFIG.tileHeight / 2) - z * ISO_CONFIG.blockHeight;
     return { x: isoX, y: isoY };
 };
 
@@ -30,22 +29,57 @@ export const fromIsometric = (
     screenY: number,
     offsetX: number,
     offsetY: number,
-    z: number = 0,
-    config: IsometricConfig
+    z: number = 0
 ) => {
     const adjustedX = screenX - offsetX;
-    const adjustedY = screenY - offsetY + z * config.blockHeight;
+    const adjustedY = screenY - offsetY + z * ISO_CONFIG.blockHeight;
 
     const gridX =
-        (adjustedX / (config.tileWidth / 2) +
-            adjustedY / (config.tileHeight / 2)) /
+        (adjustedX / (ISO_CONFIG.tileWidth / 2) +
+            adjustedY / (ISO_CONFIG.tileHeight / 2)) /
         2;
     const gridY =
-        (adjustedY / (config.tileHeight / 2) -
-            adjustedX / (config.tileWidth / 2)) /
+        (adjustedY / (ISO_CONFIG.tileHeight / 2) -
+            adjustedX / (ISO_CONFIG.tileWidth / 2)) /
         2;
 
     return { x: Math.floor(gridX), y: Math.floor(gridY) };
+};
+
+export const drawBlockHighlight = (
+    ctx: CanvasRenderingContext2D,
+    hoveredBlock: { x: number; y: number; z: number },
+    offsetX: number,
+    offsetY: number
+) => {
+    // Surface du dessus du bloc (z + 1 pour être au-dessus)
+    const topZ = hoveredBlock.z + 1;
+
+    const top1 = toIsometric(hoveredBlock.x, hoveredBlock.y, topZ);
+    const top2 = toIsometric(hoveredBlock.x + 1, hoveredBlock.y, topZ);
+    const top3 = toIsometric(hoveredBlock.x + 1, hoveredBlock.y + 1, topZ);
+    const top4 = toIsometric(hoveredBlock.x, hoveredBlock.y + 1, topZ);
+
+    // Contour de la surface du dessus
+    ctx.strokeStyle = "#FFD700";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(top1.x + offsetX, top1.y + offsetY);
+    ctx.lineTo(top2.x + offsetX, top2.y + offsetY);
+    ctx.lineTo(top3.x + offsetX, top3.y + offsetY);
+    ctx.lineTo(top4.x + offsetX, top4.y + offsetY);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Remplissage de la surface du dessus
+    ctx.fillStyle = "rgba(255, 215, 0, 0.2)";
+    ctx.beginPath();
+    ctx.moveTo(top1.x + offsetX, top1.y + offsetY);
+    ctx.lineTo(top2.x + offsetX, top2.y + offsetY);
+    ctx.lineTo(top3.x + offsetX, top3.y + offsetY);
+    ctx.lineTo(top4.x + offsetX, top4.y + offsetY);
+    ctx.closePath();
+    ctx.fill();
 };
 
 export const sortBlocksByDepth = (blocks: Block[]): Block[] => {
@@ -56,153 +90,40 @@ export const sortBlocksByDepth = (blocks: Block[]): Block[] => {
     });
 };
 
-export const drawBlock = async (
-    ctx: CanvasRenderingContext2D,
-    block: Block,
-    offsetX: number,
-    offsetY: number,
-    config: IsometricConfig
-) => {
-    const iso = toIsometric(block.x, block.y, block.z, config);
-    const x = iso.x + offsetX;
-    const y = iso.y + offsetY;
-
-    if (block.texture) {
-        try {
-            const { canvas } = await getTextureCanvas(block.texture as Texture);
-            ctx.drawImage(
-                canvas,
-                x - canvas.width / 2,
-                y - canvas.height / 2,
-                canvas.width * config.scale,
-                canvas.height * config.scale
-            );
-        } catch (error) {
-            // Fallback si la texture n'est pas trouvée
-            drawDefaultBlock(ctx, x, y);
-        }
-    } else {
-        drawDefaultBlock(ctx, x, y);
-    }
-};
-
-const drawDefaultBlock = (
-    ctx: CanvasRenderingContext2D,
+/**
+ * Creates a new block with the specified properties.
+ * @param type - The ID of the block type.
+ * @param x - The x-coordinate of the block in the grid.
+ * @param y - The y-coordinate of the block in the grid.
+ * @param z - The z-coordinate (height) of the block.
+ * @param id - The unique identifier for the block.
+ * @param blockTypes - The collection of available block types.
+ * @param initialState - Optional initial state for the block.
+ * @returns - A new block object with the specified properties.
+ */
+export const createBlock = <
+    T extends Record<string, BlockType>, // Type of block types
+    K extends keyof T, // keyof T is the type of block
+>(
+    type: K,
     x: number,
-    y: number
-) => {
-    ctx.fillStyle = "#8B4513";
-    ctx.fillRect(x - 16, y - 16, 32, 32);
-};
+    y: number,
+    z: number,
+    id: string,
+    blockTypes: T,
+    initialState?: Partial<ReturnType<T[K]["getDefaultState"]>> // Infer the default state type from the block type
+): Block => {
+    const blockType = blockTypes[type];
+    if (!blockType) {
+        throw new Error(`Unknown block type: ${String(type)}`);
+    }
 
-export const drawBlockHighlight = (
-    ctx: CanvasRenderingContext2D,
-    hoveredBlock: { x: number; y: number; z: number },
-    offsetX: number,
-    offsetY: number,
-    config: IsometricConfig,
-    color: string = "#FFD700"
-) => {
-    const blockZ = hoveredBlock.z - 0.1;
-
-    const bottom1 = toIsometric(hoveredBlock.x, hoveredBlock.y, blockZ, config);
-    const bottom2 = toIsometric(
-        hoveredBlock.x + 1,
-        hoveredBlock.y,
-        blockZ,
-        config
-    );
-    const bottom3 = toIsometric(
-        hoveredBlock.x + 1,
-        hoveredBlock.y + 1,
-        blockZ,
-        config
-    );
-    const bottom4 = toIsometric(
-        hoveredBlock.x,
-        hoveredBlock.y + 1,
-        blockZ,
-        config
-    );
-
-    const top1 = toIsometric(
-        hoveredBlock.x,
-        hoveredBlock.y,
-        blockZ + 1,
-        config
-    );
-    const top2 = toIsometric(
-        hoveredBlock.x + 1,
-        hoveredBlock.y,
-        blockZ + 1,
-        config
-    );
-    const top3 = toIsometric(
-        hoveredBlock.x + 1,
-        hoveredBlock.y + 1,
-        blockZ + 1,
-        config
-    );
-    const top4 = toIsometric(
-        hoveredBlock.x,
-        hoveredBlock.y + 1,
-        blockZ + 1,
-        config
-    );
-
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-
-    // Bottom face
-    ctx.beginPath();
-    ctx.moveTo(bottom1.x + offsetX, bottom1.y + offsetY);
-    ctx.lineTo(bottom2.x + offsetX, bottom2.y + offsetY);
-    ctx.lineTo(bottom3.x + offsetX, bottom3.y + offsetY);
-    ctx.lineTo(bottom4.x + offsetX, bottom4.y + offsetY);
-    ctx.closePath();
-    ctx.stroke();
-
-    // Top face
-    ctx.beginPath();
-    ctx.moveTo(top1.x + offsetX, top1.y + offsetY);
-    ctx.lineTo(top2.x + offsetX, top2.y + offsetY);
-    ctx.lineTo(top3.x + offsetX, top3.y + offsetY);
-    ctx.lineTo(top4.x + offsetX, top4.y + offsetY);
-    ctx.closePath();
-    ctx.stroke();
-
-    // Vertical edges
-    [
-        [bottom1, top1],
-        [bottom2, top2],
-        [bottom3, top3],
-        [bottom4, top4],
-    ].forEach(([bottom, top]) => {
-        ctx.beginPath();
-        ctx.moveTo(bottom.x + offsetX, bottom.y + offsetY);
-        ctx.lineTo(top.x + offsetX, top.y + offsetY);
-        ctx.stroke();
-    });
-
-    // Top face fill
-    const [r, g, b] = hexToRgb(color) || [255, 215, 0];
-    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.2)`;
-    ctx.beginPath();
-    ctx.moveTo(top1.x + offsetX, top1.y + offsetY);
-    ctx.lineTo(top2.x + offsetX, top2.y + offsetY);
-    ctx.lineTo(top3.x + offsetX, top3.y + offsetY);
-    ctx.lineTo(top4.x + offsetX, top4.y + offsetY);
-    ctx.closePath();
-    ctx.fill();
-};
-
-const hexToRgb = (hex: string): [number, number, number] | null => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ?
-            [
-                parseInt(result[1], 16),
-                parseInt(result[2], 16),
-                parseInt(result[3], 16),
-            ]
-        :   null;
+    return {
+        id,
+        x,
+        y,
+        z,
+        type: blockType,
+        state: { ...blockType.getDefaultState(), ...initialState }, // Merge default state with initial state
+    };
 };
