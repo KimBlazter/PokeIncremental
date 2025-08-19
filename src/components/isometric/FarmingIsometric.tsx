@@ -1,89 +1,38 @@
-import { BlockEvent } from "@/types/isometric";
-import { IsometricView } from "./IsometricView";
-import { useIsometricGrid } from "@/hooks/useIsometricGrid";
+import { useState } from "react";
+import IsometricRenderer from "./IsometricRenderer";
+import { Grid } from "@/types/isometric";
+import { createBlock } from "@/utils/isometric";
+import { farmingBlockTypes } from "@/data/isometric/farmingBlocks";
 
 export default function FarmingIsometric() {
-    const { grid, updateBlock } = useIsometricGrid({
-        width: 20,
-        height: 20,
+    const [grid, setGrid] = useState<Grid>({
+        width: 15,
+        height: 15,
         blocks: [
-            {
-                id: "0",
-                texture: "block:dirt",
-                x: 0,
-                y: 0,
-                z: 0,
-            },
-            {
-                id: "1",
-                texture: "block:dirt",
-                x: 1,
-                y: 0,
-                z: 0,
-            },
-            {
-                id: "2",
-                texture: "block:dirt",
-                x: 2,
-                y: 0,
-                z: 0,
-            },
-            {
-                id: "3",
-                texture: "block:farmland",
-                x: 0,
-                y: 1,
-                z: 0,
-                data: {
-                    isWatered: false,
-                },
-            },
-            {
-                id: "4",
-                texture: "block:farmland",
-                x: 1,
-                y: 1,
-                z: 0,
-                data: {
-                    isWatered: false,
-                },
-            },
-            {
-                id: "5",
-                texture: "block:farmland",
-                x: 2,
-                y: 1,
-                z: 0,
-                data: {
-                    isWatered: false,
-                },
-            },
+            createBlock("farmland", 2, 2, 0, "farm1", farmingBlockTypes, {
+                moist: true,
+                moistureLevel: 7,
+            }),
+            createBlock("farmland", 3, 2, 0, "farm2", farmingBlockTypes),
+            createBlock("farmland", 4, 2, 0, "farm3", farmingBlockTypes, {
+                moist: true,
+                moistureLevel: 5,
+            }),
+            createBlock("carrot", 2, 2, 1, "carrot1", farmingBlockTypes, {
+                growth: 1,
+            }),
+            createBlock("wheat", 4, 2, 1, "wheat1", farmingBlockTypes, {
+                growth: 2,
+            }),
+            createBlock("haybale", 5, 2, 0, "haybale1", farmingBlockTypes),
         ],
     });
-
-    const handleBlockClick = (event: BlockEvent) => {
-        console.log("Block clicked:", event.block);
-
-        if (event.block) {
-            console.log("Clicked block data:", event.block);
-            if (event.block.data && "isWatered" in event.block.data) {
-                updateBlock(event.block.id, {
-                    texture: "block:farmland_moist",
-                    data: {
-                        isWatered: true,
-                    },
-                });
-            }
-        }
-    };
-
     return (
-        <IsometricView
+        <IsometricRenderer
             grid={grid}
-            onBlockClick={handleBlockClick}
-            showCoordinates={true}
-            showGrid={false}
-            highlightColor="#00FF00"
+            onGridChange={setGrid}
+            blockTypes={farmingBlockTypes}
+            tickInterval={2000}
         />
     );
 }
