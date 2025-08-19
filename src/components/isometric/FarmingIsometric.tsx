@@ -31,7 +31,6 @@ export default function FarmingIsometric() {
         <IsometricRenderer
             grid={grid}
             onGridChange={setGrid}
-            blockTypes={farmingBlockTypes}
             tickInterval={2000}
         />
     );
